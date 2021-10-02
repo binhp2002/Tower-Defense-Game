@@ -1,5 +1,6 @@
-package com.example.towerdefence.objects;
+package com.example.towerdefence.tests;
 
+import com.example.towerdefence.objects.*;
 import org.junit.Before;
 import org.junit.Test;
 

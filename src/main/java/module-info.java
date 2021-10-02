@@ -10,4 +10,5 @@ module com.example.towerdefence {
     opens com.example.towerdefence to javafx.fxml;
     exports com.example.towerdefence;
     exports com.example.towerdefence.objects;
+    exports com.example.towerdefence.tests;
 }
