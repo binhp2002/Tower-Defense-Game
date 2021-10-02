@@ -8,7 +8,7 @@ public class Monument {
      * intialize Monument object with -1 health
      */
     public Monument() {
-        health = -1;
+        this.health = -1;
     }
 
     /**
