@@ -67,4 +67,57 @@ public class PlayerTest {
         assertEquals(player.setName("    "), -1);
         assertNull(player.getName());
     }
+
+    /**
+     * tests if getName() returns null if name was not set
+     */
+    @Test
+    public void testGetInitialName() {
+        assertNull(player.getName());
+    }
+
+    /**
+     * check if setMoney works on positive amount of money
+     */
+    @Test
+    public void testSetPositiveMoney() {
+        //return 0 as error code
+        assertEquals(player.setMoney(500), 0);
+        //return 500 as amount of money
+        assertEquals(player.getMoney(), 500);
+    }
+
+    /**
+     * check if setMoney works on 0 money
+     */
+    @Test
+    public void testSetZeroMoney() {
+        //return 0 as error code
+        assertEquals(player.setMoney(0), 0);
+        //return 0 as amount of money
+        assertEquals(player.getMoney(), 0);
+    }
+
+    /**
+     * check if setMoney returns -1 on negative money and money not changed
+     */
+    @Test
+    public void testSetNegativeMoney() {
+        //set player to have 500
+        player.setMoney(500);
+        assertEquals(player.getMoney(), 500);
+        //return -1 as error code
+        assertEquals(player.setMoney(-2), -1);
+        //money is unchanged, still 500
+        assertEquals(player.getMoney(), 500);
+    }
+
+    /**
+     * check if initial money is 0
+     */
+    @Test
+    public void testGetInitialMoney() {
+        //initially player has 0 money unless otherwise set
+        assertEquals(player.getMoney(), 0);
+    }
 }
