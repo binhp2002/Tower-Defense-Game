@@ -2,17 +2,19 @@ package com.example.towerdefence.objects;
 
 public class Player {
 
-    private String name = null;
+    private String name;
     //default initialize with no money
-    private int money = 0;
+    private int money;
 
-    private int difficulty = 0;
+    private int difficulty;
 
     /**
      * initializes Player object which has 0 money and null name
      */
     public Player() {
-
+        this.name = null;
+        this.money = 0;
+        this.difficulty = 0;
     }
 
     /**
@@ -29,7 +31,7 @@ public class Player {
      * @return 0 if name successfully changed and -1
      */
     public int setName(String name) {
-        if (name == null || name.strip().length() == 0) {
+        if (name == null || name.trim().length() == 0) {
             //empty name or whitespaces only
             return -1;
         }
