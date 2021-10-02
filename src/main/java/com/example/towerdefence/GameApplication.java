@@ -143,6 +143,7 @@ public class GameApplication extends Application {
      */
     public GridPane addGridPane() {
         Text namePrompt, difficultyPrompt, moneyPrompt;
+        Text incompletePrompt;
         TextField entry;
         String input = "None";
         int difficultySelection = 0;
@@ -204,8 +205,15 @@ public class GameApplication extends Application {
 
         Button startGame = new Button("Start Game");
         grid.add(startGame, 3, 7);
+        incompletePrompt = new Text();
+        grid.add(incompletePrompt, 4, 7);
         startGame.setOnMouseClicked(e -> {
-            initializeGameScreen();
+            if (player.getName() == null || player.getMoney() == 0) {
+                //some of the player settings not selected
+                incompletePrompt.setText("Please select a difficulty and name and try again");
+            } else {
+                initializeGameScreen();
+            }
         });
 
         return grid;
