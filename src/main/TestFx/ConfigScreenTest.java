@@ -28,8 +28,9 @@ public class ConfigScreenTest extends ApplicationTest {
     public void testConfigScreenName() {
         clickOn("#startGameButton");
         assertEquals(stage.getTitle(), "Game Configuration");
-        clickOn("#entry").write(" ");
-        clickOn("#enter");
-        verifyThat("#namePrompt", hasText("Name: Name is not allow, try again"));
+        System.out.println(stage.getTitle());
+        clickOn("#easy");
+        clickOn("#startGame");
+        verifyThat("#incompletePrompt", hasText("Name: Name is not allow, try again"));
     }
 }
