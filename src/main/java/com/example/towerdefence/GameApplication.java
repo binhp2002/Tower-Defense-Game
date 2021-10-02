@@ -2,36 +2,30 @@ package com.example.towerdefence;
 import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Stack;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import javafx.scene.control.Button;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 
 public class GameApplication extends Application {
-    //private static Text name, difficulty, moneyT;
-    //private static TextField entry;
-    //private static String input = "None";
-    //private static Text difficulty;
-    //private static String selection = "None";
-    //private static Text moneyT; //the money's title
-    //private static int money = 0;
 
-    Stage window;
-    Scene gameScene;
+    private Stage window;
+    private Scene gameScene;
 
     private Player player;
     private Monument monument;
@@ -39,6 +33,7 @@ public class GameApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         this.player = new Player();
+        this.monument = new Monument();
         this.window = stage;
 
         //use VBox layout for the initial start screen with a button and text
@@ -49,6 +44,8 @@ public class GameApplication extends Application {
         startGamePrompt.setText("Click button to start playing...");
 
         Button startGameButton = new Button();
+
+        startGameButton.setId("startGameButton");
 
         //set text for the game button
         startGameButton.setText("Start Game!");
@@ -71,6 +68,9 @@ public class GameApplication extends Application {
 
     }
 
+    /**
+     * Initialises the configuration screen
+     */
     public void initializeConfigScreen() {
         BorderPane pane = new BorderPane();
         pane.setCenter(addGridPane());
@@ -80,10 +80,12 @@ public class GameApplication extends Application {
         this.window.show();
     }
 
-    public void initializeGameScreen() {
-        this.player = new Player();
+    /**
+     * Initialises the game screen (main map)
+     */
+    private void initializeGameScreen() {
         //StackPane map = new StackPane();
-        AnchorPane descriptionGrid = new AnchorPane();
+        HBox descriptionGrid = new HBox();
         HBox topLane = new HBox();
         HBox midLane = new HBox();
         HBox bottomLane = new HBox();
@@ -93,7 +95,9 @@ public class GameApplication extends Application {
         map.getChildren().add(midLane);
         map.getChildren().add(bottomLane);
         Scene gameMapScene = new Scene(map, 1000, 600);
+        gameMapScene.setFill(Color.WHITE);
         mapSetter(map, gameMapScene, descriptionGrid, topLane, midLane, bottomLane);
+        displayGameParameters(descriptionGrid);
         //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
 
         window.setTitle("Tower Defense Game");
@@ -102,15 +106,44 @@ public class GameApplication extends Application {
         window.show();
     }
 
-    private void mapSetter(VBox map, Scene scene, AnchorPane descriptionGrid, HBox topLane, HBox midLane, HBox bottomLane) {
+    /**
+     * Sets up the main map objects
+     * @param map the game map
+     * @param scene the game scene object
+     * @param descriptionGrid contains player info (eg. money, health)
+     * @param topLane Upper towers are placed here
+     * @param midLane Enemies and monument are placed here
+     * @param bottomLane Lower towers are placed here
+     */
+    private void mapSetter(VBox map, Scene scene, HBox descriptionGrid,
+                           HBox topLane, HBox midLane, HBox bottomLane) {
         //Rectangle initialiser
-        Rectangle strip = new Rectangle(scene.getWidth(), 30);
-        Rectangle monument= new Rectangle(70,180);
+        Rectangle strip = new Rectangle(scene.getWidth(), 23);
+        Rectangle monument = new Rectangle(70, 180);
 
         //Action
-        descriptionGrid.getChildren().add(strip);
         towerFiller(topLane);
-        midLane.getChildren().add(monument);
+
+        FileInputStream inputstream;
+
+        //Add monument image
+        try {
+            inputstream = new FileInputStream("./src/main/resources/com/example/"
+                    + "towerdefence/Images/monument.png");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, terminating");
+            return;
+        }
+        Image img = new Image(inputstream);
+        ImageView imgView = new ImageView(img);
+        StackPane monStack = new StackPane();
+        imgView.setFitHeight(150);
+        imgView.setFitWidth(130);
+        monStack.getChildren().add(imgView);
+        midLane.getChildren().add(monStack);
+
+        //
+        enemyPositionGridSetter(midLane);
         towerFiller(bottomLane);
 
     }
@@ -121,20 +154,50 @@ public class GameApplication extends Application {
      */
     private void towerFiller(HBox lane) {
         int cnt = 50;
-        while(cnt<=1000) {
+        while (cnt <= 1000) {
             Rectangle rect = new Rectangle(50, 180);
             rect.setStroke(Color.WHITE);
-            rect.setFill(Color.RED);
+            rect.setFill(Color.GREEN);
             StackPane tower = new StackPane();
             tower.getChildren().addAll(rect, new Label("Tower"));
             lane.getChildren().add(tower);
-            cnt+=50;
+            cnt += 50;
         }
     }
 
-    private void displayGameParameters(AnchorPane descriptionGrid) {
-//        descriptionGrid.
+    /**
+     * Sets up the grid on which enemies can walk
+     * @param lane the map lane the enemies will walk on
+     */
+    private void enemyPositionGridSetter(HBox lane) {
+        for (int i = 0; i * 20 <= 1000; i++) {
+            StackPane enemyPosition = new StackPane();
+            Rectangle tile = new Rectangle(20, 180);
+            tile.setFill(Color.WHITE);
+            tile.setStroke(Color.BLACK);
+            tile.setStrokeWidth(1);
+            enemyPosition.getChildren().add(tile);
+            lane.getChildren().add(enemyPosition);
+        }
+    }
 
+    /**
+     * Displays the player's attributes (money, health)
+     * @param descriptionGrid the grid object that shows the player's game data
+     */
+    private void displayGameParameters(HBox descriptionGrid) {
+        Rectangle r1 = new Rectangle(200, 23);
+        r1.setStroke(Color.RED);
+        r1.setFill(Color.WHITE);
+
+        String playerMoney =  String.valueOf(player.getMoney());
+        String monumentHealth = String.valueOf(monument.getHealth());
+
+        String playerParameterString = "Money: " + playerMoney + "   Health: " + monumentHealth;
+        Text playerParameters = new Text(playerParameterString);
+        StackPane descriptionPane = new StackPane();
+        descriptionPane.getChildren().addAll(r1, playerParameters);
+        descriptionGrid.getChildren().add(descriptionPane);
     }
 
     /**
@@ -142,7 +205,10 @@ public class GameApplication extends Application {
      * @return the game and player information buttons.
      */
     public GridPane addGridPane() {
-        Text namePrompt, difficultyPrompt, moneyPrompt;
+        Text namePrompt;
+        Text difficultyPrompt;
+        Text moneyPrompt;
+        Text incompletePrompt;
         TextField entry;
         String input = "None";
         int difficultySelection = 0;
@@ -160,6 +226,7 @@ public class GameApplication extends Application {
         grid.add(namePrompt, 1, 0);
 
         Button enter = new Button("Enter");
+        enter.setId("enter");
         grid.add(enter, 2, 1);
         enter.setOnMouseClicked(e -> {
             if (player.setName(entry.getText()) == -1) {
@@ -176,41 +243,59 @@ public class GameApplication extends Application {
         grid.add(moneyPrompt, 1, 4);
 
         Button easy = new Button("Easy");
+        easy.setId("easy");
         grid.add(easy, 2, 3);
         easy.setOnMouseClicked(e -> {
             player.setMoney(1000);
             player.setDifficulty(1);
             difficultyPrompt.setText("Difficulty: " + 1);
             moneyPrompt.setText("Money: " + 1000);
+            monument.setHealth(150);
         });
 
         Button medium = new Button("Medium");
+        medium.setId("medium");
         grid.add(medium, 2, 4);
         medium.setOnMouseClicked(e -> {
             player.setMoney(500);
             player.setDifficulty(2);
             difficultyPrompt.setText("Difficulty: " + 2);
             moneyPrompt.setText("Money: " + 500);
+            monument.setHealth(100);
         });
 
         Button hard = new Button("Hard");
+        hard.setId("hard");
         grid.add(hard, 2, 5);
         hard.setOnMouseClicked(e -> {
             player.setMoney(100);
             player.setDifficulty(3);
             difficultyPrompt.setText("Difficulty: " + 3);
             moneyPrompt.setText("Money: " + 100);
+            monument.setHealth(50);
         });
 
         Button startGame = new Button("Start Game");
+        startGame.setId("startGame");
         grid.add(startGame, 3, 7);
+        incompletePrompt = new Text();
+        grid.add(incompletePrompt, 4, 7);
         startGame.setOnMouseClicked(e -> {
-            initializeGameScreen();
+            if (player.getName() == null || player.getMoney() == 0) {
+                //some of the player settings not selected
+                incompletePrompt.setText("Please select a difficulty and name and try again");
+            } else {
+                this.initializeGameScreen();
+            }
         });
 
         return grid;
     }
 
+    /**
+     * Main method. Runs at launch
+     * @param args Standard parameter
+     */
     public static void main(String[] args) {
         launch();
     }
