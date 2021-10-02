@@ -14,17 +14,21 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 
 public class GameApplication extends Application {
-    private static Text name;
+    private static Text name, difficulty, moneyT;
     private static TextField entry;
     private static String input = "None";
-    private static Text difficulty;
+    //private static Text difficulty;
     private static String selection = "None";
-    private static Text moneyT; //the money's title
+    //private static Text moneyT; //the money's title
     private static int money = 0;
+
+    Stage window;
+    Scene gameScene;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("hello-view.fxml"));
+        window = stage;
         //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
 
         BorderPane pane = new BorderPane();
@@ -100,7 +104,7 @@ public class GameApplication extends Application {
         Button startGame = new Button("Start Game");
         grid.add(startGame, 3, 7);
         startGame.setOnMouseClicked(e -> {
-            
+            window.setScene(gameScene);
         });
 
         return grid;
