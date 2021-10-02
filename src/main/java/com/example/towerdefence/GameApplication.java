@@ -17,20 +17,22 @@ import java.util.Stack;
 
 public class GameApplication extends Application {
 
+    Player player;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("hello-view.fxml"));
-        Player player = new Player();
-//        StackPane map = new StackPane();
+        this.player = new Player();
+        //StackPane map = new StackPane();
         VBox map = new VBox();
 
-//        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
-        Scene scene = new Scene(map, 1000, 600);
+        //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        Scene gameMapScene = new Scene(map, 1000, 600);
         stage.setTitle("Tower Defense Game");
-        stage.setScene(scene);
+        stage.setScene(gameMapScene);
         stage.requestFocus();
         stage.show();
-        mapSetter(map, stage, player);
+        mapSetter(map, stage, this.player);
     }
     private void mapSetter(VBox map, Stage stage, Player player) {
         //rectangle initialiser
@@ -43,22 +45,22 @@ public class GameApplication extends Application {
         rectUpper.setFill(Color.GREEN);
         rectLower.setFill(Color.GREEN);
         rectMid.setFill(Color.WHITE);
-//        rectMid.setStyle("-fx-background-color: " + "Red");
+        //rectMid.setStyle("-fx-background-color: " + "Red");
 
-//        pane.add(rectMid,0,(int)stage.getHeight()*7/20);
-
-
+        //pane.add(rectMid,0,(int)stage.getHeight()*7/20);
 
 
-//        pane.add(rectLower, 0, (int)stage.getHeight()*13/20);
-//        pane.add(monument, 0, (int)stage.getHeight()*7/20);
-//
-//        int money = player.getMoney();
+
+
+        //pane.add(rectLower, 0, (int)stage.getHeight()*13/20);
+        //pane.add(monument, 0, (int)stage.getHeight()*7/20);
+
+        //int money = player.getMoney();
         Label statusLabel = new Label("Welcome to the Color Game!");
         map.getChildren().add(rectUpper);
 
-//        statusLabel.setStyle("-fx-background-color: white;");
-//        pane.add(statusLabel, 0, 0);
+        //statusLabel.setStyle("-fx-background-color: white;");
+        //pane.add(statusLabel, 0, 0);
     }
 
     public static void main(String[] args) {
