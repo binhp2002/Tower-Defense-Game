@@ -1,4 +1,5 @@
 package com.example.towerdefence;
+import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 import java.io.IOException;
 import java.util.Stack;
@@ -18,21 +20,39 @@ import java.util.Stack;
 public class GameApplication extends Application {
 
     Player player;
+    Monument monument;
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("hello-view.fxml"));
         this.player = new Player();
-        //StackPane map = new StackPane();
-        VBox map = new VBox();
+
+        //use VBox layout for the initial start screen with a button and text
+        VBox startVBox = new VBox();
+
+        Label startGamePrompt = new Label();
+
+        startGamePrompt.setText("Click button to start playing...");
+
+        Button startGameButton = new Button();
+
+        //set text for the game button
+        startGameButton.setText("Start Game!");
+
+        startGameButton.setOnAction(event -> {
+            //call config screen event
+
+        });
+
+        //add the start game prompt on top of the start game button
+        startVBox.getChildren().add(startGamePrompt);
+        startVBox.getChildren().add(startGameButton);
 
         //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
-        Scene gameMapScene = new Scene(map, 1000, 600);
+        Scene initialScreenScene = new Scene(startVBox, 640, 480);
         stage.setTitle("Tower Defense Game");
-        stage.setScene(gameMapScene);
+        stage.setScene(initialScreenScene);
         stage.requestFocus();
         stage.show();
-        mapSetter(map, stage, this.player);
     }
     private void mapSetter(VBox map, Stage stage, Player player) {
         //rectangle initialiser
