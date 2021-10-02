@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -17,51 +14,72 @@ import java.util.Stack;
 
 public class GameApplication extends Application {
 
+    Stage window;
+
     Player player;
 
     @Override
     public void start(Stage stage) throws IOException {
+        window = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("hello-view.fxml"));
+        intialiseGameScreen();
+    }
+    private void intialiseGameScreen() {
         this.player = new Player();
         //StackPane map = new StackPane();
+        AnchorPane descriptionGrid = new AnchorPane();
+        HBox topLane = new HBox();
+        HBox midLane = new HBox();
+        HBox bottomLane = new HBox();
         VBox map = new VBox();
-
-        //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        map.getChildren().add(descriptionGrid);
+        map.getChildren().add(topLane);
+        map.getChildren().add(midLane);
+        map.getChildren().add(bottomLane);
         Scene gameMapScene = new Scene(map, 1000, 600);
-        stage.setTitle("Tower Defense Game");
-        stage.setScene(gameMapScene);
-        stage.requestFocus();
-        stage.show();
-        mapSetter(map, stage, this.player);
+        mapSetter(map, gameMapScene, descriptionGrid, topLane, midLane, bottomLane);
+        //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+
+        window.setTitle("Tower Defense Game");
+        window.setScene(gameMapScene);
+        window.requestFocus();
+        window.show();
     }
-    private void mapSetter(VBox map, Stage stage, Player player) {
-        //rectangle initialiser
-        Rectangle rectUpper = new Rectangle();
-        Rectangle rectMid = new Rectangle(stage.getWidth(),180);
-        Rectangle rectLower = new Rectangle(stage.getWidth(),210);
-        Rectangle monument= new Rectangle(50,180);
+    private void mapSetter(VBox map, Scene scene, AnchorPane descriptionGrid, HBox topLane, HBox midLane, HBox bottomLane) {
+        //Rectangle initialiser
+        Rectangle strip = new Rectangle(scene.getWidth(), 30);
+        Rectangle monument= new Rectangle(70,180);
 
-        //Color setter
-        rectUpper.setFill(Color.GREEN);
-        rectLower.setFill(Color.GREEN);
-        rectMid.setFill(Color.WHITE);
-        //rectMid.setStyle("-fx-background-color: " + "Red");
+        //Action
+        descriptionGrid.getChildren().add(strip);
+        towerFiller(topLane);
+        midLane.getChildren().add(monument);
+        towerFiller(bottomLane);
 
-        //pane.add(rectMid,0,(int)stage.getHeight()*7/20);
-
-
-
-
-        //pane.add(rectLower, 0, (int)stage.getHeight()*13/20);
-        //pane.add(monument, 0, (int)stage.getHeight()*7/20);
-
-        //int money = player.getMoney();
-        Label statusLabel = new Label("Welcome to the Color Game!");
-        map.getChildren().add(rectUpper);
-
-        //statusLabel.setStyle("-fx-background-color: white;");
-        //pane.add(statusLabel, 0, 0);
     }
+
+    /**
+     * Placeholder creator for the towers the user will insert
+     * @param lane the lane where the towers will be inserted at
+     */
+    private void towerFiller(HBox lane) {
+        int cnt = 50;
+        while(cnt<=1000) {
+            Rectangle rect = new Rectangle(50, 180);
+            rect.setStroke(Color.WHITE);
+            rect.setFill(Color.RED);
+            StackPane tower = new StackPane();
+            tower.getChildren().addAll(rect, new Label("Tower"));
+            lane.getChildren().add(tower);
+            cnt+=50;
+        }
+    }
+
+    private void displayGameParameters(AnchorPane descriptionGrid) {
+//        descriptionGrid.
+
+    }
+
 
     public static void main(String[] args) {
         launch();
