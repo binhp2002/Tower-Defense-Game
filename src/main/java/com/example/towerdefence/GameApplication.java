@@ -29,6 +29,7 @@ public class GameApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         this.player = new Player();
+        this.monument = new Monument();
         this.window = stage;
 
         //use VBox layout for the initial start screen with a button and text
@@ -175,6 +176,7 @@ public class GameApplication extends Application {
             player.setDifficulty(1);
             difficultyPrompt.setText("Difficulty: " + 1);
             moneyPrompt.setText("Money: " + 1000);
+            monument.setHealth(150);
         });
 
         Button medium = new Button("Medium");
@@ -184,6 +186,7 @@ public class GameApplication extends Application {
             player.setDifficulty(2);
             difficultyPrompt.setText("Difficulty: " + 2);
             moneyPrompt.setText("Money: " + 500);
+            monument.setHealth(100);
         });
 
         Button hard = new Button("Hard");
@@ -193,6 +196,7 @@ public class GameApplication extends Application {
             player.setDifficulty(3);
             difficultyPrompt.setText("Difficulty: " + 3);
             moneyPrompt.setText("Money: " + 100);
+            monument.setHealth(50);
         });
 
         Button startGame = new Button("Start Game");
