@@ -7,7 +7,7 @@ module com.example.towerdefence {
     requires org.kordamp.bootstrapfx.core;
     requires junit;
 
-    opens com.example.towerdefence to javafx.fxml;
+    opens com.example.towerdefence;
     exports com.example.towerdefence;
     exports com.example.towerdefence.objects;
     exports com.example.towerdefence.tests;
