@@ -19,8 +19,8 @@ import java.util.Stack;
 
 public class GameApplication extends Application {
 
-    Player player;
-    Monument monument;
+    private Player player;
+    private Monument monument;
 
     @Override
     public void start(Stage stage) throws IOException {
