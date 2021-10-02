@@ -223,6 +223,7 @@ public class GameApplication extends Application {
 
         entry = new TextField();
         entry.setPromptText("Enter your name here");
+        entry.setId("entryField");
         grid.add(entry, 1, 1);
 
         namePrompt = new Text("Name: " + input);
