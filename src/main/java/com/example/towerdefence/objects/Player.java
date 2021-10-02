@@ -29,7 +29,7 @@ public class Player {
      * @return 0 if name successfully changed and -1
      */
     public int setName(String name) {
-        if (name.strip().length() == 0) {
+        if (name == null || name.strip().length() == 0) {
             //empty name or whitespaces only
             return -1;
         }
