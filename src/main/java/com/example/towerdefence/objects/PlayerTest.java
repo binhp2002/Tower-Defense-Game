@@ -120,4 +120,23 @@ public class PlayerTest {
         //initially player has 0 money unless otherwise set
         assertEquals(player.getMoney(), 0);
     }
+
+    /**
+     * testing set difficulty
+     */
+    @Test
+    public void testSetDifficulty() {
+        //check error code 0
+        assertEquals(player.setDifficulty(5), 0);
+        //check if difficulty changed to 5
+        assertEquals(player.getDifficulty(), 5);
+    }
+
+    /**
+     * check if initial difficulty is 0 unless otherwise set
+     */
+    @Test
+    public void testGetInitialDifficulty() {
+        assertEquals(player.getDifficulty(), 0);
+    }
 }
