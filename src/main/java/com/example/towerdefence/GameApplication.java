@@ -2,7 +2,6 @@ package com.example.towerdefence;
 import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -12,26 +11,17 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
-import java.util.Stack;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.scene.control.Button;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 
 public class GameApplication extends Application {
-    //private static Text name, difficulty, moneyT;
-    //private static TextField entry;
-    //private static String input = "None";
-    //private static Text difficulty;
-    //private static String selection = "None";
-    //private static Text moneyT; //the money's title
-    //private static int money = 0;
 
-    Stage window;
-    Scene gameScene;
+    private Stage window;
+    private Scene gameScene;
 
     private Player player;
     private Monument monument;
@@ -102,10 +92,11 @@ public class GameApplication extends Application {
         window.show();
     }
 
-    private void mapSetter(VBox map, Scene scene, AnchorPane descriptionGrid, HBox topLane, HBox midLane, HBox bottomLane) {
+    private void mapSetter(VBox map, Scene scene, AnchorPane descriptionGrid, HBox topLane,
+                           HBox midLane, HBox bottomLane) {
         //Rectangle initialiser
         Rectangle strip = new Rectangle(scene.getWidth(), 30);
-        Rectangle monument= new Rectangle(70,180);
+        Rectangle monument = new Rectangle(70, 180);
 
         //Action
         descriptionGrid.getChildren().add(strip);
@@ -121,19 +112,18 @@ public class GameApplication extends Application {
      */
     private void towerFiller(HBox lane) {
         int cnt = 50;
-        while(cnt<=1000) {
+        while (cnt <= 1000) {
             Rectangle rect = new Rectangle(50, 180);
             rect.setStroke(Color.WHITE);
             rect.setFill(Color.RED);
             StackPane tower = new StackPane();
             tower.getChildren().addAll(rect, new Label("Tower"));
             lane.getChildren().add(tower);
-            cnt+=50;
+            cnt += 50;
         }
     }
 
     private void displayGameParameters(AnchorPane descriptionGrid) {
-//        descriptionGrid.
 
     }
 
@@ -142,7 +132,9 @@ public class GameApplication extends Application {
      * @return the game and player information buttons.
      */
     public GridPane addGridPane() {
-        Text namePrompt, difficultyPrompt, moneyPrompt;
+        Text namePrompt;
+        Text difficultyPrompt;
+        Text moneyPrompt;
         Text incompletePrompt;
         TextField entry;
         String input = "None";
