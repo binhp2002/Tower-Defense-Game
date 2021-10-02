@@ -1,4 +1,5 @@
 package com.example.towerdefence;
+import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -21,6 +24,7 @@ public class GameApplication extends Application {
     Stage window;
 
     Player player;
+    private Monument monument;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -30,6 +34,7 @@ public class GameApplication extends Application {
     }
     private void intialiseGameScreen() throws FileNotFoundException {
         this.player = new Player();
+        this.monument = new Monument();
         //StackPane map = new StackPane();
         HBox descriptionGrid = new HBox();
         HBox topLane = new HBox();
@@ -43,6 +48,7 @@ public class GameApplication extends Application {
         Scene gameMapScene = new Scene(map, 1000, 600);
         gameMapScene.setFill(Color.WHITE);
         mapSetter(map, gameMapScene, descriptionGrid, topLane, midLane, bottomLane);
+        displayGameParameters(descriptionGrid);
         //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
 
         window.setTitle("Tower Defense Game");
@@ -50,14 +56,15 @@ public class GameApplication extends Application {
         window.requestFocus();
         window.show();
     }
+
     private void mapSetter(VBox map, Scene scene, HBox descriptionGrid, HBox topLane, HBox midLane, HBox bottomLane) throws FileNotFoundException {
         //Rectangle initialiser
-        Rectangle strip = new Rectangle(scene.getWidth(), 30);
+        Rectangle strip = new Rectangle(scene.getWidth(), 23);
         Rectangle monument= new Rectangle(70,180);
 
         //Action
-        monument.setFill(Color.WHITE);
-        descriptionGrid.getChildren().add(strip);
+
+
         towerFiller(topLane);
 
         //Add monument image
@@ -105,8 +112,19 @@ public class GameApplication extends Application {
     }
 
     private void displayGameParameters(HBox descriptionGrid) {
-//        descriptionGrid.
+        Rectangle r1 = new Rectangle(200, 23);
+        r1.setStroke(Color.RED);
+        r1.setFill(Color.WHITE);
 
+        String playerMoney =  String.valueOf(player.getMoney());
+        String monumentHealth = String.valueOf(monument.getHealth());
+
+        String playerParameterString = "Money: " + playerMoney + "   Health: " + monumentHealth;
+        Text playerParameters = new Text(playerParameterString);
+
+        StackPane descriptionPane = new StackPane();
+        descriptionPane.getChildren().addAll(r1, playerParameters);
+        descriptionGrid.getChildren().add(descriptionPane);
     }
 
 
