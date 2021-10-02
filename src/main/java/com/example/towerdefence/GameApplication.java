@@ -41,6 +41,8 @@ public class GameApplication extends Application {
 
         Label startGamePrompt = new Label();
 
+        startGamePrompt.setId("startGamePrompt");
+
         startGamePrompt.setText("Click button to start playing...");
 
         Button startGameButton = new Button();
@@ -195,6 +197,7 @@ public class GameApplication extends Application {
 
         String playerParameterString = "Money: " + playerMoney + "   Health: " + monumentHealth;
         Text playerParameters = new Text(playerParameterString);
+        playerParameters.setId("playerParameters");
         StackPane descriptionPane = new StackPane();
         descriptionPane.getChildren().addAll(r1, playerParameters);
         descriptionGrid.getChildren().add(descriptionPane);
@@ -223,6 +226,9 @@ public class GameApplication extends Application {
         grid.add(entry, 1, 1);
 
         namePrompt = new Text("Name: " + input);
+
+        namePrompt.setId("namePrompt");
+
         grid.add(namePrompt, 1, 0);
 
         Button enter = new Button("Enter");
@@ -237,9 +243,11 @@ public class GameApplication extends Application {
         });
 
         difficultyPrompt = new Text("Difficulty: " + difficultySelection);
+        difficultyPrompt.setId("difficultyPrompt");
         grid.add(difficultyPrompt, 1, 3);
 
         moneyPrompt = new Text("Money: " + 0);
+        moneyPrompt.setId("moneyPrompt");
         grid.add(moneyPrompt, 1, 4);
 
         Button easy = new Button("Easy");
@@ -279,6 +287,7 @@ public class GameApplication extends Application {
         startGame.setId("startGame");
         grid.add(startGame, 3, 7);
         incompletePrompt = new Text();
+        incompletePrompt.setId("incompletePrompt");
         grid.add(incompletePrompt, 4, 7);
         startGame.setOnMouseClicked(e -> {
             if (player.getName() == null || player.getMoney() == 0) {
