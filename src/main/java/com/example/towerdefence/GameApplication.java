@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -20,7 +19,6 @@ import java.io.IOException;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 
@@ -68,6 +66,9 @@ public class GameApplication extends Application {
 
     }
 
+    /**
+     * Initialises the configuration screen
+     */
     public void initializeConfigScreen() {
         BorderPane pane = new BorderPane();
         pane.setCenter(addGridPane());
@@ -77,6 +78,9 @@ public class GameApplication extends Application {
         this.window.show();
     }
 
+    /**
+     * Initialises the game screen (main map)
+     */
     private void initializeGameScreen() {
         //StackPane map = new StackPane();
         HBox descriptionGrid = new HBox();
@@ -100,22 +104,30 @@ public class GameApplication extends Application {
         window.show();
     }
 
-    private void mapSetter(VBox map, Scene scene, HBox descriptionGrid, HBox topLane, HBox midLane, HBox bottomLane) {
+    /**
+     * Sets up the main map objects
+     * @param map the game map
+     * @param scene the game scene object
+     * @param descriptionGrid contains player info (eg. money, health)
+     * @param topLane Upper towers are placed here
+     * @param midLane Enemies and monument are placed here
+     * @param bottomLane Lower towers are placed here
+     */
+    private void mapSetter(VBox map, Scene scene, HBox descriptionGrid,
+                           HBox topLane, HBox midLane, HBox bottomLane) {
         //Rectangle initialiser
         Rectangle strip = new Rectangle(scene.getWidth(), 23);
-        Rectangle monument= new Rectangle(70,180);
+        Rectangle monument = new Rectangle(70, 180);
 
         //Action
-
-
         towerFiller(topLane);
 
         FileInputStream inputstream;
 
         //Add monument image
         try {
-            inputstream = new FileInputStream("./src/main/resources/com/example/" +
-                    "towerdefence/Images/monument.png");
+            inputstream = new FileInputStream("./src/main/resources/com/example/"
+                    + "towerdefence/Images/monument.png");
         } catch (FileNotFoundException e) {
             System.out.println("File not found, terminating");
             return;
@@ -150,10 +162,15 @@ public class GameApplication extends Application {
             cnt += 50;
         }
     }
+
+    /**
+     * Sets up the grid on which enemies can walk
+     * @param lane the map lane the enemies will walk on
+     */
     private void enemyPositionGridSetter(HBox lane) {
-        for(int i=0; i*20<=1000; i++){
+        for (int i = 0; i * 20 <= 1000; i++) {
             StackPane enemyPosition = new StackPane();
-            Rectangle tile = new Rectangle(20,180);
+            Rectangle tile = new Rectangle(20, 180);
             tile.setFill(Color.WHITE);
             tile.setStroke(Color.BLACK);
             tile.setStrokeWidth(1);
@@ -162,6 +179,10 @@ public class GameApplication extends Application {
         }
     }
 
+    /**
+     * Displays the player's attributes (money, health)
+     * @param descriptionGrid the grid object that shows the player's game data
+     */
     private void displayGameParameters(HBox descriptionGrid) {
         Rectangle r1 = new Rectangle(200, 23);
         r1.setStroke(Color.RED);
@@ -264,6 +285,10 @@ public class GameApplication extends Application {
         return grid;
     }
 
+    /**
+     * Main method. Runs at launch
+     * @param args Standard parameter
+     */
     public static void main(String[] args) {
         launch();
     }
