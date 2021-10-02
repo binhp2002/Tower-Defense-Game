@@ -4,12 +4,18 @@ import com.example.towerdefence.objects.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.scene.layout.GridPane;
@@ -71,10 +77,9 @@ public class GameApplication extends Application {
         this.window.show();
     }
 
-    public void initializeGameScreen() {
-        this.player = new Player();
+    private void initializeGameScreen() {
         //StackPane map = new StackPane();
-        AnchorPane descriptionGrid = new AnchorPane();
+        HBox descriptionGrid = new HBox();
         HBox topLane = new HBox();
         HBox midLane = new HBox();
         HBox bottomLane = new HBox();
@@ -84,7 +89,9 @@ public class GameApplication extends Application {
         map.getChildren().add(midLane);
         map.getChildren().add(bottomLane);
         Scene gameMapScene = new Scene(map, 1000, 600);
+        gameMapScene.setFill(Color.WHITE);
         mapSetter(map, gameMapScene, descriptionGrid, topLane, midLane, bottomLane);
+        displayGameParameters(descriptionGrid);
         //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
 
         window.setTitle("Tower Defense Game");
@@ -93,16 +100,36 @@ public class GameApplication extends Application {
         window.show();
     }
 
-    private void mapSetter(VBox map, Scene scene, AnchorPane descriptionGrid, HBox topLane,
-                           HBox midLane, HBox bottomLane) {
+    private void mapSetter(VBox map, Scene scene, HBox descriptionGrid, HBox topLane, HBox midLane, HBox bottomLane) {
         //Rectangle initialiser
-        Rectangle strip = new Rectangle(scene.getWidth(), 30);
-        Rectangle monument = new Rectangle(70, 180);
+        Rectangle strip = new Rectangle(scene.getWidth(), 23);
+        Rectangle monument= new Rectangle(70,180);
 
         //Action
-        descriptionGrid.getChildren().add(strip);
+
+
         towerFiller(topLane);
-        midLane.getChildren().add(monument);
+
+        FileInputStream inputstream;
+
+        //Add monument image
+        try {
+            inputstream = new FileInputStream("./src/main/resources/com/example/" +
+                    "towerdefence/Images/monument.png");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, terminating");
+            return;
+        }
+        Image img = new Image(inputstream);
+        ImageView imgView = new ImageView(img);
+        StackPane monStack = new StackPane();
+        imgView.setFitHeight(150);
+        imgView.setFitWidth(130);
+        monStack.getChildren().add(imgView);
+        midLane.getChildren().add(monStack);
+
+        //
+        enemyPositionGridSetter(midLane);
         towerFiller(bottomLane);
 
     }
@@ -116,16 +143,38 @@ public class GameApplication extends Application {
         while (cnt <= 1000) {
             Rectangle rect = new Rectangle(50, 180);
             rect.setStroke(Color.WHITE);
-            rect.setFill(Color.RED);
+            rect.setFill(Color.GREEN);
             StackPane tower = new StackPane();
             tower.getChildren().addAll(rect, new Label("Tower"));
             lane.getChildren().add(tower);
             cnt += 50;
         }
     }
+    private void enemyPositionGridSetter(HBox lane) {
+        for(int i=0; i*20<=1000; i++){
+            StackPane enemyPosition = new StackPane();
+            Rectangle tile = new Rectangle(20,180);
+            tile.setFill(Color.WHITE);
+            tile.setStroke(Color.BLACK);
+            tile.setStrokeWidth(1);
+            enemyPosition.getChildren().add(tile);
+            lane.getChildren().add(enemyPosition);
+        }
+    }
 
-    private void displayGameParameters(AnchorPane descriptionGrid) {
+    private void displayGameParameters(HBox descriptionGrid) {
+        Rectangle r1 = new Rectangle(200, 23);
+        r1.setStroke(Color.RED);
+        r1.setFill(Color.WHITE);
 
+        String playerMoney =  String.valueOf(player.getMoney());
+        String monumentHealth = String.valueOf(monument.getHealth());
+
+        String playerParameterString = "Money: " + playerMoney + "   Health: " + monumentHealth;
+        Text playerParameters = new Text(playerParameterString);
+        StackPane descriptionPane = new StackPane();
+        descriptionPane.getChildren().addAll(r1, playerParameters);
+        descriptionGrid.getChildren().add(descriptionPane);
     }
 
     /**
@@ -208,7 +257,7 @@ public class GameApplication extends Application {
                 //some of the player settings not selected
                 incompletePrompt.setText("Please select a difficulty and name and try again");
             } else {
-                initializeGameScreen();
+                this.initializeGameScreen();
             }
         });
 
