@@ -45,6 +45,8 @@ public class GameApplication extends Application {
 
         Button startGameButton = new Button();
 
+        startGameButton.setId("startGameButton");
+
         //set text for the game button
         startGameButton.setText("Start Game!");
 
@@ -224,6 +226,7 @@ public class GameApplication extends Application {
         grid.add(namePrompt, 1, 0);
 
         Button enter = new Button("Enter");
+        enter.setId("enter");
         grid.add(enter, 2, 1);
         enter.setOnMouseClicked(e -> {
             if (player.setName(entry.getText()) == -1) {
@@ -240,6 +243,7 @@ public class GameApplication extends Application {
         grid.add(moneyPrompt, 1, 4);
 
         Button easy = new Button("Easy");
+        easy.setId("easy");
         grid.add(easy, 2, 3);
         easy.setOnMouseClicked(e -> {
             player.setMoney(1000);
@@ -250,6 +254,7 @@ public class GameApplication extends Application {
         });
 
         Button medium = new Button("Medium");
+        medium.setId("medium");
         grid.add(medium, 2, 4);
         medium.setOnMouseClicked(e -> {
             player.setMoney(500);
@@ -260,6 +265,7 @@ public class GameApplication extends Application {
         });
 
         Button hard = new Button("Hard");
+        hard.setId("hard");
         grid.add(hard, 2, 5);
         hard.setOnMouseClicked(e -> {
             player.setMoney(100);
@@ -270,6 +276,7 @@ public class GameApplication extends Application {
         });
 
         Button startGame = new Button("Start Game");
+        startGame.setId("startGame");
         grid.add(startGame, 3, 7);
         incompletePrompt = new Text();
         grid.add(incompletePrompt, 4, 7);
