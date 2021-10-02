@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MonumentTest {
 
-    Monument monument;
+    private Monument monument;
 
     @Before
     public void setUp() {

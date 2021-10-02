@@ -10,7 +10,7 @@ import static org.junit.Assert.assertNull;
 
 public class PlayerTest {
 
-    Player player;
+    private Player player;
 
     /**
      * set up to create player object
@@ -24,7 +24,7 @@ public class PlayerTest {
      * test expected name which is non-empty, non-null, and has non-whitespace characters
      */
     @Test
-    public void testSetExpectedName(){
+    public void testSetExpectedName() {
         //return 0 error code
         assertEquals(player.setName("test"), 0);
         assertEquals(player.getName(), "test");
@@ -34,7 +34,7 @@ public class PlayerTest {
      * checks expected name with whitespaces
      */
     @Test
-    public void testSetExpectedNameWithWhitespace(){
+    public void testSetExpectedNameWithWhitespace() {
         assertEquals(player.setName("test one"), 0);
         assertEquals(player.getName(), "test one");
     }
