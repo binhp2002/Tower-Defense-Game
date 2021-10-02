@@ -25,7 +25,7 @@ public class Monument {
      * @return 0 if successfully changed health of monument, -1 otherwise
      */
     public int setHealth(int health) {
-        if (health == 0) {
+        if (health <= 0) {
             return -1;
         }
         this.health = health;
