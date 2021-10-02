@@ -4,7 +4,7 @@ import com.example.towerdefence.GameApplication;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.junit.Test;
-import javafx.embed.swing.SwingNode;
+import org.testfx.api.FxAssert;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
@@ -26,6 +26,7 @@ public class ConfigScreenTest extends ApplicationTest {
 
     @Test
     public void testConfigScreenName() {
+        clickOn("#startGameButton");
         assertEquals(stage.getTitle(), "Game Configuration");
         clickOn("#entry").write(" ");
         clickOn("#enter");
