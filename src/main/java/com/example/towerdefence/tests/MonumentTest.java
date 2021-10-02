@@ -1,6 +1,6 @@
 package com.example.towerdefence.tests;
 
-import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.Monument;
 import org.junit.Before;
 import org.junit.Test;
 
