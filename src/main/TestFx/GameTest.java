@@ -31,8 +31,8 @@ public class GameTest extends ApplicationTest {
     }
 
     /**
-     * Tests empty name inserted (no name inserted), expected to get incompletePrompt telling user to select difficulty
-     * and name
+     * Tests empty name inserted (no name inserted), expected to get incompletePrompt
+     * telling user to select difficulty and name
      */
     @Test
     public void testConfigEmptyName() {
@@ -41,13 +41,13 @@ public class GameTest extends ApplicationTest {
         assertEquals(stage.getTitle(), "Game Configuration");
         clickOn("#easy");
         clickOn("#startGame");
-        verifyThat("#incompletePrompt", (Text t) -> t.getText().contains("Please select a difficulty" +
-                " and name and try again"));
+        verifyThat("#incompletePrompt", (Text t) -> t.getText().contains("Please select "
+                + "a difficulty and name and try again"));
     }
 
     /**
-     * Tests no difficulty selected, expected to get incompletePrompt telling user to select difficulty
-     * and name
+     * Tests no difficulty selected, expected to get incompletePrompt telling user to select
+     * difficulty and name
      */
     @Test
     public void testConfigNoDifficulty() {
@@ -59,8 +59,8 @@ public class GameTest extends ApplicationTest {
         clickOn("#enter");
         //start game
         clickOn("#startGame");
-        verifyThat("#incompletePrompt", (Text t) -> t.getText().contains("Please select a difficulty" +
-                " and name and try again"));
+        verifyThat("#incompletePrompt", (Text t) -> t.getText().contains("Please select "
+                + "a difficulty and name and try again"));
     }
 
     /**
@@ -78,7 +78,7 @@ public class GameTest extends ApplicationTest {
         clickOn("#enter");
         clickOn("#startGame");
         assertEquals(stage.getTitle(), "Tower Defense Game");
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 1000") &&
-                t.getText().contains("Health: 150"));
+        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 1000")
+                && t.getText().contains("Health: 150"));
     }
 }
