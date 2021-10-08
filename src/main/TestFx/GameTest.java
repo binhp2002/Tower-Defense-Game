@@ -1,4 +1,3 @@
-
 import com.example.towerdefence.GameApplication;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
@@ -6,6 +5,7 @@ import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.testfx.api.FxAssert.verifyThat;
 
 
@@ -64,10 +64,10 @@ public class GameTest extends ApplicationTest {
     }
 
     /**
-     * check if the moves to game page with correct name
+     * check if moves to game page with correct health and money on easy difficulty
      */
     @Test
-    public void testConfigNormalName() {
+    public void testConfigEasyDifficulty() {
         clickOn("#startGameButton");
         //check if on Game Configuration Page
         assertEquals(stage.getTitle(), "Game Configuration");
@@ -80,5 +80,43 @@ public class GameTest extends ApplicationTest {
         assertEquals(stage.getTitle(), "Tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 1000")
                 && t.getText().contains("Health: 150"));
+    }
+
+    /**
+     * check if moves to game page with correct health and money on medium difficulty
+     */
+    @Test
+    public void testConfigMediumDifficulty() {
+        clickOn("#startGameButton");
+        //check if on Game Configuration Page
+        assertEquals(stage.getTitle(), "Game Configuration");
+        //select easy difficulty
+        clickOn("#medium");
+        //enter name
+        clickOn("#entry").write("test");
+        clickOn("#enter");
+        clickOn("#startGame");
+        assertEquals(stage.getTitle(), "Tower Defense Game");
+        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
+                && t.getText().contains("Health: 100"));
+    }
+
+    /**
+     * check if moves to game page with correct health and money on hard difficulty
+     */
+    @Test
+    public void testConfigHardDifficulty() {
+        clickOn("#startGameButton");
+        //check if on Game Configuration Page
+        assertEquals(stage.getTitle(), "Game Configuration");
+        //select easy difficulty
+        clickOn("#hard");
+        //enter name
+        clickOn("#entry").write("test");
+        clickOn("#enter");
+        clickOn("#startGame");
+        assertEquals(stage.getTitle(), "Tower Defense Game");
+        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 100")
+                && t.getText().contains("Health: 50"));
     }
 }
