@@ -1,8 +1,10 @@
 package com.example.towerdefence;
 import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
+import com.example.towerdefence.StartUpPage.StartUpPageController;
 import javafx.application.Application;
-import javafx.scene.Scene;
+import javafx.fxml.*;
+import javafx.scene.*;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,50 +38,28 @@ public class GameApplication extends Application {
         this.monument = new Monument();
         this.window = stage;
 
-        //use VBox layout for the initial start screen with a button and text
-        VBox startVBox = new VBox();
+        //load scenes
+        //start up screen
+        FXMLLoader startUpPane = new FXMLLoader(getClass().getResource("/StartUpPage.fxml"));
+        Parent startUpPaneLoader = startUpPane.load();
+        Scene startUpScene = new Scene(startUpPaneLoader, 640, 480);
 
-        Label startGamePrompt = new Label();
+        //config screen scene
+        BorderPane pane = new BorderPane();
+        pane.setCenter(addGridPane());
+        Scene configScreenScene = new Scene(pane, 640, 480);
 
-        startGamePrompt.setId("startGamePrompt");
 
-        startGamePrompt.setText("Click button to start playing...");
+        //set next scenes for each scene
+        //get the controller and then set the next page for the controller
+        StartUpPageController startUpController = startUpPane.getController();
+        startUpController.setNextScene(configScreenScene);
 
-        Button startGameButton = new Button();
-
-        startGameButton.setId("startGameButton");
-
-        //set text for the game button
-        startGameButton.setText("Start Game!");
-
-        startGameButton.setOnAction(event -> {
-            //call config screen event
-            initializeConfigScreen();
-        });
-
-        //add the start game prompt on top of the start game button
-        startVBox.getChildren().add(startGamePrompt);
-        startVBox.getChildren().add(startGameButton);
-
-        //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
-        Scene initialScreenScene = new Scene(startVBox, 640, 480);
         stage.setTitle("Tower Defense Game");
-        stage.setScene(initialScreenScene);
+        stage.setScene(startUpScene);
         stage.requestFocus();
         stage.show();
 
-    }
-
-    /**
-     * Initialises the configuration screen
-     */
-    public void initializeConfigScreen() {
-        BorderPane pane = new BorderPane();
-        pane.setCenter(addGridPane());
-        Scene scene = new Scene(pane, 640, 480);
-        this.window.setScene(scene);
-        this.window.setTitle("Game Configuration");
-        this.window.show();
     }
 
     /**
