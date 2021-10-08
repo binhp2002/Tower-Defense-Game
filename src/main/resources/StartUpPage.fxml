@@ -15,7 +15,7 @@
 
         <Label text="Press button to start game..."></Label>
 
-        <Button text="Play Game!" onAction="#handlePlayButtonAction"></Button>
+        <Button id="startGameButton" text="Play Game!" onAction="#handlePlayButtonAction"></Button>
 
     </VBox>
 </AnchorPane>

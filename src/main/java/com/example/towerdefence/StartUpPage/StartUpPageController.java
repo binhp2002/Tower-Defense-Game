@@ -18,6 +18,7 @@ public class StartUpPageController {
     public void handlePlayButtonAction(ActionEvent ae) {
         Stage stage = (Stage)((Node) ae.getSource()).getScene().getWindow();
         stage.setScene(this.nextScene);
+        stage.setTitle("Game Configuration");
     }
 
 }
