@@ -12,4 +12,7 @@ module com.example.towerdefence {
     exports com.example.towerdefence.objects;
     exports com.example.towerdefence.tests;
     exports com.example.towerdefence.StartUpPage;
+    exports com.example.towerdefence.ConfigScreenPage;
+    opens com.example.towerdefence.ConfigScreenPage;
+    opens com.example.towerdefence.StartUpPage;
 }

@@ -45,9 +45,11 @@ public class GameApplication extends Application {
         Scene startUpScene = new Scene(startUpPaneLoader, 640, 480);
 
         //config screen scene
-        BorderPane pane = new BorderPane();
-        pane.setCenter(addGridPane());
-        Scene configScreenScene = new Scene(pane, 640, 480);
+        FXMLLoader configScreenPane = new FXMLLoader(getClass().getResource("/ConfigScreenPage.fxml"));
+        Parent configScreenPaneLoader = configScreenPane.load();
+        //BorderPane pane = new BorderPane();
+        //pane.setCenter(addGridPane());
+        Scene configScreenScene = new Scene(configScreenPaneLoader, 640, 480);
 
 
         //set next scenes for each scene
@@ -187,7 +189,7 @@ public class GameApplication extends Application {
      * Show the game and player information buttons at the center of the scene.
      * @return the game and player information buttons.
      */
-    public GridPane addGridPane() {
+    /*public GridPane addGridPane() {
         Text namePrompt;
         Text difficultyPrompt;
         Text moneyPrompt;
@@ -280,7 +282,7 @@ public class GameApplication extends Application {
         });
 
         return grid;
-    }
+    }*/
 
     /**
      * Main method. Runs at launch
