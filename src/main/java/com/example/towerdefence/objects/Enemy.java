@@ -1,8 +1,8 @@
 package com.example.towerdefence.objects;
 
 public class Enemy {
-    int health;
-    int damage;
+    private int health;
+    private int damage;
 
     /**
      * initializes default enemy with damage 10 and health of 100

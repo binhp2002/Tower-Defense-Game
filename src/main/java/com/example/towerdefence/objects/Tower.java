@@ -1,12 +1,13 @@
 package com.example.towerdefence.objects;
 
+import java.io.*;
 import java.lang.reflect.Constructor;
 
 public abstract class Tower {
-    int health;
-    Class<Projectile> projectileType;
-    int rateOfFire;
-    String imagePath;
+    private int health;
+    private Class projectileType;
+    private int rateOfFire;
+    private String imagePath;
 
     /**
      * most specific constructor, to set everything
@@ -15,7 +16,7 @@ public abstract class Tower {
      * @param imagePath image of the tower
      * @param projectileType the class of the projectile that this tower fires
      */
-    public Tower(int health, int rateOfFire, Class<Projectile> projectileType, String imagePath) {
+    public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
         this.health = health;
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
@@ -27,7 +28,11 @@ public abstract class Tower {
      * @param imagePath image of the tower
      * @param projectileType the class of the projectile that this tower fires
      */
-    public Tower(Class<Projectile> projectileType, String imagePath) {
+    public Tower(Class projectileType, String imagePath) {
+        if (projectileType.isAssignableFrom(Projectile.class)) {
+            //ensure that projectileType implements Projectile interface
+            throw new RuntimeException("projectileType argument must implement Projectile");
+        }
         this.imagePath = imagePath;
         this.projectileType = projectileType;
     }
@@ -67,6 +72,4 @@ public abstract class Tower {
             return;
         }
     }
-
-
 }
