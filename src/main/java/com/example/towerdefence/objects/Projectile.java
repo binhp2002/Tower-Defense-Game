@@ -6,6 +6,18 @@ public abstract class Projectile {
     private String imagePath;
 
     /**
+     * most specific constructor for Projectile
+     * @param damage damage of projectile
+     * @param speed speed of projectile
+     * @param imagePath path to image of projectile
+     */
+    public Projectile(int damage, int speed, String imagePath) {
+        this.damage = damage;
+        this.speed = speed;
+        this.imagePath = imagePath;
+    }
+
+    /**
      * gets the damage of the projectile
      * @return damage of projectile
      */
