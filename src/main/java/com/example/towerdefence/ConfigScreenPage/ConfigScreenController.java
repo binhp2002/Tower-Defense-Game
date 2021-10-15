@@ -88,7 +88,7 @@ public class ConfigScreenController {
         } else {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(this.nextScene);
-            stage.setTitle("Game Screen");
+            stage.setTitle("Tower Defense Game");
         }
     }
 }
