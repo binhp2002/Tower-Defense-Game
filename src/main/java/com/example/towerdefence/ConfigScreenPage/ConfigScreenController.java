@@ -20,19 +20,11 @@ public class ConfigScreenController {
     private Player player;
     private Monument monument;
 
-    @FXML
+
     Text namePrompt;
-
-    @FXML
     Text difficultyPrompt;
-
-    @FXML
     Text moneyPrompt;
-
-    @FXML
     Text incompletePrompt;
-
-    @FXML
     TextField entry;
 
     String input = "None";
@@ -52,10 +44,12 @@ public class ConfigScreenController {
 
     @FXML
     public void enterButton(ActionEvent e) {
-        if (player.setName(entry.getText()) == -1) {
-            namePrompt.setText("Name: Name is not allow, try again");
+        if (player.setName(((TextField) ((Node) e.getSource()).getScene().lookup("#entry")).getText()) == -1) {
+            ((Text) ((Node) e.getSource()).getScene().lookup("#namePrompt")).setText("Name: Name is not allow, try again");
+            //namePrompt.setText("Name: Name is not allow, try again");
         } else {
-            namePrompt.setText("Name: " + entry.getText());
+            ((Text) ((Node) e.getSource()).getScene().lookup("#namePrompt")).setText("Name: " + ((TextField) ((Node) e.getSource()).getScene().lookup("#entry")).getText());
+            //namePrompt.setText("Name: " + entry.getText());
         }
     }
 
@@ -63,8 +57,8 @@ public class ConfigScreenController {
     public void easyButton(ActionEvent e) {
         player.setMoney(1000);
         player.setDifficulty(1);
-        difficultyPrompt.setText("Difficulty: " + 1);
-        moneyPrompt.setText("Money: " + 1000);
+        ((Text) ((Node) e.getSource()).getScene().lookup("#difficultyPrompt")).setText("Difficulty: " + 1);
+        ((Text) ((Node) e.getSource()).getScene().lookup("#moneyPrompt")).setText("Money: " + 1000);
         monument.setHealth(150);
     }
 
@@ -72,8 +66,8 @@ public class ConfigScreenController {
     public void mediumButton(ActionEvent e) {
         player.setMoney(500);
         player.setDifficulty(2);
-        difficultyPrompt.setText("Difficulty: " + 2);
-        moneyPrompt.setText("Money: " + 500);
+        ((Text) ((Node) e.getSource()).getScene().lookup("#difficultyPrompt")).setText("Difficulty: " + 2);
+        ((Text) ((Node) e.getSource()).getScene().lookup("#moneyPrompt")).setText("Money: " + 500);
         monument.setHealth(100);
     }
 
@@ -81,8 +75,8 @@ public class ConfigScreenController {
     public void hardButton(ActionEvent e) {
         player.setMoney(100);
         player.setDifficulty(3);
-        difficultyPrompt.setText("Difficulty: " + 3);
-        moneyPrompt.setText("Money: " + 100);
+        ((Text) ((Node) e.getSource()).getScene().lookup("#difficultyPrompt")).setText("Difficulty: " + 3);
+        ((Text) ((Node) e.getSource()).getScene().lookup("#moneyPrompt")).setText("Money: " + 100);
         monument.setHealth(50);
     }
 
@@ -90,7 +84,7 @@ public class ConfigScreenController {
     public void startGameButton(ActionEvent e) {
         if (player.getName() == null || player.getMoney() == 0) {
             //some of the player settings not selected
-            incompletePrompt.setText("Please select a difficulty and name and try again");
+            ((Text) ((Node) e.getSource()).getScene().lookup("#incompletePrompt")).setText("Please select a difficulty and name and try again");
         } else {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(this.nextScene);

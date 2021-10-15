@@ -1,4 +1,5 @@
 package com.example.towerdefence;
+import com.example.towerdefence.ConfigScreenPage.ConfigScreenController;
 import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import com.example.towerdefence.StartUpPage.StartUpPageController;
@@ -56,6 +57,11 @@ public class GameApplication extends Application {
         //get the controller and then set the next page for the controller
         StartUpPageController startUpController = startUpPane.getController();
         startUpController.setNextScene(configScreenScene);
+
+        ConfigScreenController configScreenController = configScreenPane.getController();
+        configScreenController.setNextScene(null);
+        configScreenController.setPlayer(player);
+        configScreenController.setMonument(monument);
 
         stage.setTitle("Tower Defense Game");
         stage.setScene(startUpScene);
