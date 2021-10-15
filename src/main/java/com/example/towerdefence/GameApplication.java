@@ -67,6 +67,7 @@ public class GameApplication extends Application {
      */
     private void initializeGameScreen() {
         //StackPane map = new StackPane();
+
         HBox descriptionGrid = new HBox();
         HBox topLane = new HBox();
         HBox midLane = new HBox();
@@ -76,11 +77,22 @@ public class GameApplication extends Application {
         map.getChildren().add(topLane);
         map.getChildren().add(midLane);
         map.getChildren().add(bottomLane);
-        Scene gameMapScene = new Scene(map, 1000, 600);
+
+        FXMLLoader GameMap = new FXMLLoader(getClass().getResource("/GameApp.fxml"));
+        Parent GameMapLoader;
+
+        try {
+            GameMapLoader = GameMap.load();
+        }
+        catch(Exception e){
+            System.out.println("Excpetion thrown: " + e);
+            return;
+        }
+        Scene gameMapScene = new Scene(GameMapLoader, 1000, 600);
         gameMapScene.setFill(Color.WHITE);
         mapSetter(map, gameMapScene, descriptionGrid, topLane, midLane, bottomLane);
         displayGameParameters(descriptionGrid);
-        //Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+//        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
 
         window.setTitle("Tower Defense Game");
         window.setScene(gameMapScene);
