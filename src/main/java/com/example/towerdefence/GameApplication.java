@@ -52,6 +52,11 @@ public class GameApplication extends Application {
         //pane.setCenter(addGridPane());
         Scene configScreenScene = new Scene(configScreenPaneLoader, 640, 480);
 
+        //game screen scene
+        FXMLLoader gameScreenPane = new FXMLLoader(getClass().getResource("/GameApp.fxml"));
+        Parent gameScreenPaneLoader = gameScreenPane.load();
+        Scene gameScreenScene = new Scene(gameScreenPaneLoader, 640, 480);
+
 
         //set next scenes for each scene
         //get the controller and then set the next page for the controller
@@ -59,7 +64,7 @@ public class GameApplication extends Application {
         startUpController.setNextScene(configScreenScene);
 
         ConfigScreenController configScreenController = configScreenPane.getController();
-        configScreenController.setNextScene(null);
+        configScreenController.setNextScene(gameScreenScene);
         configScreenController.setPlayer(player);
         configScreenController.setMonument(monument);
 

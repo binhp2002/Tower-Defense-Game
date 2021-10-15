@@ -16,6 +16,7 @@
     <HBox>
         <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
         <Label text="Press button to start game..."></Label>
+        <Rectangle></Rectangle>
 
     </HBox>
     <HBox>

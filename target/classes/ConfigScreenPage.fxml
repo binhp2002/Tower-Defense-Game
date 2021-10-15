@@ -15,7 +15,7 @@
 
     <TextField
             GridPane.columnIndex="1" GridPane.rowIndex="1"
-            id="entry" text="Enter your name here"/>
+            id="entry"/>
 
     <Text
             GridPane.columnIndex="1" GridPane.rowIndex="0"
