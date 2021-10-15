@@ -6,6 +6,7 @@ module com.example.towerdefence {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires junit;
+    requires java.datatransfer;
 
     opens com.example.towerdefence;
     exports com.example.towerdefence;

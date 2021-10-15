@@ -1,4 +1,5 @@
 package com.example.towerdefence;
+import com.example.towerdefence.ConfigScreenPage.ConfigScreenController;
 import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import com.example.towerdefence.StartUpPage.StartUpPageController;
@@ -51,11 +52,21 @@ public class GameApplication extends Application {
         //pane.setCenter(addGridPane());
         Scene configScreenScene = new Scene(configScreenPaneLoader, 640, 480);
 
+        //game screen scene
+        FXMLLoader gameScreenPane = new FXMLLoader(getClass().getResource("/GameApp.fxml"));
+        Parent gameScreenPaneLoader = gameScreenPane.load();
+        Scene gameScreenScene = new Scene(gameScreenPaneLoader, 640, 480);
+
 
         //set next scenes for each scene
         //get the controller and then set the next page for the controller
         StartUpPageController startUpController = startUpPane.getController();
         startUpController.setNextScene(configScreenScene);
+
+        ConfigScreenController configScreenController = configScreenPane.getController();
+        configScreenController.setNextScene(gameScreenScene);
+        configScreenController.setPlayer(player);
+        configScreenController.setMonument(monument);
 
         stage.setTitle("Tower Defense Game");
         stage.setScene(startUpScene);
