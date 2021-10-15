@@ -2,20 +2,27 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
 
 <?import javafx.geometry.Insets?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.towerdefence.gameApplication"
+            fx:controller="com.example.towerdefence.GameApplication"
             prefHeight="400.0" prefWidth="600.0">
 
-    <VBox>
-    
+    <StackPane>
+    </StackPane>
+    <HBox>
         <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
-
         <Label text="Press button to start game..."></Label>
+        <Rectangle setFill = Color.RED></Rectangle>
 
-        <Button id="startGameButton" text="Play Game!" onAction="#handlePlayButtonAction"></Button>
-
-    </VBox>
+    </HBox>
+    <HBox>
+        <HBox>
+        </HBox>
+    </HBox>
+    <HBox>
+    </HBox>
 </AnchorPane>

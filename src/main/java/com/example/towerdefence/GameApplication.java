@@ -85,12 +85,12 @@ public class GameApplication extends Application {
             GameMapLoader = GameMap.load();
         }
         catch(Exception e){
-            System.out.println("Excpetion thrown: " + e);
+            System.out.println("Exception thrown: " + e);
             return;
         }
         Scene gameMapScene = new Scene(GameMapLoader, 1000, 600);
         gameMapScene.setFill(Color.WHITE);
-        mapSetter(map, gameMapScene, descriptionGrid, topLane, midLane, bottomLane);
+//        mapSetter(map, gameMapScene, descriptionGrid, topLane, midLane, bottomLane);
         displayGameParameters(descriptionGrid);
 //        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
 
