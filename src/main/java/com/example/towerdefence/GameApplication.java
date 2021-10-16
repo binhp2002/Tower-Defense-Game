@@ -6,24 +6,8 @@ import com.example.towerdefence.StartUpPage.StartUpPageController;
 import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.*;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import javafx.scene.layout.GridPane;
-import javafx.scene.control.TextField;
-import javafx.geometry.Insets;
-import javafx.scene.layout.BorderPane;
 
 public class GameApplication extends Application {
 
