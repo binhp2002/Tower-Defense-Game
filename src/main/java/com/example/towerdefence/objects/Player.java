@@ -80,4 +80,23 @@ public class Player {
         return 0;
     }
 
+    /**
+     * returns cost factor of the player that is based on the difficulty of the player
+     * @return cost factor to multiply the base cost of the towers by
+     */
+    public double getCostFactor() {
+        if (difficulty == 3) {
+            return 2;
+        } else if (difficulty == 2) {
+            return 1.5;
+        } else if (difficulty == 1) {
+            return 1;
+        }
+        throw new RuntimeException("invalid difficulty value");
+    }
+
+    public int getPlayerCost(Tower tower) {
+        return (int) getCostFactor() * tower.getBasicCost();
+    }
+
 }

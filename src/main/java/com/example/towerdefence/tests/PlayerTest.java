@@ -140,4 +140,37 @@ public class PlayerTest {
     public void testGetInitialDifficulty() {
         assertEquals(player.getDifficulty(), 0);
     }
+
+    /**
+     * test if cost factor for difficulty level difficult is set as two times
+     */
+    @Test
+    public void testGetCostFactorDifficult() {
+        assertEquals(player.setDifficulty(3), 0);
+        assertEquals(player.getDifficulty(), 3);
+        //check that cost factor was correctly changed
+        assertEquals(player.getCostFactor(), 2, 0.01);
+    }
+
+    /**
+     * test if cost factor for difficulty level medium is set as two times
+     */
+    @Test
+    public void testGetCostFactorMedium() {
+        assertEquals(player.setDifficulty(2), 0);
+        assertEquals(player.getDifficulty(), 2);
+        //check that cost factor was correctly changed
+        assertEquals(player.getCostFactor(), 1.5, 0.01);
+    }
+
+    /**
+     * test if cost factor for difficulty level easy is set as two times
+     */
+    @Test
+    public void testGetCostFactorEasy() {
+        assertEquals(player.setDifficulty(1), 0);
+        assertEquals(player.getDifficulty(), 1);
+        //check that cost factor was correctly changed
+        assertEquals(player.getCostFactor(), 1, 0.01);
+    }
 }
