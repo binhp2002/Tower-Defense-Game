@@ -7,6 +7,7 @@ import javafx.fxml.*;
 import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -90,6 +91,17 @@ public class ConfigScreenController {
             //next scene is the game page, need to set the player health and money text
             ((Text) this.nextScene.lookup("#playerParameters")).setText("Money: " + player.getMoney() +
                     " Health: " + monument.getHealth());
+
+            GridPane topTowerRow = (GridPane) this.nextScene.lookup("#topTowerRow");
+
+            for (int i = 0; i < 13; i++) {
+                for (int j = 0; j < 5; j++) {
+                    Label label = new Label("Label " + i + "/" + j);
+                    GridPane.setRowIndex(label, j);
+                    GridPane.setColumnIndex(label, i);
+                    topTowerRow.getChildren().add(label);
+                }
+            }
             stage.setScene(this.nextScene);
             stage.setTitle("Tower Defense Game");
         }

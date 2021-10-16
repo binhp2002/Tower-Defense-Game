@@ -1,11 +1,9 @@
 package com.example.towerdefence.GameScreenPage;
-import com.example.towerdefence.objects.Monument;
-import com.example.towerdefence.objects.Player;
-import javafx.event.*;
-import javafx.fxml.*;
+import javafx.css.Style;
+import javafx.geometry.Bounds;
 import javafx.scene.*;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 
 public class GameScreenController {
@@ -20,4 +18,19 @@ public class GameScreenController {
         this.nextScene = scene;
     }
 
+    public void mouseEntered(MouseEvent e) {
+        GridPane node = (GridPane) e.getSource();
+        Bounds boundsInScene = node.localToScene(node.getBoundsInLocal());
+
+        double cellWidth = boundsInScene.getWidth() / node.getColumnCount();
+        double cellHeight = boundsInScene.getHeight() / node.getRowCount();
+
+        double clickX = e.getX();
+        double clickY = e.getY();
+
+        int colIndex = (int) (clickX / cellWidth);
+        int rowIndex = (int) (clickY / cellHeight);
+
+        //System.out.println(rowIndex + " " + colIndex);
+    }
 }
