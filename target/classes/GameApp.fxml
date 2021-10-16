@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,7 +34,10 @@
          </Text>
       </children>
    </HBox>
-   <VBox prefHeight="599.0" prefWidth="173.0" style="-fx-background-color: #fff000;" />
+   <VBox prefHeight="599.0" prefWidth="173.0" style="-fx-background-color: #fff000;">
+      <children>
+         <ImageView id="testImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      </children></VBox>
    <ImageView fitHeight="98.0" fitWidth="102.0" layoutX="176.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/monument.png" />
@@ -67,7 +69,7 @@
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <Label text="Label" />
+         <ImageView fitHeight="52.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
       </children>
    </GridPane>
    <GridPane gridLinesVisible="true" layoutX="276.0" layoutY="309.0" prefHeight="92.0" prefWidth="803.0">

@@ -9,10 +9,14 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
+
+import java.io.File;
 
 //import java.awt.*;
 
@@ -94,12 +98,19 @@ public class ConfigScreenController {
 
             GridPane topTowerRow = (GridPane) this.nextScene.lookup("#topTowerRow");
 
+            topTowerRow.getChildren().clear();
+            topTowerRow.setGridLinesVisible(true);
+
             for (int i = 0; i < 13; i++) {
                 for (int j = 0; j < 5; j++) {
-                    Label label = new Label("Label " + i + "/" + j);
-                    GridPane.setRowIndex(label, j);
-                    GridPane.setColumnIndex(label, i);
-                    topTowerRow.getChildren().add(label);
+                    ImageView tower = new ImageView(new File("images/monument.png").toURI().toString());
+                    tower.setFitWidth(50.0);
+                    tower.setFitHeight(50.0);
+                    //Label tower = new Label();
+                    GridPane.setRowIndex(tower, j);
+                    GridPane.setColumnIndex(tower, i);
+                    topTowerRow.getChildren().add(tower);
+                    //System.out.println(GridPane.getColumnIndex(tower));
                 }
             }
             stage.setScene(this.nextScene);
