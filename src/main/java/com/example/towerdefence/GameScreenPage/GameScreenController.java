@@ -46,7 +46,6 @@ public class GameScreenController {
         int rowIndex = (int) (clickY / cellHeight);
 
         ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
-        System.out.println(((ImageView) node.getScene().lookup("#testMonumentImage")));
         cell.setImage(new Image("file:./target/classes/images/SniperTower.png"));
         cell.setFitHeight(cellHeight);
         cell.setFitWidth(cellWidth);
