@@ -34,10 +34,7 @@
          </Text>
       </children>
    </HBox>
-   <VBox prefHeight="599.0" prefWidth="173.0" style="-fx-background-color: #fff000;">
-      <children>
-         <ImageView id="testImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      </children></VBox>
+   <VBox prefHeight="599.0" prefWidth="173.0" style="-fx-background-color: #fff000;" />
    <ImageView fitHeight="98.0" fitWidth="102.0" layoutX="176.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/monument.png" />
@@ -111,7 +108,7 @@
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
    </GridPane>
-   <GridPane gridLinesVisible="true" layoutX="276.0" layoutY="401.0" prefHeight="199.0" prefWidth="819.0">
+   <GridPane id="bottomTowerRow" gridLinesVisible="true" layoutX="276.0" layoutY="401.0" onMouseClicked="#mouseEntered" prefHeight="199.0" prefWidth="819.0">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

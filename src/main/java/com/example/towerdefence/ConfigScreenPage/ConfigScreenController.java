@@ -98,21 +98,26 @@ public class ConfigScreenController {
 
             GridPane topTowerRow = (GridPane) this.nextScene.lookup("#topTowerRow");
 
-            topTowerRow.getChildren().clear();
-            topTowerRow.setGridLinesVisible(true);
-
             for (int i = 0; i < 13; i++) {
                 for (int j = 0; j < 5; j++) {
-                    ImageView tower = new ImageView(new File("images/monument.png").toURI().toString());
-                    tower.setFitWidth(50.0);
-                    tower.setFitHeight(50.0);
-                    //Label tower = new Label();
+                    ImageView tower = new ImageView();
                     GridPane.setRowIndex(tower, j);
                     GridPane.setColumnIndex(tower, i);
                     topTowerRow.getChildren().add(tower);
-                    //System.out.println(GridPane.getColumnIndex(tower));
                 }
             }
+
+            GridPane bottomTowerRow = (GridPane) this.nextScene.lookup("#bottomTowerRow");
+
+            for (int i = 0; i < 13; i++) {
+                for (int j = 0; j < 5; j++) {
+                    ImageView tower = new ImageView();
+                    GridPane.setRowIndex(tower, j);
+                    GridPane.setColumnIndex(tower, i);
+                    bottomTowerRow.getChildren().add(tower);
+                }
+            }
+
             stage.setScene(this.nextScene);
             stage.setTitle("Tower Defense Game");
         }
