@@ -72,16 +72,18 @@ public abstract class Tower {
 
     /**
      * shoot projectile
+     * @return projectile fired, null if nothing fired
      */
-    public void shoot() {
+    public Projectile shoot() {
         //get constructure for projectile type
         Constructor<Projectile> projectileConstructor;
         try {
             projectileConstructor = projectileType.getConstructor();
             Projectile projectile = projectileConstructor.newInstance();
+            return projectile;
         } catch (Exception e) {
             //don't do anything, just continue the game
-            return;
+            return null;
         }
     }
 }
