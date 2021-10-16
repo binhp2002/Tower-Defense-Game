@@ -55,7 +55,7 @@ public class GameApplication extends Application {
         //game screen scene
         FXMLLoader gameScreenPane = new FXMLLoader(getClass().getResource("/GameApp.fxml"));
         Parent gameScreenPaneLoader = gameScreenPane.load();
-        Scene gameScreenScene = new Scene(gameScreenPaneLoader, 640, 480);
+        Scene gameScreenScene = new Scene(gameScreenPaneLoader, 1080, 720);
 
 
         //set next scenes for each scene

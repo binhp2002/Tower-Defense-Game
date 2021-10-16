@@ -87,6 +87,9 @@ public class ConfigScreenController {
             ((Text) ((Node) e.getSource()).getScene().lookup("#incompletePrompt")).setText("Please select a difficulty and name and try again");
         } else {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            //next scene is the game page, need to set the player health and money text
+            ((Text) this.nextScene.lookup("#playerParameters")).setText("Money: " + player.getMoney() +
+                    " Health: " + monument.getHealth());
             stage.setScene(this.nextScene);
             stage.setTitle("Tower Defense Game");
         }
