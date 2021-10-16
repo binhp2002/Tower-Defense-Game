@@ -17,6 +17,10 @@ public abstract class Tower {
      * @param projectileType the class of the projectile that this tower fires
      */
     public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
+        if (projectileType.isAssignableFrom(Projectile.class)) {
+            //ensure that projectileType implements Projectile interface
+            throw new RuntimeException("projectileType argument must implement Projectile");
+        }
         this.health = health;
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
@@ -25,16 +29,12 @@ public abstract class Tower {
 
     /**
      * default constructor, only need to set projectile and image path for the tower
+     * default rate of fire is 2
      * @param imagePath image of the tower
      * @param projectileType the class of the projectile that this tower fires
      */
     public Tower(Class projectileType, String imagePath) {
-        if (projectileType.isAssignableFrom(Projectile.class)) {
-            //ensure that projectileType implements Projectile interface
-            throw new RuntimeException("projectileType argument must implement Projectile");
-        }
-        this.imagePath = imagePath;
-        this.projectileType = projectileType;
+        this(100, 2, projectileType, imagePath);
     }
 
     /**
