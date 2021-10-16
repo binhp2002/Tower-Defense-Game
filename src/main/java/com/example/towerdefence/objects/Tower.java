@@ -8,6 +8,7 @@ public abstract class Tower {
     private Class projectileType;
     private int rateOfFire;
     private String imagePath;
+    private int cost;
 
     /**
      * most specific constructor, to set everything
@@ -16,7 +17,7 @@ public abstract class Tower {
      * @param imagePath image of the tower
      * @param projectileType the class of the projectile that this tower fires
      */
-    public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
+    public Tower(int health, int rateOfFire, Class projectileType, String imagePath, int cost) {
         if (projectileType.isAssignableFrom(Projectile.class)) {
             //ensure that projectileType implements Projectile interface
             throw new RuntimeException("projectileType argument must implement Projectile");
@@ -25,6 +26,7 @@ public abstract class Tower {
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
         this.imagePath = imagePath;
+        this.cost = cost;
     }
 
     /**
@@ -34,7 +36,7 @@ public abstract class Tower {
      * @param projectileType the class of the projectile that this tower fires
      */
     public Tower(Class projectileType, String imagePath) {
-        this(100, 2, projectileType, imagePath);
+        this(100, 2, projectileType, imagePath, 100);
     }
 
     /**
@@ -55,6 +57,26 @@ public abstract class Tower {
             return -1;
         }
         this.health = health;
+        return 0;
+    }
+
+    /**
+     * gets cost of tower
+     * @return cost of tower
+     */
+    public int getCost() {
+        return this.cost;
+    }
+
+    /**
+     * sets cost of tower, fails if new cost is non-positive
+     * @return 0 if cost of tower successfully changed and -1 if cost was not changed
+     */
+    public int setCost(int cost) {
+        if (cost <= 0) {
+            return -1;
+        }
+        this.cost = cost;
         return 0;
     }
 

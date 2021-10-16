@@ -17,7 +17,7 @@ public class ProjectileTest {
     }
 
     /**
-     * check that damage of normal projectile is 10
+     * check that the damage of normal projectile is 10
      */
     @Test
     public void normalProjectileDamage() {
