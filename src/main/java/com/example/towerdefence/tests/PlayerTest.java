@@ -173,4 +173,37 @@ public class PlayerTest {
         //check that cost factor was correctly changed
         assertEquals(player.getCostFactor(), 1, 0.01);
     }
+
+    /**
+     * test if getPlayerCost uses the basic cost of the tower as the cost for the player
+     */
+    @Test
+    public void testGetPlayerCostEasy() {
+        Tower basicTower = new BasicTower();
+        assertEquals(player.setDifficulty(1), 0);
+        assertEquals(player.getDifficulty(), 1);
+        //check cost factor correctly applied
+        assertEquals(player.getPlayerCost(basicTower), basicTower.getBasicCost());
+    }
+
+    /**
+     * test if getPlayerCost uses the basic cost of tower * 1.5 as the cost for the player
+     */
+    @Test
+    public void testGetPlayerCostMedium() {
+        Tower basicTower = new BasicTower();
+        assertEquals(player.setDifficulty(2), 0);
+        assertEquals(player.getDifficulty(), 2);
+        //check cost factor correctly applied
+        assertEquals(player.getPlayerCost(basicTower), (int) (basicTower.getBasicCost() * 1.5));
+    }
+
+    @Test
+    public void testGetPlayerCostHard() {
+        Tower sniperTower = new SniperTower();
+        assertEquals(player.setDifficulty(3), 0);
+        assertEquals(player.getDifficulty(), 3);
+        //check cost factor corretly applied
+        assertEquals(player.getPlayerCost(sniperTower), (int) (sniperTower.getBasicCost() * 2));
+    }
 }

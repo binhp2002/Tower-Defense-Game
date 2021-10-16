@@ -96,7 +96,7 @@ public class Player {
     }
 
     public int getPlayerCost(Tower tower) {
-        return (int) getCostFactor() * tower.getBasicCost();
+        return (int) (getCostFactor() * tower.getBasicCost());
     }
 
 }
