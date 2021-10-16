@@ -8,7 +8,8 @@ public abstract class Tower {
     private Class projectileType;
     private int rateOfFire;
     private String imagePath;
-    private int cost;
+    public static String description;
+    public static String name;
 
     /**
      * most specific constructor, to set everything
@@ -17,7 +18,7 @@ public abstract class Tower {
      * @param imagePath image of the tower
      * @param projectileType the class of the projectile that this tower fires
      */
-    public Tower(int health, int rateOfFire, Class projectileType, String imagePath, int cost) {
+    public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
         if (projectileType.isAssignableFrom(Projectile.class)) {
             //ensure that projectileType implements Projectile interface
             throw new RuntimeException("projectileType argument must implement Projectile");
@@ -26,18 +27,27 @@ public abstract class Tower {
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
         this.imagePath = imagePath;
-        this.cost = cost;
     }
 
     /**
-     * default constructor, only need to set projectile and image path for the tower
-     * default rate of fire is 2
-     * @param imagePath image of the tower
-     * @param projectileType the class of the projectile that this tower fires
+     * returns the basic cost of the tower, which should be implemented as a static final variable in the
+     * subclasses of Tower
+     * @return returns basic cost of the tower
      */
-    public Tower(Class projectileType, String imagePath) {
-        this(100, 2, projectileType, imagePath, 100);
-    }
+    public abstract int getBasicCost();
+
+    /**
+     * returns the name of the tower, which should be implemented as a static final variable in the subclasses
+     * of Tower
+     * @return returns the name of the tower
+     */
+    public abstract String getName();
+
+    /**
+     * returns the description of the tower
+     * @return returns the tower description
+     */
+    public abstract String getDescription();
 
     /**
      * gets health of tower
@@ -61,26 +71,6 @@ public abstract class Tower {
     }
 
     /**
-     * gets cost of tower
-     * @return cost of tower
-     */
-    public int getCost() {
-        return this.cost;
-    }
-
-    /**
-     * sets cost of tower, fails if new cost is non-positive
-     * @return 0 if cost of tower successfully changed and -1 if cost was not changed
-     */
-    public int setCost(int cost) {
-        if (cost <= 0) {
-            return -1;
-        }
-        this.cost = cost;
-        return 0;
-    }
-
-    /**
      * shoot projectile
      */
     public void shoot() {
@@ -89,7 +79,7 @@ public abstract class Tower {
         try {
             projectileConstructor = projectileType.getConstructor();
             Projectile projectile = projectileConstructor.newInstance();
-        } catch (Exception nsme) {
+        } catch (Exception e) {
             //don't do anything, just continue the game
             return;
         }
