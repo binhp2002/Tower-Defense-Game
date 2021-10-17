@@ -9,18 +9,15 @@ public class BasicTower extends Tower {
         super(100, 1, NormalProjectile.class, "");
     }
 
-    @Override
-    public int getBasicCost() {
+    public static int getBasicCost() {
         return BasicTower.BASIC_COST;
     }
 
-    @Override
-    public String getName() {
+    public static String getName() {
         return BasicTower.NAME;
     }
 
-    @Override
-    public String getDescription() {
+    public static String getDescription() {
         return BasicTower.DESCRIPTION;
     }
 }

@@ -13,18 +13,15 @@ public class MachineTower extends Tower{
         super(100, 5, SmallProjectile.class, "");
     }
 
-    @Override
-    public int getBasicCost() {
+    public static int getBasicCost() {
         return MachineTower.BASIC_COST;
     }
 
-    @Override
-    public String getName() {
+    public static String getName() {
         return MachineTower.NAME;
     }
 
-    @Override
-    public String getDescription() {
+    public static String getDescription() {
         return MachineTower.DESCRIPTION;
     }
 }

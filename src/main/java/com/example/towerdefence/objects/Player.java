@@ -120,4 +120,17 @@ public class Player {
         return (int) (getCostFactor() * tower.getBasicCost());
     }
 
+    public int getPlayerCost(Class towerClass) {
+        if (!Tower.class.isAssignableFrom(towerClass)) {
+            //if the class is not a subclass of Tower
+            return -1;
+        }
+        try {
+            return (int) (getCostFactor() * (int) towerClass.getMethod("getBasicCost").invoke(null));
+        } catch (Exception e) {
+            System.out.println(e);
+            return -2;
+        }
+    }
+
 }

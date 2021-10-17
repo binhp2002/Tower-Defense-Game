@@ -13,16 +13,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 
+import java.lang.reflect.*;
+
 //import java.awt.*;
 
 public class ConfigScreenController {
     Scene nextScene;
-    private static Player player;
+    private Player player;
     private Monument monument;
-    private static BasicTower basicTower;
-    private static SniperTower sniperTower;
-    private static MachineTower machineTower;
-
 
     Text namePrompt;
     Text difficultyPrompt;
@@ -32,12 +30,6 @@ public class ConfigScreenController {
 
     String input = "None";
     int difficultySelection = 0;
-
-    public ConfigScreenController() {
-        this.basicTower = new BasicTower();
-        this.sniperTower = new SniperTower();
-        this.machineTower = new MachineTower();
-    }
 
     public void setNextScene(Scene scene) {
         this.nextScene = scene;
@@ -51,20 +43,12 @@ public class ConfigScreenController {
         this.monument = monument;
     }
 
-    public static Player getPlayer() {
-        return player;
+    public Player getPlayer() {
+        return this.player;
     }
 
-    public static BasicTower getBasicTower() {
-        return basicTower;
-    }
-
-    public static SniperTower getSniperTower() {
-        return sniperTower;
-    }
-
-    public static MachineTower getMachineTower() {
-        return machineTower;
+    public Monument getMonument() {
+        return this.monument;
     }
 
 
@@ -110,24 +94,28 @@ public class ConfigScreenController {
     public void startGameButton(ActionEvent e) {
         if (player.getName() == null || player.getMoney() == 0) {
             //some of the player settings not selected
-            ((Text) ((Node) e.getSource()).getScene().lookup("#incompletePrompt")).setText("Please select a difficulty and name and try again");
+            ((Text) ((Node) e.getSource()).getScene().lookup("#incompletePrompt")).setText("Please select a " +
+                    "difficulty and name and try again");
         } else {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             //next scene is the game page, need to set the player health and money text
             ((Text) this.nextScene.lookup("#playerParameters")).setText("Money: " + player.getMoney() +
                     " Health: " + monument.getHealth());
 
-            ((Text) this.nextScene.lookup("#BasicTowerName")).setText(basicTower.getName());
-            ((Text) this.nextScene.lookup("#SniperTowerName")).setText(sniperTower.getName());
-            ((Text) this.nextScene.lookup("#MachineTowerName")).setText(machineTower.getName());
+            ((Text) this.nextScene.lookup("#BasicTowerName")).setText(BasicTower.NAME);
+            ((Text) this.nextScene.lookup("#SniperTowerName")).setText(SniperTower.NAME);
+            ((Text) this.nextScene.lookup("#MachineTowerName")).setText(MachineTower.NAME);
 
-            ((TextArea) this.nextScene.lookup("#BasicTowerCost")).setText("Cost: " + player.getPlayerCost(basicTower));
-            ((TextArea) this.nextScene.lookup("#SniperTowerCost")).setText("Cost: " + player.getPlayerCost(sniperTower));
-            ((TextArea) this.nextScene.lookup("#MachineTowerCost")).setText("Cost: " + player.getPlayerCost(machineTower));
+            ((TextArea) this.nextScene.lookup("#BasicTowerCost")).setText("Cost: " +
+                    player.getPlayerCost(BasicTower.class));
+            ((TextArea) this.nextScene.lookup("#SniperTowerCost")).setText("Cost: " +
+                    player.getPlayerCost(SniperTower.class));
+            ((TextArea) this.nextScene.lookup("#MachineTowerCost")).setText("Cost: " +
+                    player.getPlayerCost(MachineTower.class));
 
-            ((TextArea) this.nextScene.lookup("#BasicTowerDescription")).setText(basicTower.getDescription());
-            ((TextArea) this.nextScene.lookup("#SniperTowerDescription")).setText(sniperTower.getDescription());
-            ((TextArea) this.nextScene.lookup("#MachineTowerDescription")).setText(machineTower.getDescription());
+            ((TextArea) this.nextScene.lookup("#BasicTowerDescription")).setText(BasicTower.DESCRIPTION);
+            ((TextArea) this.nextScene.lookup("#SniperTowerDescription")).setText(SniperTower.DESCRIPTION);
+            ((TextArea) this.nextScene.lookup("#MachineTowerDescription")).setText(MachineTower.DESCRIPTION);
 
             stage.setScene(this.nextScene);
             stage.setTitle("Tower Defense Game");

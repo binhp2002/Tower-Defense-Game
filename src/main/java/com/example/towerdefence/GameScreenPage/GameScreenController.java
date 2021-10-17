@@ -11,45 +11,52 @@ import javafx.stage.Stage;
 public class GameScreenController {
 
     private Player player;
-    private BasicTower basicTower;
-    private SniperTower sniperTower;
-    private MachineTower machineTower;
+    private Monument monument;
 
     private Scene nextScene;
+
     public Scene getNextScene() {
         return this.nextScene;
     }
+
     public void setNextScene(Scene scene) {
         this.nextScene = scene;
     }
 
-    public GameScreenController() {
-        this.player = ConfigScreenController.getPlayer();
-        this.basicTower = ConfigScreenController.getBasicTower();
-        this.sniperTower = ConfigScreenController.getSniperTower();
-        this.machineTower = ConfigScreenController.getMachineTower();
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public void setMonument(Monument monument) {
+        this.monument = monument;
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 
     @FXML
     public void BasicTowerPurchaseButton(ActionEvent e) {
-        if (player.getMoney() >= player.getPlayerCost(basicTower)) {
+        if (player.getMoney() >= player.getPlayerCost(BasicTower.class)) {
             player.setCurrSelected(BasicTower.class);
+            player.setMoney(player.getMoney() - player.getPlayerCost(BasicTower.class));
         }
     }
 
     @FXML
     public void SniperTowerPurchaseButton(ActionEvent e) {
-        if (player.getMoney() >= player.getPlayerCost(sniperTower)) {
+        if (player.getMoney() >= player.getPlayerCost(SniperTower.class)) {
             player.setCurrSelected(SniperTower.class);
+            player.setMoney(player.getMoney() - player.getPlayerCost(SniperTower.class));
         }
     }
 
     @FXML
     public void MachineTowerPurchaseButton(ActionEvent e) {
-        if (player.getMoney() >= player.getPlayerCost(machineTower)) {
+        if (player.getMoney() >= player.getPlayerCost(MachineTower.class)) {
             player.setCurrSelected(MachineTower.class);
+            player.setMoney(player.getMoney() - player.getPlayerCost(MachineTower.class));
+            System.out.println(player.getMoney());
         }
     }
-
-
 }

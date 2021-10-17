@@ -34,20 +34,26 @@ public abstract class Tower {
      * subclasses of Tower
      * @return returns basic cost of the tower
      */
-    public abstract int getBasicCost();
+    public static int getBasicCost() {
+        return -1;
+    }
 
     /**
      * returns the name of the tower, which should be implemented as a static final variable in the subclasses
      * of Tower
      * @return returns the name of the tower
      */
-    public abstract String getName();
+    public static String getName() {
+        return null;
+    }
 
     /**
      * returns the description of the tower
      * @return returns the tower description
      */
-    public abstract String getDescription();
+    public static String getDescription() {
+        return null;
+    };
 
     /**
      * gets health of tower

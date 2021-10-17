@@ -9,18 +9,15 @@ public class SniperTower extends Tower {
         super(100, 2, SniperProjectile.class, "");
     }
 
-    @Override
-    public int getBasicCost() {
+    public static int getBasicCost() {
         return SniperTower.BASIC_COST;
     }
 
-    @Override
-    public String getName() {
+    public static  String getName() {
         return SniperTower.NAME;
     }
 
-    @Override
-    public String getDescription() {
+    public static String getDescription() {
         return SniperTower.DESCRIPTION;
     }
 }
