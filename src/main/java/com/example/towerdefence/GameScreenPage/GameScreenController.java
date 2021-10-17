@@ -3,9 +3,20 @@ import com.example.towerdefence.ConfigScreenPage.ConfigScreenController;
 import com.example.towerdefence.objects.*;
 import javafx.event.*;
 import javafx.fxml.*;
+import javafx.css.Style;
+import javafx.geometry.Bounds;
 import javafx.scene.*;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Objects;
 
 
 public class GameScreenController {
@@ -58,5 +69,48 @@ public class GameScreenController {
             player.setMoney(player.getMoney() - player.getPlayerCost(MachineTower.class));
             System.out.println(player.getMoney());
         }
+    }
+
+    @FXML
+    public void mouseEntered(MouseEvent e) {
+
+        if (this.player.getCurrSelected() != null) {
+            //if there is a tower selected by the player
+            GridPane node = (GridPane) e.getSource();
+            Bounds boundsInScene = node.localToScene(node.getBoundsInLocal());
+
+            double cellWidth = boundsInScene.getWidth() / node.getColumnCount();
+            double cellHeight = boundsInScene.getHeight() / node.getRowCount();
+
+            double clickX = e.getX();
+            double clickY = e.getY();
+
+            int colIndex = (int) (clickX / cellWidth);
+            int rowIndex = (int) (clickY / cellHeight);
+
+            ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
+            try {
+                cell.setImage(new Image((String) this.player.getCurrSelected().
+                        getMethod("getImagePath").invoke(null)));
+            } catch (Exception exception) {
+                throw new RuntimeException("No image path method found for tower");
+            }
+            cell.setFitHeight(cellHeight);
+            cell.setFitWidth(cellWidth);
+            //reset the tower selected
+            this.player.setCurrSelected(null);
+        }
+        //do nothing if no tower is currently selected by player
+
+    }
+
+    Node getNodeByCoordinate(Integer row, Integer column, GridPane gridPane) {
+        for (Node node : gridPane.getChildren()) {
+            if (node != null && GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node).equals(row) &&
+                    GridPane.getColumnIndex(node).equals(column)){
+                return node;
+            }
+        }
+        return null;
     }
 }

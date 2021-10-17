@@ -5,15 +5,16 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.geometry.Insets;
 import javafx.scene.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
 
 import java.lang.reflect.*;
+import java.io.File;
 
 //import java.awt.*;
 
@@ -116,6 +117,29 @@ public class ConfigScreenController {
             ((TextArea) this.nextScene.lookup("#BasicTowerDescription")).setText(BasicTower.DESCRIPTION);
             ((TextArea) this.nextScene.lookup("#SniperTowerDescription")).setText(SniperTower.DESCRIPTION);
             ((TextArea) this.nextScene.lookup("#MachineTowerDescription")).setText(MachineTower.DESCRIPTION);
+
+
+            GridPane topTowerRow = (GridPane) this.nextScene.lookup("#topTowerRow");
+
+            for (int i = 0; i < topTowerRow.getColumnCount(); i++) {
+                for (int j = 0; j < topTowerRow.getRowCount(); j++) {
+                    ImageView tower = new ImageView();
+                    GridPane.setRowIndex(tower, j);
+                    GridPane.setColumnIndex(tower, i);
+                    topTowerRow.getChildren().add(tower);
+                }
+            }
+
+            GridPane bottomTowerRow = (GridPane) this.nextScene.lookup("#bottomTowerRow");
+
+            for (int i = 0; i < bottomTowerRow.getColumnCount(); i++) {
+                for (int j = 0; j < bottomTowerRow.getRowCount(); j++) {
+                    ImageView tower = new ImageView();
+                    GridPane.setRowIndex(tower, j);
+                    GridPane.setColumnIndex(tower, i);
+                    bottomTowerRow.getChildren().add(tower);
+                }
+            }
 
             stage.setScene(this.nextScene);
             stage.setTitle("Tower Defense Game");
