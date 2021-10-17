@@ -65,7 +65,7 @@
                  </rowConstraints>
                   <children>
                      <Text id="BasicTowerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="88.27001571655273" />
-                     <Button id="BasicTowerPurchase" mnemonicParsing="false" prefHeight="41.0" prefWidth="83.0" text="Purchase" GridPane.rowIndex="2">
+                     <Button id="BasicTowerPurchaseButton" mnemonicParsing="false" prefHeight="41.0" prefWidth="83.0" text="Purchase" GridPane.rowIndex="2">
                         <font>
                            <Font size="14.0" />
                         </font>
@@ -100,7 +100,7 @@
                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                     <Button id="SniperTowerPurchase" mnemonicParsing="false" prefHeight="41.0" prefWidth="83.0" text="Purchase" GridPane.rowIndex="2">
+                     <Button id="SniperTowerPurchaseButton" mnemonicParsing="false" prefHeight="41.0" prefWidth="83.0" text="Purchase" GridPane.rowIndex="2">
                         <font>
                            <Font size="14.0" />
                         </font>
@@ -136,7 +136,7 @@
                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                     <Button id="MachineTowerPurchase" mnemonicParsing="false" prefHeight="41.0" prefWidth="83.0" text="Purchase" GridPane.rowIndex="2">
+                     <Button id="MachineTowerPurchaseButton" mnemonicParsing="false" prefHeight="41.0" prefWidth="83.0" text="Purchase" GridPane.rowIndex="2">
                         <font>
                            <Font size="14.0" />
                         </font>

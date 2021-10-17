@@ -8,6 +8,9 @@ public class Player {
 
     private int difficulty;
 
+    //returns the class of the currently selected tower
+    private Class currSelected;
+
     /**
      * initializes Player object which has 0 money and null name
      */
@@ -93,6 +96,24 @@ public class Player {
             return 1;
         }
         throw new RuntimeException("invalid difficulty value");
+    }
+
+    public Class getCurrSelected(){
+        return this.currSelected;
+    }
+
+    /**
+     * check if towerClass is null or an actual tower, null is to reset the value to nothing
+     * @param towerClass towerClass that is currently selected by player
+     * @return 0 if tower class is successfully set, -1 if tower class is not successfully set
+     */
+    public int setCurrSelected(Class towerClass) {
+        if (towerClass != null && !Tower.class.isAssignableFrom(towerClass)) {
+            //this is not a tower class
+            return -1;
+        }
+        this.currSelected = towerClass;
+        return 0;
     }
 
     public int getPlayerCost(Tower tower) {

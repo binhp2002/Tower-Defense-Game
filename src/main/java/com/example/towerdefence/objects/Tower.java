@@ -19,8 +19,8 @@ public abstract class Tower {
      * @param projectileType the class of the projectile that this tower fires
      */
     public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
-        if (projectileType.isAssignableFrom(Projectile.class)) {
-            //ensure that projectileType implements Projectile interface
+        if (!Projectile.class.isAssignableFrom(projectileType)) {
+            //ensure that projectileType implements Projectile interface, can assign projectileType to Projectile
             throw new RuntimeException("projectileType argument must implement Projectile");
         }
         this.health = health;

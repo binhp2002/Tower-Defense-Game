@@ -206,4 +206,17 @@ public class PlayerTest {
         //check cost factor corretly applied
         assertEquals(player.getPlayerCost(sniperTower), (int) (sniperTower.getBasicCost() * 2));
     }
+
+    @Test
+    public void testSetCurrSelectedNull() {
+        //change from the default null value
+        assertEquals(player.setCurrSelected(BasicTower.class), 0);
+        //check changed
+        assertEquals(player.getCurrSelected(), BasicTower.class);
+        //change to null and check if changed to nukk
+        assertEquals(player.setCurrSelected(null), 0);
+        assertEquals(player.getCurrSelected(), null);
+    }
+
+
 }

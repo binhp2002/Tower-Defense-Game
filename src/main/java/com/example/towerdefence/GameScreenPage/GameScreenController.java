@@ -31,27 +31,24 @@ public class GameScreenController {
     }
 
     @FXML
-    public BasicTower BasicTowerPurchaseButton(ActionEvent e) {
+    public void BasicTowerPurchaseButton(ActionEvent e) {
         if (player.getMoney() >= player.getPlayerCost(basicTower)) {
-            return basicTower;
+            player.setCurrSelected(BasicTower.class);
         }
-        return null;
     }
 
     @FXML
-    public SniperTower SniperTowerPurchaseButton(ActionEvent e) {
+    public void SniperTowerPurchaseButton(ActionEvent e) {
         if (player.getMoney() >= player.getPlayerCost(sniperTower)) {
-            return sniperTower;
+            player.setCurrSelected(SniperTower.class);
         }
-        return null;
     }
 
     @FXML
-    public MachineTower MachineTowerPurchaseButton(ActionEvent e) {
+    public void MachineTowerPurchaseButton(ActionEvent e) {
         if (player.getMoney() >= player.getPlayerCost(machineTower)) {
-            return machineTower;
+            player.setCurrSelected(MachineTower.class);
         }
-        return null;
     }
 
 
