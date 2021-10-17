@@ -54,7 +54,8 @@ public class GameScreenController {
         if (player.getMoney() >= player.getPlayerCost(BasicTower.class)) {
             player.setCurrSelected(BasicTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(BasicTower.class));
-            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters")).setText("Money: " + player.getMoney() +
+            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters"))
+                    .setText("Money: " + player.getMoney() +
                     " Health: " + monument.getHealth());
         }
     }
@@ -64,8 +65,8 @@ public class GameScreenController {
         if (player.getMoney() >= player.getPlayerCost(SniperTower.class)) {
             player.setCurrSelected(SniperTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(SniperTower.class));
-            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters")).setText("Money: " + player.getMoney() +
-                    " Health: " + monument.getHealth());
+            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters"))
+                    .setText("Money: " + player.getMoney() + " Health: " + monument.getHealth());
         }
     }
 
@@ -74,8 +75,8 @@ public class GameScreenController {
         if (player.getMoney() >= player.getPlayerCost(MachineTower.class)) {
             player.setCurrSelected(MachineTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(MachineTower.class));
-            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters")).setText("Money: " + player.getMoney() +
-                    " Health: " + monument.getHealth());
+            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters"))
+                    .setText("Money: " + player.getMoney() + " Health: " + monument.getHealth());
         }
     }
 
@@ -98,8 +99,8 @@ public class GameScreenController {
 
             ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
             try {
-                cell.setImage(new Image((String) this.player.getCurrSelected().
-                        getMethod("getImagePath").invoke(null)));
+                cell.setImage(new Image((String) this.player.getCurrSelected()
+                        .getMethod("getImagePath").invoke(null)));
             } catch (Exception exception) {
                 throw new RuntimeException("No image path method found for tower");
             }
