@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 
 import java.io.File;
@@ -46,11 +47,15 @@ public class GameScreenController {
         return this.player;
     }
 
+    //Adding Images to GameScreen
+
     @FXML
     public void BasicTowerPurchaseButton(ActionEvent e) {
         if (player.getMoney() >= player.getPlayerCost(BasicTower.class)) {
             player.setCurrSelected(BasicTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(BasicTower.class));
+            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters")).setText("Money: " + player.getMoney() +
+                    " Health: " + monument.getHealth());
         }
     }
 
@@ -59,6 +64,8 @@ public class GameScreenController {
         if (player.getMoney() >= player.getPlayerCost(SniperTower.class)) {
             player.setCurrSelected(SniperTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(SniperTower.class));
+            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters")).setText("Money: " + player.getMoney() +
+                    " Health: " + monument.getHealth());
         }
     }
 
@@ -67,7 +74,8 @@ public class GameScreenController {
         if (player.getMoney() >= player.getPlayerCost(MachineTower.class)) {
             player.setCurrSelected(MachineTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(MachineTower.class));
-            System.out.println(player.getMoney());
+            ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters")).setText("Money: " + player.getMoney() +
+                    " Health: " + monument.getHealth());
         }
     }
 
