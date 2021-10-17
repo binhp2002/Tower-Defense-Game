@@ -1,9 +1,9 @@
 package com.example.towerdefence.objects;
 
 public class MachineTower extends Tower{
-    public static final String DESCRIPTION = "";
+    public static final String DESCRIPTION = "Attacks enemies with rapid fire machine gun";
     public static final String NAME = "Machine Tower";
-    public static final int BASIC_COST = 100;
+    public static final int BASIC_COST = 300;
 
     /**
      * machine tower fires SmallProjectiles more rapidly than basic tower

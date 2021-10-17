@@ -13,4 +13,5 @@ module com.example.towerdefence {
     exports com.example.towerdefence.tests;
     exports com.example.towerdefence.StartUpPage;
     exports com.example.towerdefence.ConfigScreenPage;
+    exports com.example.towerdefence.GameScreenPage;
 }

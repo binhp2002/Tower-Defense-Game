@@ -1,12 +1,12 @@
 package com.example.towerdefence.ConfigScreenPage;
-import com.example.towerdefence.objects.Monument;
-import com.example.towerdefence.objects.Player;
+import com.example.towerdefence.objects.*;
 import javafx.application.Application;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -17,8 +17,11 @@ import org.controlsfx.control.action.Action;
 
 public class ConfigScreenController {
     Scene nextScene;
-    private Player player;
+    private static Player player;
     private Monument monument;
+    private static BasicTower basicTower;
+    private static SniperTower sniperTower;
+    private static MachineTower machineTower;
 
 
     Text namePrompt;
@@ -29,6 +32,12 @@ public class ConfigScreenController {
 
     String input = "None";
     int difficultySelection = 0;
+
+    public ConfigScreenController() {
+        this.basicTower = new BasicTower();
+        this.sniperTower = new SniperTower();
+        this.machineTower = new MachineTower();
+    }
 
     public void setNextScene(Scene scene) {
         this.nextScene = scene;
@@ -41,6 +50,23 @@ public class ConfigScreenController {
     public void setMonument(Monument monument) {
         this.monument = monument;
     }
+
+    public static Player getPlayer() {
+        return player;
+    }
+
+    public static BasicTower getBasicTower() {
+        return basicTower;
+    }
+
+    public static SniperTower getSniperTower() {
+        return sniperTower;
+    }
+
+    public static MachineTower getMachineTower() {
+        return machineTower;
+    }
+
 
     @FXML
     public void enterButton(ActionEvent e) {
@@ -90,8 +116,22 @@ public class ConfigScreenController {
             //next scene is the game page, need to set the player health and money text
             ((Text) this.nextScene.lookup("#playerParameters")).setText("Money: " + player.getMoney() +
                     " Health: " + monument.getHealth());
+
+            ((Text) this.nextScene.lookup("#BasicTowerName")).setText(basicTower.getName());
+            ((Text) this.nextScene.lookup("#SniperTowerName")).setText(sniperTower.getName());
+            ((Text) this.nextScene.lookup("#MachineTowerName")).setText(machineTower.getName());
+
+            ((TextArea) this.nextScene.lookup("#BasicTowerCost")).setText("Cost: " + player.getPlayerCost(basicTower));
+            ((TextArea) this.nextScene.lookup("#SniperTowerCost")).setText("Cost: " + player.getPlayerCost(sniperTower));
+            ((TextArea) this.nextScene.lookup("#MachineTowerCost")).setText("Cost: " + player.getPlayerCost(machineTower));
+
+            ((TextArea) this.nextScene.lookup("#BasicTowerDescription")).setText(basicTower.getDescription());
+            ((TextArea) this.nextScene.lookup("#SniperTowerDescription")).setText(sniperTower.getDescription());
+            ((TextArea) this.nextScene.lookup("#MachineTowerDescription")).setText(machineTower.getDescription());
+
             stage.setScene(this.nextScene);
             stage.setTitle("Tower Defense Game");
+
         }
     }
 }

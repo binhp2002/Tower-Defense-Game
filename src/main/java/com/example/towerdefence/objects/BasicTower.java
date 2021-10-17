@@ -1,7 +1,7 @@
 package com.example.towerdefence.objects;
 
 public class BasicTower extends Tower {
-    public static final String DESCRIPTION = "";
+    public static final String DESCRIPTION = "Attacks enemies with a stream of bullets";
     public static final String NAME = "Basic Tower";
     public static final int BASIC_COST = 100;
 

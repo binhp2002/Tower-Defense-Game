@@ -1,12 +1,12 @@
 package com.example.towerdefence.objects;
 
 public class SniperTower extends Tower {
-    public static final String DESCRIPTION = "";
+    public static final String DESCRIPTION = "Attacks enemies with streams of explosive sniper bullets";
     public static final String NAME = "Sniper Tower";
-    public static final int BASIC_COST = 100;
+    public static final int BASIC_COST = 200;
 
     public SniperTower() {
-        super(100, 1, SniperProjectile.class, "");
+        super(100, 2, SniperProjectile.class, "");
     }
 
     @Override
