@@ -1,4 +1,5 @@
 import com.example.towerdefence.GameApplication;
+import com.example.towerdefence.objects.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.Test;
@@ -11,12 +12,15 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class GameTest extends ApplicationTest {
     private Stage stage;
+    GameApplication main;
+    Player player;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GameApplication main = new GameApplication();
-        main.start(primaryStage);
+        main = new GameApplication();
+        this.main.start(primaryStage);
+        this.player = main.getPlayer();
         stage = primaryStage;
     }
 
@@ -118,5 +122,32 @@ public class GameTest extends ApplicationTest {
         assertEquals(stage.getTitle(), "Tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 100")
                 && t.getText().contains("Health: 50"));
+    }
+
+    @Test
+    public void testBuyTower() {
+        //navigate to medium difficulty start game page
+        clickOn("#startGameButton");
+        //check if on Game Configuration Page
+        assertEquals(stage.getTitle(), "Game Configuration");
+        //select easy difficulty
+        clickOn("#medium");
+        //enter name
+        clickOn("#entry").write("test");
+        clickOn("#enter");
+        clickOn("#startGame");
+        assertEquals(stage.getTitle(), "Tower Defense Game");
+        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
+                && t.getText().contains("Health: 100"));
+
+        clickOn("#SniperTowerPurchaseButton");
+
+        int correctPlayerMoneyLeft = (int) (500 - 1.5 * SniperTower.BASIC_COST);
+
+        assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
+
+        //after implemented check on changing the title money
+//        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: " + correctPlayerMoneyLeft)
+//                && t.getText().contains("Health: 100"));
     }
 }

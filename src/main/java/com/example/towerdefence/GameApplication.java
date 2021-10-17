@@ -65,6 +65,13 @@ public class GameApplication extends Application {
     }
 
     /**
+     * returns player object for inspection
+     */
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    /**
      * Main method. Runs at launch
      * @param args Standard parameter
      */
