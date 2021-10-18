@@ -8,6 +8,9 @@ public class Player {
 
     private int difficulty;
 
+    //returns the class of the currently selected tower
+    private Class currSelected;
+
     /**
      * initializes Player object which has 0 money and null name
      */
@@ -78,6 +81,62 @@ public class Player {
     public int setDifficulty(int difficulty) {
         this.difficulty = difficulty;
         return 0;
+    }
+
+    /**
+     * returns cost factor of the player that is based on the difficulty of the player
+     * @return cost factor to multiply the base cost of the towers by
+     */
+    public double getCostFactor() {
+        if (difficulty == 3) {
+            return 2;
+        } else if (difficulty == 2) {
+            return 1.5;
+        } else if (difficulty == 1) {
+            return 1;
+        }
+        throw new RuntimeException("invalid difficulty value");
+    }
+
+    /**
+     * return the currently selected and paid for tower that is associated with the player
+     * @return currently selected tower
+     */
+    public Class getCurrSelected() {
+        return this.currSelected;
+    }
+
+    /**
+     * check if towerClass is null or an actual tower, null is to reset the value to nothing
+     * @param towerClass towerClass that is currently selected by player
+     * @return 0 if tower class is successfully set, -1 if tower class is not successfully set
+     */
+    public int setCurrSelected(Class towerClass) {
+        if (towerClass != null && !Tower.class.isAssignableFrom(towerClass)) {
+            //this is not a tower class
+            return -1;
+        }
+        this.currSelected = towerClass;
+        return 0;
+    }
+
+    public int getPlayerCost(Tower tower) {
+        return (int) (getCostFactor() * tower.getBasicCost());
+    }
+
+    public int getPlayerCost(Class towerClass) {
+        if (!Tower.class.isAssignableFrom(towerClass)) {
+            //if the class is not a subclass of Tower
+            return -1;
+        }
+        try {
+            //need to create instance to use the instance method, cannot get the static attribute
+            //directly from Class
+            return (int) (this.getCostFactor() * (int) towerClass.getMethod("getBasicCost")
+                    .invoke(towerClass.getDeclaredConstructor().newInstance()));
+        } catch (Exception e) {
+            throw new RuntimeException("getPlayerCost cannot getBasicCost method from tower class");
+        }
     }
 
 }

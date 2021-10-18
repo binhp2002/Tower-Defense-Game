@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class ProjectileTest {
 
@@ -17,7 +16,7 @@ public class ProjectileTest {
     }
 
     /**
-     * check that damage of normal projectile is 10
+     * check that the damage of normal projectile is 10
      */
     @Test
     public void normalProjectileDamage() {

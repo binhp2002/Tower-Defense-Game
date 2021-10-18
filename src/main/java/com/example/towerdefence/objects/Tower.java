@@ -17,6 +17,11 @@ public abstract class Tower {
      * @param projectileType the class of the projectile that this tower fires
      */
     public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
+        if (!Projectile.class.isAssignableFrom(projectileType)) {
+            //ensure that projectileType implements Projectile interface,
+            //can assign projectileType to Projectile
+            throw new RuntimeException("projectileType argument must implement Projectile");
+        }
         this.health = health;
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
@@ -24,18 +29,30 @@ public abstract class Tower {
     }
 
     /**
-     * default constructor, only need to set projectile and image path for the tower
-     * @param imagePath image of the tower
-     * @param projectileType the class of the projectile that this tower fires
+     * returns the basic cost of the tower, which should be implemented as a
+     * static final variable in the subclasses of Tower
+     * @return returns basic cost of the tower
      */
-    public Tower(Class projectileType, String imagePath) {
-        if (projectileType.isAssignableFrom(Projectile.class)) {
-            //ensure that projectileType implements Projectile interface
-            throw new RuntimeException("projectileType argument must implement Projectile");
-        }
-        this.imagePath = imagePath;
-        this.projectileType = projectileType;
-    }
+    public abstract int getBasicCost();
+
+    /**
+     * returns the name of the tower, which should be implemented as a static
+     * final variable in the subclasses of Tower
+     * @return returns the name of the tower
+     */
+    public abstract String getName();
+
+    /**
+     * returns the description of the tower
+     * @return returns the tower description
+     */
+    public abstract String getDescription();
+
+    /**
+     * returns the image path of the tower
+     * @return returns the tower image path
+     */
+    public abstract String getImagePath();
 
     /**
      * gets health of tower
@@ -60,16 +77,18 @@ public abstract class Tower {
 
     /**
      * shoot projectile
+     * @return projectile fired, null if nothing fired
      */
-    public void shoot() {
+    public Projectile shoot() {
         //get constructure for projectile type
         Constructor<Projectile> projectileConstructor;
         try {
             projectileConstructor = projectileType.getConstructor();
             Projectile projectile = projectileConstructor.newInstance();
-        } catch (Exception nsme) {
+            return projectile;
+        } catch (Exception e) {
             //don't do anything, just continue the game
-            return;
+            return null;
         }
     }
 }

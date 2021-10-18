@@ -1,29 +1,14 @@
 package com.example.towerdefence;
 import com.example.towerdefence.ConfigScreenPage.ConfigScreenController;
+import com.example.towerdefence.GameScreenPage.*;
 import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import com.example.towerdefence.StartUpPage.StartUpPageController;
 import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.*;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import javafx.scene.layout.GridPane;
-import javafx.scene.control.TextField;
-import javafx.geometry.Insets;
-import javafx.scene.layout.BorderPane;
 
 public class GameApplication extends Application {
 
@@ -46,7 +31,8 @@ public class GameApplication extends Application {
         Scene startUpScene = new Scene(startUpPaneLoader, 640, 480);
 
         //config screen scene
-        FXMLLoader configScreenPane = new FXMLLoader(getClass().getResource("/ConfigScreenPage.fxml"));
+        FXMLLoader configScreenPane = new FXMLLoader(getClass()
+                .getResource("/ConfigScreenPage.fxml"));
         Parent configScreenPaneLoader = configScreenPane.load();
         //BorderPane pane = new BorderPane();
         //pane.setCenter(addGridPane());
@@ -55,7 +41,7 @@ public class GameApplication extends Application {
         //game screen scene
         FXMLLoader gameScreenPane = new FXMLLoader(getClass().getResource("/GameApp.fxml"));
         Parent gameScreenPaneLoader = gameScreenPane.load();
-        Scene gameScreenScene = new Scene(gameScreenPaneLoader, 1080, 720);
+        Scene gameScreenScene = new Scene(gameScreenPaneLoader, 1100, 600);
 
 
         //set next scenes for each scene
@@ -68,11 +54,23 @@ public class GameApplication extends Application {
         configScreenController.setPlayer(player);
         configScreenController.setMonument(monument);
 
+        GameScreenController gameScreenController = gameScreenPane.getController();
+        gameScreenController.setPlayer(player);
+        gameScreenController.setMonument(monument);
+
         stage.setTitle("Tower Defense Game");
         stage.setScene(startUpScene);
         stage.requestFocus();
         stage.show();
 
+    }
+
+    /**
+     * returns player object for inspection
+     * @return game player object
+     */
+    public Player getPlayer() {
+        return this.player;
     }
 
     /**
