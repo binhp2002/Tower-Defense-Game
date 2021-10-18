@@ -4,6 +4,7 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.matcher.base.NodeMatchers;
 
 import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -75,4 +76,49 @@ public class GameTest extends ApplicationTest {
         assertNull(this.player.getCurrSelected());
     }
 
+    @Test
+    public void playerParameterExist() {
+        //check if the title is correct
+        assertEquals(stage.getTitle(), "Tower Defense Game");
+        //check if the player parameter bar exist
+        verifyThat("#playerParameters", NodeMatchers.isVisible());
+    }
+
+    @Test
+    public void playerParameterContains() {
+        //check if the player parameter contains money and health
+        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
+                && t.getText().contains("Health: 100"));
+    }
+
+    @Test
+    public void buyTowerButton() {
+        //check if the tower purchase buttons are available
+        verifyThat("#SniperTowerPurchaseButton", NodeMatchers.isVisible());
+        verifyThat("#BasicTowerPurchaseButton", NodeMatchers.isVisible());
+        verifyThat("#MachineTowerPurchaseButton", NodeMatchers.isVisible());
+    }
+
+    @Test
+    public void playerParameterHealth() {
+        //check if the player parameter initial health value is correct for medium
+        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Health: 100"));
+    }
+
+    @Test
+    public void playerParameterMoney() {
+        //check if the player parameter initial money value is correct for medium
+        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500"));
+    }
+
+    @Test
+    public void leftOverMoney() {
+        //attempt to buy basic tower
+        clickOn("#BasicTowerPurchaseButton");
+
+        int correctPlayerMoneyLeft = (int) (500 - 1.5 * BasicTower.BASIC_COST);
+
+        //verify that the correct leftover money was shown to the user after purchase a tower
+        assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
+    }
 }
