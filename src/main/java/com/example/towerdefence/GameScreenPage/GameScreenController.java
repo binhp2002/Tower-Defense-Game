@@ -89,8 +89,8 @@ public class GameScreenController {
 
             ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
             try {
-                cell.setImage(new Image((String) this.player.getCurrSelected()
-                        .getMethod("getImagePath").invoke(null)));
+                cell.setImage(new Image(((Tower) this.player.getCurrSelected().getConstructor()
+                        .newInstance()).getImagePath()));
             } catch (Exception exception) {
                 throw new RuntimeException("No image path method found for tower");
             }
