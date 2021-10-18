@@ -209,11 +209,11 @@ public class PlayerTest {
 
     @Test
     public void testGetPlayerCostHardTowerClass() {
-        Tower sniperTower = new SniperTower();
         assertEquals(player.setDifficulty(3), 0);
         assertEquals(player.getDifficulty(), 3);
         //check cost factor corretly applied
-        assertEquals(player.getPlayerCost(SniperTower.class), (int) (sniperTower.getBasicCost() * 2));
+        assertEquals(player.getPlayerCost(SniperTower.class),
+                (int) (SniperTower.BASIC_COST * 2));
     }
 
     @Test

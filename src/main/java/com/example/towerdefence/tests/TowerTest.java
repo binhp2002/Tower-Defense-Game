@@ -6,9 +6,9 @@ import static org.junit.Assert.*;
 
 public class TowerTest {
 
-    SniperTower sniperTower;
-    BasicTower basicTower;
-    MachineTower machineTower;
+    private SniperTower sniperTower;
+    private BasicTower basicTower;
+    private MachineTower machineTower;
 
     @Before
     public void setUp() {
@@ -32,7 +32,7 @@ public class TowerTest {
     @Test
     public void testSniperGetName() {
         //check that SniperTower has correct name
-        assertEquals( "Sniper Tower", sniperTower.getName());
+        assertEquals("Sniper Tower", sniperTower.getName());
     }
 
     /**
@@ -101,7 +101,8 @@ public class TowerTest {
      */
     @Test
     public void testSetNormalHealth() {
-        //set to a random health and just make sure that default health is not equal to the random health
+        //set to a random health and just make sure that default health is not
+        // equal to the random health
         assertNotEquals(34, basicTower.getHealth());
         //check if error code 0
         assertEquals(0, basicTower.setHealth(34));

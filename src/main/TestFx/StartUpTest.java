@@ -12,8 +12,8 @@ import static org.testfx.api.FxAssert.verifyThat;
 public class StartUpTest extends ApplicationTest {
 
     private Stage stage;
-    GameApplication main;
-    Player player;
+    private GameApplication main;
+    private Player player;
 
 
     @Override

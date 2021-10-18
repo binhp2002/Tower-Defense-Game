@@ -1,6 +1,6 @@
 package com.example.towerdefence.objects;
 
-public class MachineTower extends Tower{
+public class MachineTower extends Tower {
     public static final String DESCRIPTION = "Attacks enemies with rapid fire machine gun";
     public static final String NAME = "Machine Tower";
     public static final int BASIC_COST = 300;
@@ -14,19 +14,19 @@ public class MachineTower extends Tower{
         super(100, 5, SmallProjectile.class, "");
     }
 
-    public static int getBasicCost() {
+    public int getBasicCost() {
         return MachineTower.BASIC_COST;
     }
 
-    public static String getName() {
+    public String getName() {
         return MachineTower.NAME;
     }
 
-    public static String getDescription() {
+    public String getDescription() {
         return MachineTower.DESCRIPTION;
     }
 
-    public static String getImagePath() {
+    public String getImagePath() {
         return MachineTower.IMAGE_PATH;
     }
 }

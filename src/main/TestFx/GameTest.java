@@ -4,7 +4,6 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.matcher.base.NodeMatchers;
 
 import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -12,8 +11,8 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class GameTest extends ApplicationTest {
     private Stage stage;
-    GameApplication main;
-    Player player;
+    private GameApplication main;
+    private Player player;
 
 
     @Override
@@ -53,7 +52,8 @@ public class GameTest extends ApplicationTest {
 
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
 
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: " + correctPlayerMoneyLeft)
+        verifyThat("#playerParameters", (Text t) ->
+                t.getText().contains("Money: " + correctPlayerMoneyLeft)
                 && t.getText().contains("Health: 100"));
     }
 
@@ -67,8 +67,8 @@ public class GameTest extends ApplicationTest {
 
         int correctPlayerMoneyLeft = this.player.getMoney();
 
-        //check that money is left unchanged, cannot check the UI because we manually changed the player's money
-        //so not action event triggered to update money
+        //check that money is left unchanged, cannot check the UI because we manually
+        // changed the player's money so not action event triggered to update money
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
 
         //no tower should be selected

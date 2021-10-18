@@ -1,9 +1,7 @@
 package com.example.towerdefence.GameScreenPage;
-import com.example.towerdefence.ConfigScreenPage.ConfigScreenController;
 import com.example.towerdefence.objects.*;
 import javafx.event.*;
 import javafx.fxml.*;
-import javafx.css.Style;
 import javafx.geometry.Bounds;
 import javafx.scene.*;
 import javafx.scene.image.Image;
@@ -11,13 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Objects;
 
 
 public class GameScreenController {
@@ -50,18 +41,17 @@ public class GameScreenController {
     //Adding Images to GameScreen
 
     @FXML
-    public void BasicTowerPurchaseButton(ActionEvent e) {
+    public void basicTowerPurchaseButton(ActionEvent e) {
         if (player.getMoney() >= player.getPlayerCost(BasicTower.class)) {
             player.setCurrSelected(BasicTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(BasicTower.class));
             ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters"))
-                    .setText("Money: " + player.getMoney() +
-                    " Health: " + monument.getHealth());
+                    .setText("Money: " + player.getMoney() + " Health: " + monument.getHealth());
         }
     }
 
     @FXML
-    public void SniperTowerPurchaseButton(ActionEvent e) {
+    public void sniperTowerPurchaseButton(ActionEvent e) {
         if (player.getMoney() >= player.getPlayerCost(SniperTower.class)) {
             player.setCurrSelected(SniperTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(SniperTower.class));
@@ -71,7 +61,7 @@ public class GameScreenController {
     }
 
     @FXML
-    public void MachineTowerPurchaseButton(ActionEvent e) {
+    public void machineTowerPurchaseButton(ActionEvent e) {
         if (player.getMoney() >= player.getPlayerCost(MachineTower.class)) {
             player.setCurrSelected(MachineTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(MachineTower.class));
@@ -115,8 +105,9 @@ public class GameScreenController {
 
     Node getNodeByCoordinate(Integer row, Integer column, GridPane gridPane) {
         for (Node node : gridPane.getChildren()) {
-            if (node != null && GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node).equals(row) &&
-                    GridPane.getColumnIndex(node).equals(column)){
+            if (node != null && GridPane.getRowIndex(node) != null
+                    && GridPane.getRowIndex(node).equals(row)
+                    && GridPane.getColumnIndex(node).equals(column)) {
                 return node;
             }
         }

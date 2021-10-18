@@ -31,7 +31,8 @@ public class GameApplication extends Application {
         Scene startUpScene = new Scene(startUpPaneLoader, 640, 480);
 
         //config screen scene
-        FXMLLoader configScreenPane = new FXMLLoader(getClass().getResource("/ConfigScreenPage.fxml"));
+        FXMLLoader configScreenPane = new FXMLLoader(getClass()
+                .getResource("/ConfigScreenPage.fxml"));
         Parent configScreenPaneLoader = configScreenPane.load();
         //BorderPane pane = new BorderPane();
         //pane.setCenter(addGridPane());
@@ -66,6 +67,7 @@ public class GameApplication extends Application {
 
     /**
      * returns player object for inspection
+     * @return game player object
      */
     public Player getPlayer() {
         return this.player;

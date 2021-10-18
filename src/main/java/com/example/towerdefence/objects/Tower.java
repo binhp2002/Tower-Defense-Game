@@ -8,8 +8,6 @@ public abstract class Tower {
     private Class projectileType;
     private int rateOfFire;
     private String imagePath;
-    public static String description;
-    public static String name;
 
     /**
      * most specific constructor, to set everything
@@ -20,7 +18,8 @@ public abstract class Tower {
      */
     public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
         if (!Projectile.class.isAssignableFrom(projectileType)) {
-            //ensure that projectileType implements Projectile interface, can assign projectileType to Projectile
+            //ensure that projectileType implements Projectile interface,
+            //can assign projectileType to Projectile
             throw new RuntimeException("projectileType argument must implement Projectile");
         }
         this.health = health;
@@ -30,30 +29,30 @@ public abstract class Tower {
     }
 
     /**
-     * returns the basic cost of the tower, which should be implemented as a static final variable in the
-     * subclasses of Tower
+     * returns the basic cost of the tower, which should be implemented as a
+     * static final variable in the subclasses of Tower
      * @return returns basic cost of the tower
      */
-    public static int getBasicCost() {
-        return -1;
-    }
+    public abstract int getBasicCost();
 
     /**
-     * returns the name of the tower, which should be implemented as a static final variable in the subclasses
-     * of Tower
+     * returns the name of the tower, which should be implemented as a static
+     * final variable in the subclasses of Tower
      * @return returns the name of the tower
      */
-    public static String getName() {
-        return null;
-    }
+    public abstract String getName();
 
     /**
      * returns the description of the tower
      * @return returns the tower description
      */
-    public static String getDescription() {
-        return null;
-    };
+    public abstract String getDescription();
+
+    /**
+     * returns the image path of the tower
+     * @return returns the tower image path
+     */
+    public abstract String getImagePath();
 
     /**
      * gets health of tower

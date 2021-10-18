@@ -98,7 +98,11 @@ public class Player {
         throw new RuntimeException("invalid difficulty value");
     }
 
-    public Class getCurrSelected(){
+    /**
+     * return the currently selected and paid for tower that is associated with the player
+     * @return currently selected tower
+     */
+    public Class getCurrSelected() {
         return this.currSelected;
     }
 
@@ -126,10 +130,12 @@ public class Player {
             return -1;
         }
         try {
-            return (int) (getCostFactor() * (int) towerClass.getMethod("getBasicCost").invoke(null));
+            //need to create instance to use the instance method, cannot get the static attribute
+            //directly from Class
+            return (int) (this.getCostFactor() * (int) towerClass.getMethod("getBasicCost")
+                    .invoke(towerClass.getDeclaredConstructor().newInstance()));
         } catch (Exception e) {
-            System.out.println(e);
-            return -2;
+            throw new RuntimeException("getPlayerCost cannot getBasicCost method from tower class");
         }
     }
 

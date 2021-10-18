@@ -1,6 +1,6 @@
 package com.example.towerdefence.objects;
 
-public class SniperProjectile extends Projectile{
+public class SniperProjectile extends Projectile {
 
     /**
      * constructor for NormalProjectile which has damage 10, speed 1 and "" as imagePath

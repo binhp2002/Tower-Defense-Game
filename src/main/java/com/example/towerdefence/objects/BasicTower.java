@@ -10,19 +10,19 @@ public class BasicTower extends Tower {
         super(100, 1, NormalProjectile.class, "");
     }
 
-    public static int getBasicCost() {
+    public int getBasicCost() {
         return BasicTower.BASIC_COST;
     }
 
-    public static String getName() {
+    public String getName() {
         return BasicTower.NAME;
     }
 
-    public static String getDescription() {
+    public String getDescription() {
         return BasicTower.DESCRIPTION;
     }
 
-    public static String getImagePath() {
+    public String getImagePath() {
         return BasicTower.IMAGE_PATH;
     }
 }
