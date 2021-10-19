@@ -53,6 +53,7 @@ public class GameTest extends ApplicationTest {
 
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
 
+        //check that player parameters were changed appropriately on the screen
         verifyThat("#playerParameters", (Text t) ->
                 t.getText().contains("Money: " + correctPlayerMoneyLeft)
                 && t.getText().contains("Health: 100"));
@@ -85,30 +86,11 @@ public class GameTest extends ApplicationTest {
     }
 
     @Test
-    public void playerParameterContains() {
-        //check if the player parameter contains money and health
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
-                && t.getText().contains("Health: 100"));
-    }
-
-    @Test
     public void buyTowerButton() {
         //check if the tower purchase buttons are available
         verifyThat("#SniperTowerPurchaseButton", NodeMatchers.isVisible());
         verifyThat("#BasicTowerPurchaseButton", NodeMatchers.isVisible());
         verifyThat("#MachineTowerPurchaseButton", NodeMatchers.isVisible());
-    }
-
-    @Test
-    public void playerParameterHealth() {
-        //check if the player parameter initial health value is correct for medium
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Health: 100"));
-    }
-
-    @Test
-    public void playerParameterMoney() {
-        //check if the player parameter initial money value is correct for medium
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500"));
     }
 
     @Test
