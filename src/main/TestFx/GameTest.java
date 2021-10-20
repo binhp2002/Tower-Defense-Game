@@ -77,48 +77,56 @@ public class GameTest extends ApplicationTest {
     }
 
     @Test
-    public void playerParameterExist() {
-        //check if the title is correct
-        assertEquals(stage.getTitle(), "Tower Defense Game");
-        //check if the player parameter bar exist
-        verifyThat("#playerParameters", NodeMatchers.isVisible());
-    }
-
-    @Test
-    public void playerParameterContains() {
-        //check if the player parameter contains money and health
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
-                && t.getText().contains("Health: 100"));
-    }
-
-    @Test
-    public void buyTowerButton() {
-        //check if the tower purchase buttons are available
-        verifyThat("#SniperTowerPurchaseButton", NodeMatchers.isVisible());
-        verifyThat("#BasicTowerPurchaseButton", NodeMatchers.isVisible());
-        verifyThat("#MachineTowerPurchaseButton", NodeMatchers.isVisible());
-    }
-
-    @Test
-    public void playerParameterHealth() {
-        //check if the player parameter initial health value is correct for medium
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Health: 100"));
-    }
-
-    @Test
-    public void playerParameterMoney() {
-        //check if the player parameter initial money value is correct for medium
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500"));
-    }
-
-    @Test
-    public void leftOverMoney() {
+    public void leftOverMoneyBasic() {
         //attempt to buy basic tower
         clickOn("#BasicTowerPurchaseButton");
 
         int correctPlayerMoneyLeft = (int) (500 - 1.5 * BasicTower.BASIC_COST);
 
-        //verify that the correct leftover money was shown to the user after purchase a tower
+        //verify that the correct leftover money was shown to the user after purchase a basic tower
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
+    }
+
+    @Test
+    public void leftOverMoneySniper() {
+        //attempt to buy sniper tower
+        clickOn("#SniperTowerPurchaseButton");
+
+        int correctPlayerMoneyLeft = (int) (500 - 1.5 * SniperTower.BASIC_COST);
+
+        //verify that the correct leftover money was shown to the user after purchase a sniper tower
+        assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
+    }
+
+    @Test
+    public void leftOverMoneyMachine() {
+        //attempt to buy machine tower
+        clickOn("#MachineTowerPurchaseButton");
+
+        int correctPlayerMoneyLeft = (int) (500 - 1.5 * MachineTower.BASIC_COST);
+
+        //verify that the correct leftover money was shown to the user after purchase a machine tower
+        assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
+    }
+
+    @Test
+    public void placeTowerTopRow() {
+        clickOn("#BasicTowerPurchaseButton");
+        clickOn(point(1200, 300));
+        assertNull(this.player.getCurrSelected());
+    }
+
+    @Test
+    public void placeTowerPath() {
+        clickOn("#BasicTowerPurchaseButton");
+        clickOn(point(1200, 500));
+        assertNotNull(this.player.getCurrSelected());
+    }
+
+    @Test
+    public void placeTowerBottomRow() {
+        clickOn("#BasicTowerPurchaseButton");
+        clickOn(point(1200, 730));
+        assertNull(this.player.getCurrSelected());
     }
 }
