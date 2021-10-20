@@ -53,6 +53,7 @@ public class GameTest extends ApplicationTest {
 
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
 
+        //check that player parameters were changed appropriately on the screen
         verifyThat("#playerParameters", (Text t) ->
                 t.getText().contains("Money: " + correctPlayerMoneyLeft)
                 && t.getText().contains("Health: 100"));

@@ -227,5 +227,21 @@ public class PlayerTest {
         assertEquals(player.getCurrSelected(), null);
     }
 
+    @Test
+    public void testSetCurrSelectedNonTower() {
+        //verify that -1 error code returns if setting curr selected to non-tower class
+        assertEquals(player.setCurrSelected(Object.class), -1);
+        //check that curr selected was not changed
+        assertNull(player.getCurrSelected());
+    }
+
+    @Test
+    public void testSetCurrSelectedTower() {
+        //verify that 0 error code returned
+        assertEquals(player.setCurrSelected(SniperTower.class), 0);
+        //ensure that curr selected for player is SniperTower
+        assertEquals(player.getCurrSelected(), SniperTower.class);
+    }
+
 
 }
