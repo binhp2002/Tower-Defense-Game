@@ -1,5 +1,6 @@
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
@@ -52,6 +53,7 @@ public class GameTest extends ApplicationTest {
 
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
 
+        //check that player parameters were changed appropriately on the screen
         verifyThat("#playerParameters", (Text t) ->
                 t.getText().contains("Money: " + correctPlayerMoneyLeft)
                 && t.getText().contains("Health: 100"));
@@ -75,4 +77,64 @@ public class GameTest extends ApplicationTest {
         assertNull(this.player.getCurrSelected());
     }
 
+    @Test
+    public void leftOverMoneyBasic() {
+        //attempt to buy basic tower
+        clickOn("#BasicTowerPurchaseButton");
+
+        int correctPlayerMoneyLeft = (int) (500 - 1.5 * BasicTower.BASIC_COST);
+
+        //verify that the correct leftover money was shown to the user after purchase a basic tower
+        assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
+    }
+
+    @Test
+    public void leftOverMoneySniper() {
+        //attempt to buy sniper tower
+        clickOn("#SniperTowerPurchaseButton");
+
+        int correctPlayerMoneyLeft = (int) (500 - 1.5 * SniperTower.BASIC_COST);
+
+        //verify that the correct leftover money was shown to the user after purchase a sniper tower
+        assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
+    }
+
+    @Test
+    public void leftOverMoneyMachine() {
+        //attempt to buy machine tower
+        clickOn("#MachineTowerPurchaseButton");
+
+        int correctPlayerMoneyLeft = (int) (500 - 1.5 * MachineTower.BASIC_COST);
+
+        //verify that the correct leftover money was shown to the user after
+        // purchase a machine tower
+        assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
+    }
+
+    @Test
+    public void placeTowerTopRow() {
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane topTowerRow = (GridPane) stage.getScene().lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+                stage.getY() + topTowerRow.getLayoutY() + 10));
+        assertNull(this.player.getCurrSelected());
+    }
+
+    @Test
+    public void placeTowerPath() {
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane path = (GridPane) stage.getScene().lookup("#gamePath");
+        clickOn(point(stage.getX() + path.getLayoutX() + 10,
+                stage.getY() + path.getLayoutY() + 10));
+        assertNotNull(this.player.getCurrSelected());
+    }
+
+    @Test
+    public void placeTowerBottomRow() {
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane bottomTowerRow = (GridPane) stage.getScene().lookup("#bottomTowerRow");
+        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
+                stage.getY() + bottomTowerRow.getLayoutY() + 10));
+        assertNull(this.player.getCurrSelected());
+    }
 }
