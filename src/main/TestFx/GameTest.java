@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.matcher.base.NodeMatchers;
 
 import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -107,7 +106,8 @@ public class GameTest extends ApplicationTest {
 
         int correctPlayerMoneyLeft = (int) (500 - 1.5 * MachineTower.BASIC_COST);
 
-        //verify that the correct leftover money was shown to the user after purchase a machine tower
+        //verify that the correct leftover money was shown to the user after
+        // purchase a machine tower
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
     }
 
@@ -115,7 +115,8 @@ public class GameTest extends ApplicationTest {
     public void placeTowerTopRow() {
         clickOn("#BasicTowerPurchaseButton");
         GridPane topTowerRow = (GridPane) stage.getScene().lookup("#topTowerRow");
-        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10, stage.getY() + topTowerRow.getLayoutY() + 10));
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+                stage.getY() + topTowerRow.getLayoutY() + 10));
         assertNull(this.player.getCurrSelected());
     }
 
@@ -123,7 +124,8 @@ public class GameTest extends ApplicationTest {
     public void placeTowerPath() {
         clickOn("#BasicTowerPurchaseButton");
         GridPane path = (GridPane) stage.getScene().lookup("#gamePath");
-        clickOn(point(stage.getX() + path.getLayoutX() + 10, stage.getY() + path.getLayoutY() + 10));
+        clickOn(point(stage.getX() + path.getLayoutX() + 10,
+                stage.getY() + path.getLayoutY() + 10));
         assertNotNull(this.player.getCurrSelected());
     }
 
