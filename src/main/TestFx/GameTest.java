@@ -1,5 +1,6 @@
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
@@ -113,21 +114,25 @@ public class GameTest extends ApplicationTest {
     @Test
     public void placeTowerTopRow() {
         clickOn("#BasicTowerPurchaseButton");
-        clickOn(point(1200, 300));
+        GridPane topTowerRow = (GridPane) stage.getScene().lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10, stage.getY() + topTowerRow.getLayoutY() + 10));
         assertNull(this.player.getCurrSelected());
     }
 
     @Test
     public void placeTowerPath() {
         clickOn("#BasicTowerPurchaseButton");
-        clickOn(point(1200, 500));
+        GridPane path = (GridPane) stage.getScene().lookup("#gamePath");
+        clickOn(point(stage.getX() + path.getLayoutX() + 10, stage.getY() + path.getLayoutY() + 10));
         assertNotNull(this.player.getCurrSelected());
     }
 
     @Test
     public void placeTowerBottomRow() {
         clickOn("#BasicTowerPurchaseButton");
-        clickOn(point(1200, 730));
+        GridPane bottomTowerRow = (GridPane) stage.getScene().lookup("#bottomTowerRow");
+        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
+                stage.getY() + bottomTowerRow.getLayoutY() + 10));
         assertNull(this.player.getCurrSelected());
     }
 }
