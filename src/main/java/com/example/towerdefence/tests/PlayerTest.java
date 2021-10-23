@@ -225,7 +225,7 @@ public class PlayerTest {
         assertEquals(player.getCurrSelected(), BasicTower.class);
         //change to null and check if changed to nukk
         assertEquals(player.setCurrSelected(null), 0);
-        assertEquals(player.getCurrSelected(), null);
+        assertEquals(player.getCurrSelected(), null );
     }
 
     @Test
