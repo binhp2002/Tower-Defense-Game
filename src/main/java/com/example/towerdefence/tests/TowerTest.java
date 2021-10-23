@@ -3,6 +3,8 @@ package com.example.towerdefence.tests;
 import com.example.towerdefence.objects.projectile.*;
 import com.example.towerdefence.objects.tower.*;
 import org.junit.*;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 
 public class TowerTest {
@@ -42,7 +44,7 @@ public class TowerTest {
     @Test
     public void testSniperGetBasicCost() {
         //ensure that no error when getting basic cost
-        sniperTower.getBasicCost();
+        assertThat(sniperTower.getBasicCost(), instanceOf(Integer.class)) ;
     }
 
     /**
@@ -68,7 +70,7 @@ public class TowerTest {
     @Test
     public void testBasicGetBasicCost() {
         //ensure that no error when getting basic cost
-        basicTower.getBasicCost();
+        assertThat(basicTower.getBasicCost(), instanceOf(Integer.class));
     }
 
     /**
@@ -94,7 +96,7 @@ public class TowerTest {
     @Test
     public void testMachineGetBasicCost() {
         //ensure that no error when getting basic cost
-        machineTower.getBasicCost();
+        assertThat(machineTower.getBasicCost(), instanceOf(Integer.class));
     }
 
     /**
