@@ -1,11 +1,14 @@
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.tower.*;
+import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
 
@@ -122,5 +125,18 @@ public class StartUpTest extends ApplicationTest {
         assertEquals(stage.getTitle(), "tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 100")
                 && t.getText().contains("Health: 50"));
+    }
+
+    /**
+     * to test that images on the game screen can be appropriately loaded into the Image class
+     */
+    @Test
+    public void testImagesLoading() {
+        //testing basic tower image path
+        assertThat(new Image((new BasicTower()).getImagePath()), instanceOf(Image.class));
+        //testing sniper tower image path
+        assertThat(new Image((new SniperTower()).getImagePath()), instanceOf(Image.class));
+        //testing machine tower image path
+        assertThat(new Image((new MachineTower()).getImagePath()), instanceOf(Image.class));
     }
 }

@@ -2,6 +2,7 @@ package com.example.towerdefence.tests;
 
 import com.example.towerdefence.objects.projectile.*;
 import com.example.towerdefence.objects.tower.*;
+import javafx.scene.image.*;
 import org.junit.*;
 
 import java.io.*;
@@ -137,13 +138,6 @@ public class TowerTest {
         assertEquals(-1, basicTower.setHealth(-1));
         //check health not changed
         assertEquals(defaultHealth, basicTower.getHealth());
-    }
-
-    @Test
-    public void testGetImagePathBasic() {
-        File image = new File(basicTower.getImagePath());
-        System.out.println(basicTower.getImagePath());
-        assertTrue(image.exists());
     }
 
 }

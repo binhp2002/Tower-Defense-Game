@@ -93,6 +93,7 @@ public class GameScreenController {
                 cell.setImage(new Image(((Tower) this.player.getCurrSelected().getConstructor()
                         .newInstance()).getImagePath()));
             } catch (Exception exception) {
+                System.out.println(exception);
                 throw new RuntimeException("No image path method found for tower");
             }
             cell.setFitHeight(cellHeight);
