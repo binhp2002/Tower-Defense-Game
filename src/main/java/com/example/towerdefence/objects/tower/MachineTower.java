@@ -13,7 +13,7 @@ public class MachineTower extends Tower {
      */
     public MachineTower() {
 
-        super(100, 5, SmallProjectile.class, "");
+        super(100, 5, SmallProjectile.class);
     }
 
     public int getBasicCost() {

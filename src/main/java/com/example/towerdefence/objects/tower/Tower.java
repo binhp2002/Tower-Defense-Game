@@ -8,16 +8,14 @@ public abstract class Tower {
     private int health;
     private Class projectileType;
     private int rateOfFire;
-    private String imagePath;
 
     /**
      * most specific constructor, to set everything
      * @param health starting health of the tower
      * @param rateOfFire rate of fire of the tower
-     * @param imagePath image of the tower
      * @param projectileType the class of the projectile that this tower fires
      */
-    public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
+    public Tower(int health, int rateOfFire, Class projectileType) {
         if (!Projectile.class.isAssignableFrom(projectileType)) {
             //ensure that projectileType implements projectile interface,
             //can assign projectileType to projectile
@@ -26,7 +24,6 @@ public abstract class Tower {
         this.health = health;
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
-        this.imagePath = imagePath;
     }
 
     /**

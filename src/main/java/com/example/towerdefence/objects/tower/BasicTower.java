@@ -9,7 +9,7 @@ public class BasicTower extends Tower {
     public static final String IMAGE_PATH = "file:./target/classes/images/BasicTower.png";
 
     public BasicTower() {
-        super(100, 1, NormalProjectile.class, "");
+        super(100, 1, NormalProjectile.class);
     }
 
     public int getBasicCost() {

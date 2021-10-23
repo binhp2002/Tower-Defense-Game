@@ -10,7 +10,7 @@ public class SniperTower extends Tower {
     public static final String IMAGE_PATH = "file:./target/classes/images/SniperTower.png";
 
     public SniperTower() {
-        super(100, 2, SniperProjectile.class, "");
+        super(100, 2, SniperProjectile.class);
     }
 
     public int getBasicCost() {
