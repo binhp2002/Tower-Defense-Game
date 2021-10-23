@@ -7,6 +7,7 @@ module com.example.towerdefence {
     requires org.kordamp.bootstrapfx.core;
     requires junit;
     requires java.datatransfer;
+    requires hamcrest.core;
 
     exports com.example.towerdefence;
     exports com.example.towerdefence.objects;
