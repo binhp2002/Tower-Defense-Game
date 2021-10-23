@@ -1,16 +1,20 @@
 package com.example.towerdefence.objects.enemy;
 
-public class Enemy {
+public abstract class Enemy {
     private int health;
     private int damage;
 
+    private int[] location;
+
     /**
-     * initializes default enemy with damage 10 and health of 100
+     * initialize enemy with the health and damage provided, sets default location to [0, 0]
      */
-    public Enemy() {
-        this.health = 100;
-        this.damage = 1;
+    public Enemy(int health, int damage) {
+        this.health = health;
+        this.damage = damage;
+        this.location = new int[]{0, 0};
     }
+
 
     /**
      * returns health of the enemy
@@ -55,5 +59,32 @@ public class Enemy {
         this.damage = damage;
         return 0;
     }
+
+    /**
+     * returns the location of the enemy
+     * @return location of the enemy
+     */
+    public int[] getLocation() {
+        return this.location;
+    }
+
+    /**
+     * sets the location of the enemy
+     * @return 0 if location of enemy successfully changed, -1 otherwise
+     */
+    public int setLocation(int[] location) {
+        if (location.length != 2) {
+            //check tha the length of the location array is 2
+            return -1;
+        }
+        this.location = location;
+        return 0;
+    }
+
+    /**
+     * returns the image path of the enemy
+     * @return image path of the enemy
+     */
+    public abstract String getImagePath();
 
 }
