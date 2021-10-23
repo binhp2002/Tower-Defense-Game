@@ -7,7 +7,7 @@ public class SniperTower extends Tower {
             "Attacks enemies with streams of explosive sniper bullets";
     public static final String NAME = "Sniper tower";
     public static final int BASIC_COST = 200;
-    public static final String IMAGE_PATH = "file:./target/classes/images/SniperTower.png";
+    public static final String IMAGE_PATH = "file:./src/main/resources/images/SniperTower.png";
 
     public SniperTower() {
         super(100, 2, SniperProjectile.class);
