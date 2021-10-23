@@ -1,8 +1,10 @@
-package com.example.towerdefence.objects;
+package com.example.towerdefence.objects.tower;
+
+import com.example.towerdefence.objects.projectile.*;
 
 public class BasicTower extends Tower {
     public static final String DESCRIPTION = "Attacks enemies with a stream of bullets";
-    public static final String NAME = "Basic Tower";
+    public static final String NAME = "Basic tower";
     public static final int BASIC_COST = 100;
     public static final String IMAGE_PATH = "file:./target/classes/images/BasicTower.png";
 

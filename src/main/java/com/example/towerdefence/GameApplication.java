@@ -58,7 +58,7 @@ public class GameApplication extends Application {
         gameScreenController.setPlayer(player);
         gameScreenController.setMonument(monument);
 
-        stage.setTitle("Tower Defense Game");
+        stage.setTitle("tower Defense Game");
         stage.setScene(startUpScene);
         stage.requestFocus();
         stage.show();

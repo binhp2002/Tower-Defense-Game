@@ -1,5 +1,7 @@
 package com.example.towerdefence.objects;
 
+import com.example.towerdefence.objects.tower.*;
+
 public class Player {
 
     private String name;
@@ -126,7 +128,7 @@ public class Player {
 
     public int getPlayerCost(Class towerClass) {
         if (!Tower.class.isAssignableFrom(towerClass)) {
-            //if the class is not a subclass of Tower
+            //if the class is not a subclass of tower
             return -1;
         }
         try {

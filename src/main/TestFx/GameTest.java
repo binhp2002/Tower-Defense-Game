@@ -1,5 +1,6 @@
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.tower.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
@@ -42,7 +43,7 @@ public class GameTest extends ApplicationTest {
         clickOn("#entry").write("test");
         clickOn("#enter");
         clickOn("#startGame");
-        assertEquals(stage.getTitle(), "Tower Defense Game");
+        assertEquals(stage.getTitle(), "tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
                 && t.getText().contains("Health: 100"));
     }

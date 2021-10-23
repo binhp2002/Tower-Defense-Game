@@ -1,6 +1,7 @@
-package com.example.towerdefence.objects;
+package com.example.towerdefence.objects.tower;
 
-import java.io.*;
+import com.example.towerdefence.objects.projectile.*;
+
 import java.lang.reflect.Constructor;
 
 public abstract class Tower {
@@ -18,9 +19,9 @@ public abstract class Tower {
      */
     public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
         if (!Projectile.class.isAssignableFrom(projectileType)) {
-            //ensure that projectileType implements Projectile interface,
-            //can assign projectileType to Projectile
-            throw new RuntimeException("projectileType argument must implement Projectile");
+            //ensure that projectileType implements projectile interface,
+            //can assign projectileType to projectile
+            throw new RuntimeException("projectileType argument must implement projectile");
         }
         this.health = health;
         this.projectileType = projectileType;
@@ -30,14 +31,14 @@ public abstract class Tower {
 
     /**
      * returns the basic cost of the tower, which should be implemented as a
-     * static final variable in the subclasses of Tower
+     * static final variable in the subclasses of tower
      * @return returns basic cost of the tower
      */
     public abstract int getBasicCost();
 
     /**
      * returns the name of the tower, which should be implemented as a static
-     * final variable in the subclasses of Tower
+     * final variable in the subclasses of tower
      * @return returns the name of the tower
      */
     public abstract String getName();

@@ -1,8 +1,10 @@
-package com.example.towerdefence.objects;
+package com.example.towerdefence.objects.tower;
+
+import com.example.towerdefence.objects.projectile.*;
 
 public class MachineTower extends Tower {
     public static final String DESCRIPTION = "Attacks enemies with rapid fire machine gun";
-    public static final String NAME = "Machine Tower";
+    public static final String NAME = "Machine tower";
     public static final int BASIC_COST = 300;
     public static final String IMAGE_PATH = "file:./target/classes/images/MachineTower.png";
 

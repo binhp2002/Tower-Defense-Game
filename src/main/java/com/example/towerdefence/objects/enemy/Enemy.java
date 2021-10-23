@@ -1,4 +1,4 @@
-package com.example.towerdefence.objects;
+package com.example.towerdefence.objects.enemy;
 
 public class Enemy {
     private int health;

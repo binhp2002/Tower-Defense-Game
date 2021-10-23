@@ -30,7 +30,7 @@ public class StartUpTest extends ApplicationTest {
     @Test
     public void testLandingPage() {
         //check if the title is correct
-        assertEquals(stage.getTitle(), "Tower Defense Game");
+        assertEquals(stage.getTitle(), "tower Defense Game");
         verifyThat("#startGameButton", NodeMatchers.isVisible());
     }
 
@@ -81,7 +81,7 @@ public class StartUpTest extends ApplicationTest {
         clickOn("#entry").write("test");
         clickOn("#enter");
         clickOn("#startGame");
-        assertEquals(stage.getTitle(), "Tower Defense Game");
+        assertEquals(stage.getTitle(), "tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 1000")
                 && t.getText().contains("Health: 150"));
     }
@@ -100,7 +100,7 @@ public class StartUpTest extends ApplicationTest {
         clickOn("#entry").write("test");
         clickOn("#enter");
         clickOn("#startGame");
-        assertEquals(stage.getTitle(), "Tower Defense Game");
+        assertEquals(stage.getTitle(), "tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
                 && t.getText().contains("Health: 100"));
     }
@@ -119,7 +119,7 @@ public class StartUpTest extends ApplicationTest {
         clickOn("#entry").write("test");
         clickOn("#enter");
         clickOn("#startGame");
-        assertEquals(stage.getTitle(), "Tower Defense Game");
+        assertEquals(stage.getTitle(), "tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 100")
                 && t.getText().contains("Health: 50"));
     }

@@ -1,5 +1,6 @@
 package com.example.towerdefence.ConfigScreenPage;
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.tower.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -143,7 +144,7 @@ public class ConfigScreenController {
             }
 
             stage.setScene(this.nextScene);
-            stage.setTitle("Tower Defense Game");
+            stage.setTitle("tower Defense Game");
 
         }
     }
