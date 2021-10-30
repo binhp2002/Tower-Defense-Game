@@ -75,15 +75,16 @@ public class GameScreenController {
 
 
     //Time Loop
-    Timeline enemyMovementLoop = new Timeline(new KeyFrame(Duration.seconds(5),
-            new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            //move enemy
-        }
-    }));
-    enemyMovementLoop.setCycleCount(Timeline.INDEFINITE);
-    enemyMovementLoop.play();
+    public void gameMovementLoop {
+        Timeline enemyMovementLoop = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Test");
+            }
+        }));
+        enemyMovementLoop.setCycleCount(Timeline.INDEFINITE);
+        enemyMovementLoop.play();
+    }
 
     @FXML
     public void startGameButton(ActionEvent e) {
