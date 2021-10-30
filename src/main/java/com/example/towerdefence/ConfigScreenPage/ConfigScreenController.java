@@ -144,7 +144,7 @@ public class ConfigScreenController {
             }
 
             stage.setScene(this.nextScene);
-            stage.setTitle("tower Defense Game");
+            stage.setTitle("Tower Defense Game");
 
         }
     }

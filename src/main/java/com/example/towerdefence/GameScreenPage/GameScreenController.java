@@ -10,9 +10,13 @@ import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.*;
 import javafx.util.*;
+
+import java.util.*;
+import java.util.concurrent.*;
 
 
 public class GameScreenController {
@@ -74,13 +78,15 @@ public class GameScreenController {
         }
     }
 
-
-    //Time Loop
-    public void gameMovementLoop() {
-        Timeline enemyMovementLoop = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+    public void gameMovementLoop(EnemyWave enemyWave, Scene currScene) {
+        Timeline enemyMovementLoop = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Test");
+                ((Pane) currScene.lookup("#gamePath")).getChildren().clear();
+                for (Enemy enemy: enemyWave.getEnemies()) {
+                    drawEnemy(enemy, currScene);
+                }
+                enemyWave.moveEnemiesForward(5);
             }
         }));
         enemyMovementLoop.setCycleCount(Timeline.INDEFINITE);
@@ -89,11 +95,28 @@ public class GameScreenController {
 
     @FXML
     public void startCombatButton(ActionEvent actionEvent) {
-        Enemy [] gameEnemy = new Enemy[12];
-        for (int i = 0; i < 12; i ++) {
-            gameEnemy[i] = new Enemy();
+        EnemyWave enemyWave = new EnemyWave();
+
+        Scene currScene = ((Node) actionEvent.getSource()).getScene();
+
+        Pane gamePath = (Pane) currScene.lookup("#gamePath");
+
+        for (int i = 0; i < 10; i++) {
+            enemyWave.addEnemy((int) gamePath.getWidth(), i * 20);
         }
-        gameMovementLoop();
+        gameMovementLoop(enemyWave, currScene);
+    }
+
+    public void drawEnemy(Enemy enemy, Scene scene) {
+        //get the stack pane to add the elements to it
+        Pane gamePath = (Pane) scene.lookup("#gamePath");
+        ImageView enemyImageView = new ImageView("file:./src/main/resources/images/enemy.png");
+        //enemy is a 10x10 image
+        enemyImageView.setFitHeight(20);
+        enemyImageView.setFitWidth(20);
+        enemyImageView.setX(enemy.getLocation()[0]);
+        enemyImageView.setY(enemy.getLocation()[1]);
+        gamePath.getChildren().add(enemyImageView);
     }
 
     @FXML
