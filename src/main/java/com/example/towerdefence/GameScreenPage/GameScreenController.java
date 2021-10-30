@@ -88,8 +88,12 @@ public class GameScreenController {
     }
 
     @FXML
-    public void startGameButton(ActionEvent e) {
-        return;
+    public void startCombatButton(ActionEvent actionEvent) {
+        Enemy [] gameEnemy = new Enemy[12];
+        for (int i = 0; i < 12; i ++) {
+            gameEnemy[i] = new Enemy();
+        }
+        gameMovementLoop();
     }
 
     @FXML
