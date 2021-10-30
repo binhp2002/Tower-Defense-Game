@@ -1,5 +1,7 @@
 package com.example.towerdefence.GameScreenPage;
 import com.example.towerdefence.objects.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.geometry.Bounds;
@@ -9,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 
 public class GameScreenController {
@@ -69,6 +72,18 @@ public class GameScreenController {
                     .setText("Money: " + player.getMoney() + " Health: " + monument.getHealth());
         }
     }
+
+
+    //Time Loop
+    Timeline enemyMovementLoop = new Timeline(new KeyFrame(Duration.seconds(5),
+            new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            //move enemy
+        }
+    }));
+    enemyMovementLoop.setCycleCount(Timeline.INDEFINITE);
+    enemyMovementLoop.play();
 
     @FXML
     public void mouseEntered(MouseEvent e) {
