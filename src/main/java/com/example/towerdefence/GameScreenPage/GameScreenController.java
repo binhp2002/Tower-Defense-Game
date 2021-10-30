@@ -48,6 +48,7 @@ public class GameScreenController {
         return this.player;
     }
 
+
     //Adding Images to GameScreen
 
     @FXML
@@ -104,6 +105,9 @@ public class GameScreenController {
                 for (Enemy enemy: enemiesReached) {
                     //enemies doing damage to monument
                     monument.setHealth(monument.getHealth() - enemy.getDamage());
+                    if (monument.getHealth() <= 0) {
+                        GameScreenController.gameOver((StackPane) currScene.lookup("#gameOverPane"));
+                    }
                 }
                 //update player parameters
                 ((Text) currScene.lookup("#playerParameters")).setText("Money: "
@@ -112,6 +116,7 @@ public class GameScreenController {
                     //current wave is over when there are no more enemies
                     ((Pane) currScene.lookup("#gamePath")).getChildren().clear();
                     animationIP.remove(0);
+
                     this.stop();
                 }
             }
@@ -196,5 +201,11 @@ public class GameScreenController {
             }
         }
         return null;
+    }
+
+    public static void gameOver(StackPane gameOverPane) {
+        gameOverPane.setVisible(true);
+        gameOverPane.setStyle("-fx-background-color: transparent;");
+
     }
 }
