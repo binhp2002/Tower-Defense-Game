@@ -50,8 +50,20 @@ public class EnemyWave {
         return enemyLocations;
     }
 
+    /**
+     * get the enemies that are currently in the enemy wave
+     * @return List of enemies
+     */
     public List<Enemy> getEnemies() {
         return this.enemies;
+    }
+
+    /**
+     * returns whether there are any enemies left in the wave
+     * @return true if there are no enemies left and false if there are remaining enemies
+     */
+    public boolean isEmpty() {
+        return this.enemies.isEmpty();
     }
 
     /**

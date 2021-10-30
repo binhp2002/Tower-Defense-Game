@@ -74,4 +74,9 @@ public class EnemyWaveTest {
         assertArrayEquals(enemyWave.getEnemyLocations().toArray(), new int[][]{{0, 20}});
     }
 
+    @Test
+    public void testIsEmptyWhenEmpty() {
+        assertTrue(enemyWave.isEmpty());
+    }
+
 }
