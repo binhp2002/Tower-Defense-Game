@@ -26,6 +26,8 @@ public class GameScreenController {
 
     private Scene nextScene;
 
+    private ArrayList<Integer> currWaveAnimationCode;
+
     public Scene getNextScene() {
         return this.nextScene;
     }
@@ -78,33 +80,65 @@ public class GameScreenController {
         }
     }
 
-    public void gameMovementLoop(EnemyWave enemyWave, Scene currScene) {
-        Timeline enemyMovementLoop = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
+    public ArrayList<Integer> gameMovementLoop(EnemyWave enemyWave, Scene currScene) {
+        //store whether the animation is in progress, empty if not, one element if there is
+        ArrayList<Integer> animationIP = new ArrayList<>();
+
+        animationIP.add(1);
+
+        AnimationTimer animation = new AnimationTimer() {
+            private double prev = 0.0;
+
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(long now) {
+                if (now - prev < 0.05) {
+                    return;
+                }
+                this.prev = now;
                 ((Pane) currScene.lookup("#gamePath")).getChildren().clear();
                 for (Enemy enemy: enemyWave.getEnemies()) {
                     drawEnemy(enemy, currScene);
                 }
-                enemyWave.moveEnemiesForward(5);
+                //get the enemies that have reached the end
+                List<Enemy> enemiesReached = enemyWave.moveEnemiesForward(20);
+                for (Enemy enemy: enemiesReached) {
+                    //enemies doing damage to monument
+                    monument.setHealth(monument.getHealth() - enemy.getDamage());
+                }
+                //update player parameters
+                ((Text) currScene.lookup("#playerParameters")).setText("Money: "
+                        + player.getMoney() + " Health: " + monument.getHealth());
+                if (enemyWave.getEnemies().isEmpty()) {
+                    //current wave is over when there are no more enemies
+                    ((Pane) currScene.lookup("#gamePath")).getChildren().clear();
+                    animationIP.remove(0);
+                    this.stop();
+                }
             }
-        }));
-        enemyMovementLoop.setCycleCount(Timeline.INDEFINITE);
-        enemyMovementLoop.play();
+        };
+
+        animation.start();
+
+        return animationIP;
     }
 
     @FXML
     public void startCombatButton(ActionEvent actionEvent) {
+        if (this.currWaveAnimationCode != null && this.currWaveAnimationCode.size() != 0) {
+            //there is a current wave ongoing, terminate
+            return;
+        }
+
         EnemyWave enemyWave = new EnemyWave();
 
         Scene currScene = ((Node) actionEvent.getSource()).getScene();
 
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             enemyWave.addEnemy((int) gamePath.getWidth(), i * 20);
         }
-        gameMovementLoop(enemyWave, currScene);
+        this.currWaveAnimationCode = gameMovementLoop(enemyWave, currScene);
     }
 
     public void drawEnemy(Enemy enemy, Scene scene) {
