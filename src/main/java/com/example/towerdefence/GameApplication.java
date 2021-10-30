@@ -74,6 +74,14 @@ public class GameApplication extends Application {
     }
 
     /**
+     * returns monument object for inspection
+     * @return game monument object
+     */
+    public Monument getMonument() {
+        return this.monument;
+    }
+
+    /**
      * Main method. Runs at launch
      * @param args Standard parameter
      */
