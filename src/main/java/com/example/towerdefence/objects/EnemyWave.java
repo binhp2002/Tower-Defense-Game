@@ -24,7 +24,7 @@ public class EnemyWave {
      * @param x x coordinate of enemy spawn point
      * @param y y coordinate of enemy spawn point
      */
-    public void createEnemy(int x, int y) {
+    public void addEnemy(int x, int y) {
         Enemy newEnemy = new BasicEnemy(x, y);
         enemies.add(newEnemy);
     }
@@ -51,20 +51,26 @@ public class EnemyWave {
     }
 
     /**
-     * move enemies forward and return number of enemies that reached past the zero line
+     * move enemies forward (leftward, negative x direction) and
+     * return number of enemies that reached past the zero line
      * @param steps number of steps to move the enemies to the left by
      * @return number of enemies that past 0 and are deleted
      */
     public int moveEnemiesForward(int steps) {
         int numMovedPastEnd = 0;
-        for (Enemy enemy: enemies) {
-            //move enemy and check for the return code
+        
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+
             if (enemy.moveHorizontal(steps) == -1) {
                 //delete the enemy since now moved past the end
                 enemies.remove(enemy);
                 numMovedPastEnd++;
+                //don't progress further, need to process this index again
+                i--;
             }
         }
+
         return numMovedPastEnd;
     }
 
