@@ -52,7 +52,8 @@ public class GameScreenController {
 
     @FXML
     public void basicTowerPurchaseButton(ActionEvent e) {
-        if (player.getMoney() >= player.getPlayerCost(BasicTower.class)) {
+        if (player.getCurrSelected() == null &&
+                player.getMoney() >= player.getPlayerCost(BasicTower.class)) {
             player.setCurrSelected(BasicTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(BasicTower.class));
             ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters"))
@@ -62,7 +63,8 @@ public class GameScreenController {
 
     @FXML
     public void sniperTowerPurchaseButton(ActionEvent e) {
-        if (player.getMoney() >= player.getPlayerCost(SniperTower.class)) {
+        if (player.getCurrSelected() == null &&
+                player.getMoney() >= player.getPlayerCost(SniperTower.class)) {
             player.setCurrSelected(SniperTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(SniperTower.class));
             ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters"))
@@ -72,7 +74,8 @@ public class GameScreenController {
 
     @FXML
     public void machineTowerPurchaseButton(ActionEvent e) {
-        if (player.getMoney() >= player.getPlayerCost(MachineTower.class)) {
+        if (player.getCurrSelected() == null &&
+                player.getMoney() >= player.getPlayerCost(MachineTower.class)) {
             player.setCurrSelected(MachineTower.class);
             player.setMoney(player.getMoney() - player.getPlayerCost(MachineTower.class));
             ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters"))
