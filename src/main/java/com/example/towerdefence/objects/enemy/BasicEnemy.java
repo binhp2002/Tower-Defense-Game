@@ -17,7 +17,7 @@ public class BasicEnemy extends Enemy{
      * @param y y coordinate of enemy
      */
     public BasicEnemy(int x, int y) {
-        super(100, 1, x, y);
+        super(100, 10, x, y);
     }
 
     public String getImagePath() { return IMAGE_PATH;}
