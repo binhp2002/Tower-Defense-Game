@@ -86,6 +86,14 @@ public class GameScreenController {
     enemyMovementLoop.play();
 
     @FXML
+    public void startGameButton(ActionEvent e) {
+        Enemy [] gameEnemy = new Enemy[12];
+        for (int i = 0; i < 12; i ++) {
+            gameEnemy[i] = new Enemy();
+        }
+    }
+
+    @FXML
     public void mouseEntered(MouseEvent e) {
 
         if (this.player.getCurrSelected() != null) {
