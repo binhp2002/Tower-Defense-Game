@@ -75,7 +75,7 @@ public class GameScreenController {
 
 
     //Time Loop
-    public void gameMovementLoop {
+    public void gameMovementLoop() {
         Timeline enemyMovementLoop = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -87,11 +87,12 @@ public class GameScreenController {
     }
 
     @FXML
-    public void startGameButton(ActionEvent e) {
+    public void startCombatButton(ActionEvent actionEvent) {
         Enemy [] gameEnemy = new Enemy[12];
         for (int i = 0; i < 12; i ++) {
             gameEnemy[i] = new Enemy();
         }
+        gameMovementLoop();
     }
 
     @FXML
