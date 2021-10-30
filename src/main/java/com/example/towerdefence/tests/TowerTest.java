@@ -47,7 +47,7 @@ public class TowerTest {
     @Test
     public void testSniperGetBasicCost() {
         //ensure that no error when getting basic cost
-        assertThat(sniperTower.getBasicCost(), instanceOf(Integer.class)) ;
+        assertThat(sniperTower.getBasicCost(), instanceOf(Integer.class));
     }
 
     /**

@@ -8,6 +8,8 @@ public abstract class Enemy {
 
     /**
      * initialize enemy with the health and damage provided, sets default location to [0, 0]
+     * @param health enemy's health
+     * @param damage enemy's damage
      */
     public Enemy(int health, int damage) {
         this.health = health;
@@ -17,6 +19,10 @@ public abstract class Enemy {
 
     /**
      * initialize enemy with the health, damage, and location provided
+     * @param health enemy's health
+     * @param damage enemy's damage
+     * @param x enemy x-coordinate
+     * @param y enemy y-coordinate
      */
     public Enemy(int health, int damage, int x, int y) {
         this.health = health;
@@ -79,6 +85,7 @@ public abstract class Enemy {
 
     /**
      * sets the location of the enemy
+     * @param location location of enemy
      * @return 0 if location of enemy successfully changed, -1 otherwise
      */
     public int setLocation(int[] location) {

@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class EnemyWave {
 
-    ArrayList<Enemy> enemies;
+    private ArrayList<Enemy> enemies;
 
     /**
      * initialize new wave
@@ -41,8 +41,8 @@ public class EnemyWave {
      * returns an arraylist with the enemy locations
      * @return List with the enemy locations as int array elements in the List
      */
-    public List<int []> getEnemyLocations() {
-        List<int []> enemyLocations = new ArrayList<>();
+    public List<int[]> getEnemyLocations() {
+        List<int[]> enemyLocations = new ArrayList<>();
         for (Enemy enemy: enemies) {
             //add the enemy locations to the list
             enemyLocations.add(enemy.getLocation());
@@ -73,7 +73,7 @@ public class EnemyWave {
      * @return number of enemies that past 0 and are deleted
      */
     public List<Enemy> moveEnemiesForward(int steps) {
-        List<Enemy> reachedEnemies = new ArrayList<Enemy>();
+        List<Enemy> reachedEnemies = new ArrayList<>();
 
         for (int i = 0; i < enemies.size(); i++) {
             Enemy enemy = enemies.get(i);

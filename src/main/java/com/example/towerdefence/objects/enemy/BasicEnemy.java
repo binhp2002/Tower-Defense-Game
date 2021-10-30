@@ -1,6 +1,6 @@
 package com.example.towerdefence.objects.enemy;
 
-public class BasicEnemy extends Enemy{
+public class BasicEnemy extends Enemy {
 
     public static final String IMAGE_PATH = "";
 
@@ -20,5 +20,7 @@ public class BasicEnemy extends Enemy{
         super(100, 10, x, y);
     }
 
-    public String getImagePath() { return IMAGE_PATH;}
+    public String getImagePath() {
+        return IMAGE_PATH;
+    }
 }

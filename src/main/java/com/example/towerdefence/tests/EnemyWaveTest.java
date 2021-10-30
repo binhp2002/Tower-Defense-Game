@@ -7,12 +7,11 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 
 public class EnemyWaveTest {
 
-    EnemyWave enemyWave;
+    private EnemyWave enemyWave;
 
     @Before
     public void setUp() {
@@ -26,7 +25,7 @@ public class EnemyWaveTest {
         enemyWave.addEnemy(10, 20);
         //check that an enemy has been added
         assertEquals(enemyWave.getNumCurrEnemies(), 1);
-        List<int []> enemyLocations = enemyWave.getEnemyLocations();
+        List<int[]> enemyLocations = enemyWave.getEnemyLocations();
         //make sure there's only one location
         assertEquals(enemyWave.getEnemyLocations().size(), 1);
         //check that the location is the same (x, y)
