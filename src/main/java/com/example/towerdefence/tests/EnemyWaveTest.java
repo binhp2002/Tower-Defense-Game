@@ -1,6 +1,7 @@
 package com.example.towerdefence.tests;
 
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.enemy.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,10 +47,14 @@ public class EnemyWaveTest {
         assertEquals(enemyWave.getNumCurrEnemies(), 3);
         
         //no enemies should move past the end
-        assertEquals(enemyWave.moveEnemiesForward(5), 0);
+        assertArrayEquals(enemyWave.moveEnemiesForward(5).toArray(), new Enemy[]{});
+
+
+        //the enemy that is going to be removed is the {5, 6} which is at index 1
+        Enemy[] removedEnemies1 = new Enemy[]{enemyWave.getEnemies().get(1)};
 
         //one enemy moves past the end
-        assertEquals(enemyWave.moveEnemiesForward(1), 1);
+        assertArrayEquals(enemyWave.moveEnemiesForward(1).toArray(), removedEnemies1);
 
         //should have 2 enemies left
         assertEquals(enemyWave.getNumCurrEnemies(), 2);
@@ -58,8 +63,11 @@ public class EnemyWaveTest {
 
         assertArrayEquals(enemyWave.getEnemyLocations().toArray(), new int[][]{{4, 20}, {1, 10}});
 
+        //Enemy that is going to be removed is originally {7, 10}, which is now at index 1
+        Enemy[] removedEnemies2 = new Enemy[]{enemyWave.getEnemies().get(1)};
+
         //move until only one enemy left which is at (0, 20)
-        assertEquals(enemyWave.moveEnemiesForward(4), 1);
+        assertArrayEquals(enemyWave.moveEnemiesForward(4).toArray(), removedEnemies2);
 
         assertEquals(enemyWave.getNumCurrEnemies(), 1);
 
