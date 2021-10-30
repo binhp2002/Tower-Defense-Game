@@ -15,6 +15,15 @@ public abstract class Enemy {
         this.location = new int[]{0, 0};
     }
 
+    /**
+     * initialize enemy with the health, damage, and location provided
+     */
+    public Enemy(int health, int damage, int x, int y) {
+        this.health = health;
+        this.damage = damage;
+        this.location = new int[]{x, y};
+    }
+
 
     /**
      * returns health of the enemy
@@ -80,6 +89,25 @@ public abstract class Enemy {
         this.location = location;
         return 0;
     }
+
+    /**
+     * moves the enemy n number of steps to the left (left is negative), if n is negative
+     * then move to the right
+     * @param steps moves the enemy to the left
+     * @return 0 if enemy can be moved to that location, -1 if enemy cannot be moved there
+     * due to location being less than 0
+     */
+    public int moveHorizontal(int steps) {
+        if (this.location[0] < steps) {
+            //only want to return if this.location[0] - steps < 0, so enemy can still
+            //be at 0
+            return -1;
+        }
+        //subtract that number of steps from the x-coordinate and move there
+        this.location[0] -= steps;
+        return 0;
+    }
+
 
     /**
      * returns the image path of the enemy
