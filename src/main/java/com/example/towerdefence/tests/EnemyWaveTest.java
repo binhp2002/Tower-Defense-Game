@@ -8,10 +8,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class EnemyWaveTest {
 
@@ -72,11 +69,32 @@ public class EnemyWaveTest {
         assertEquals(enemyWave.getNumCurrEnemies(), 1);
 
         assertArrayEquals(enemyWave.getEnemyLocations().toArray(), new int[][]{{0, 20}});
+
+        //only one enemy left
+        Enemy[] removedEnemies3 = new Enemy[]{enemyWave.getEnemies().get(0)};
+
+        assertArrayEquals(enemyWave.moveEnemiesForward(1).toArray(), removedEnemies3);
+
+        //check that enemy wave is empty after last enemy has moved past the monument line
+        assertTrue(enemyWave.isEmpty());
     }
 
+    /**
+     * check if isEmpty returns false when enemyWave is first initialized and array is empty
+     */
     @Test
     public void testIsEmptyWhenEmpty() {
         assertTrue(enemyWave.isEmpty());
+    }
+
+    /**
+     * check if isEmpty return false when emptyWave has enemies
+     */
+    @Test
+    public void testIsEmptyWhenNotEmpty() {
+        assertTrue(enemyWave.isEmpty());
+        enemyWave.addEnemy(5, 5);
+        assertFalse(enemyWave.isEmpty());
     }
 
 }
