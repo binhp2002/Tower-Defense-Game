@@ -236,15 +236,4 @@ public class GameTest extends ApplicationTest {
         clickOn("#startCombatButton");
         assertNull(this.player.getCurrSelected());
     }
-
-    /**
-     * check if the health has been reduced correctly when game over
-     */
-    @Test
-    public void gameEndHealth() {
-        while (monument.getHealth() > 0) {
-            clickOn("#startCombatButton");
-        }
-        assertEquals(monument.getHealth(), 0);
-    }
 }
