@@ -1,7 +1,6 @@
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.tower.*;
-import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
