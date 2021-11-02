@@ -1,6 +1,7 @@
 package com.example.towerdefence.tests;
 
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.tower.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -224,7 +225,7 @@ public class PlayerTest {
         assertEquals(player.getCurrSelected(), BasicTower.class);
         //change to null and check if changed to nukk
         assertEquals(player.setCurrSelected(null), 0);
-        assertEquals(player.getCurrSelected(), null);
+        assertNull(player.getCurrSelected());
     }
 
     @Test

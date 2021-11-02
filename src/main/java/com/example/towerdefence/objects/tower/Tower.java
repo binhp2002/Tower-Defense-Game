@@ -1,43 +1,41 @@
-package com.example.towerdefence.objects;
+package com.example.towerdefence.objects.tower;
 
-import java.io.*;
+import com.example.towerdefence.objects.projectile.*;
+
 import java.lang.reflect.Constructor;
 
 public abstract class Tower {
     private int health;
     private Class projectileType;
     private int rateOfFire;
-    private String imagePath;
 
     /**
      * most specific constructor, to set everything
      * @param health starting health of the tower
      * @param rateOfFire rate of fire of the tower
-     * @param imagePath image of the tower
      * @param projectileType the class of the projectile that this tower fires
      */
-    public Tower(int health, int rateOfFire, Class projectileType, String imagePath) {
+    public Tower(int health, int rateOfFire, Class projectileType) {
         if (!Projectile.class.isAssignableFrom(projectileType)) {
-            //ensure that projectileType implements Projectile interface,
-            //can assign projectileType to Projectile
-            throw new RuntimeException("projectileType argument must implement Projectile");
+            //ensure that projectileType implements projectile interface,
+            //can assign projectileType to projectile
+            throw new RuntimeException("projectileType argument must implement projectile");
         }
         this.health = health;
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
-        this.imagePath = imagePath;
     }
 
     /**
      * returns the basic cost of the tower, which should be implemented as a
-     * static final variable in the subclasses of Tower
+     * static final variable in the subclasses of tower
      * @return returns basic cost of the tower
      */
     public abstract int getBasicCost();
 
     /**
      * returns the name of the tower, which should be implemented as a static
-     * final variable in the subclasses of Tower
+     * final variable in the subclasses of tower
      * @return returns the name of the tower
      */
     public abstract String getName();

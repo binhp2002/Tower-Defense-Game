@@ -1,5 +1,6 @@
 package com.example.towerdefence.ConfigScreenPage;
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.tower.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;

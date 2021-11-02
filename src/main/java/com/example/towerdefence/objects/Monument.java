@@ -20,14 +20,11 @@ public class Monument {
     }
 
     /**
-     * sets health of monument (health must be non-negative)
+     * sets health of monument
      * @param health new health of monument
-     * @return 0 if successfully changed health of monument, -1 otherwise
+     * @return 0 to indicate health of monument successfully changed
      */
     public int setHealth(int health) {
-        if (health <= 0) {
-            return -1;
-        }
         this.health = health;
         return 0;
     }

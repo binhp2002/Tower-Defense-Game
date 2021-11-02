@@ -1,5 +1,6 @@
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.tower.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
@@ -14,6 +15,7 @@ public class GameTest extends ApplicationTest {
     private Stage stage;
     private GameApplication main;
     private Player player;
+    private Monument monument;
 
 
     @Override
@@ -23,6 +25,7 @@ public class GameTest extends ApplicationTest {
         main = new GameApplication();
         this.main.start(primaryStage);
         this.player = main.getPlayer();
+        this.monument = main.getMonument();
         stage = primaryStage;
     }
 
@@ -156,7 +159,7 @@ public class GameTest extends ApplicationTest {
     @Test
     public void placeTowerPath() {
         clickOn("#BasicTowerPurchaseButton");
-        GridPane path = (GridPane) stage.getScene().lookup("#gamePath");
+        Pane path = (Pane) stage.getScene().lookup("#gamePath");
         clickOn(point(stage.getX() + path.getLayoutX() + 10,
                 stage.getY() + path.getLayoutY() + 10));
         //player curr selected is not null, still with player
@@ -174,6 +177,62 @@ public class GameTest extends ApplicationTest {
         clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
                 stage.getY() + bottomTowerRow.getLayoutY() + 10));
         //player curr selected is null and no longer with the player
+        assertNull(this.player.getCurrSelected());
+    }
+
+    /**
+     * check if there is enemy once click start combat button
+     */
+    @Test
+    public void checkEnemy() {
+        clickOn("#startCombatButton");
+        Pane gamePath = (Pane) stage.getScene().lookup("#gamePath");
+        assertNotNull(gamePath.getChildren());
+    }
+
+    /**
+     * check if the basic tower purchase button can be click after heath = 0
+     */
+    @Test
+    public void gameEndClickBasic() {
+        while (monument.getHealth() > 0) {
+            clickOn("#startCombatButton");
+        }
+        clickOn("#BasicTowerPurchaseButton");
+        assertNull(this.player.getCurrSelected());
+    }
+    /**
+     * check if the sniper tower purchase button can be clicked after heath = 0
+     */
+    @Test
+    public void gameEndClickSniper() {
+        while (monument.getHealth() > 0) {
+            clickOn("#startCombatButton");
+        }
+        clickOn("#SniperTowerPurchaseButton");
+        assertNull(this.player.getCurrSelected());
+    }
+    /**
+     * check if the machine tower purchase button can be clicked after heath = 0
+     */
+    @Test
+    public void gameEndClickMachine() {
+        while (monument.getHealth() > 0) {
+            clickOn("#startCombatButton");
+        }
+        clickOn("#MachineTowerPurchaseButton");
+        assertNull(this.player.getCurrSelected());
+    }
+
+    /**
+     * check if the combat button can be clicked after heath = 0
+     */
+    @Test
+    public void gameEndClickCombat() {
+        while (monument.getHealth() > 0) {
+            clickOn("#startCombatButton");
+        }
+        clickOn("#startCombatButton");
         assertNull(this.player.getCurrSelected());
     }
 }

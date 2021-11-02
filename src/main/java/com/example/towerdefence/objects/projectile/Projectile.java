@@ -1,4 +1,6 @@
-package com.example.towerdefence.objects;
+package com.example.towerdefence.objects.projectile;
+
+import com.example.towerdefence.objects.enemy.*;
 
 public abstract class Projectile {
     private int damage;
@@ -6,7 +8,7 @@ public abstract class Projectile {
     private String imagePath;
 
     /**
-     * most specific constructor for Projectile
+     * most specific constructor for projectile
      * @param damage damage of projectile
      * @param speed speed of projectile
      * @param imagePath path to image of projectile

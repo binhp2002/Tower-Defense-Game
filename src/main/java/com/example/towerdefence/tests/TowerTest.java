@@ -1,7 +1,13 @@
 package com.example.towerdefence.tests;
 
-import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.projectile.*;
+import com.example.towerdefence.objects.tower.*;
+import javafx.scene.image.*;
 import org.junit.*;
+
+import java.io.*;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 
 public class TowerTest {
@@ -32,7 +38,7 @@ public class TowerTest {
     @Test
     public void testSniperGetName() {
         //check that SniperTower has correct name
-        assertEquals("Sniper Tower", sniperTower.getName());
+        assertEquals("Sniper tower", sniperTower.getName());
     }
 
     /**
@@ -41,7 +47,7 @@ public class TowerTest {
     @Test
     public void testSniperGetBasicCost() {
         //ensure that no error when getting basic cost
-        sniperTower.getBasicCost();
+        assertThat(sniperTower.getBasicCost(), instanceOf(Integer.class));
     }
 
     /**
@@ -58,7 +64,7 @@ public class TowerTest {
     @Test
     public void testBasicGetName() {
         //check that SniperTower has correct name
-        assertEquals("Basic Tower", basicTower.getName());
+        assertEquals("Basic tower", basicTower.getName());
     }
 
     /**
@@ -67,7 +73,7 @@ public class TowerTest {
     @Test
     public void testBasicGetBasicCost() {
         //ensure that no error when getting basic cost
-        basicTower.getBasicCost();
+        assertThat(basicTower.getBasicCost(), instanceOf(Integer.class));
     }
 
     /**
@@ -84,7 +90,7 @@ public class TowerTest {
     @Test
     public void testMachineGetName() {
         //check that SniperTower has correct name
-        assertEquals("Machine Tower", machineTower.getName());
+        assertEquals("Machine tower", machineTower.getName());
     }
 
     /**
@@ -93,11 +99,11 @@ public class TowerTest {
     @Test
     public void testMachineGetBasicCost() {
         //ensure that no error when getting basic cost
-        machineTower.getBasicCost();
+        assertThat(machineTower.getBasicCost(), instanceOf(Integer.class));
     }
 
     /**
-     * checks Tower set normal health method by using basicTower as concrete implementation
+     * checks tower set normal health method by using basicTower as concrete implementation
      */
     @Test
     public void testSetNormalHealth() {

@@ -1,4 +1,6 @@
-package com.example.towerdefence.objects;
+package com.example.towerdefence.objects.projectile;
+
+import com.example.towerdefence.objects.enemy.*;
 
 public class NormalProjectile extends Projectile {
 

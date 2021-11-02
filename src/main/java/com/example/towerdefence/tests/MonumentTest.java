@@ -27,21 +27,6 @@ public class MonumentTest {
     }
 
     /**
-     * check set health of monument to negative value, error code should be -1 and health unchanged
-     */
-    @Test
-    public void testSetNegativeHealth() {
-        //set health at 500
-        monument.setHealth(100);
-        //check health is 500
-        assertEquals(monument.getHealth(), 100);
-        //check error code is -1
-        assertEquals(monument.setHealth(-4), -1);
-        //check health is unchanged
-        assertEquals(monument.getHealth(), 100);
-    }
-
-    /**
      * check if initial health of monument is -1
      */
     @Test
