@@ -43,14 +43,14 @@ public class EnemyWaveTest {
         assertEquals(enemyWave.getNumCurrEnemies(), 3);
         
         //no enemies should move past the end
-        assertArrayEquals(enemyWave.moveEnemiesForward(5).toArray(), new Enemy[]{});
+        assertArrayEquals(enemyWave.moveEnemiesForward().toArray(), new Enemy[]{});
 
 
         //the enemy that is going to be removed is the {5, 6} which is at index 1
         Enemy[] removedEnemies1 = new Enemy[]{enemyWave.getEnemies().get(1)};
 
         //one enemy moves past the end
-        assertArrayEquals(enemyWave.moveEnemiesForward(1).toArray(), removedEnemies1);
+        assertArrayEquals(enemyWave.moveEnemiesForward().toArray(), removedEnemies1);
 
         //should have 2 enemies left
         assertEquals(enemyWave.getNumCurrEnemies(), 2);
@@ -63,7 +63,7 @@ public class EnemyWaveTest {
         Enemy[] removedEnemies2 = new Enemy[]{enemyWave.getEnemies().get(1)};
 
         //move until only one enemy left which is at (0, 20)
-        assertArrayEquals(enemyWave.moveEnemiesForward(4).toArray(), removedEnemies2);
+        assertArrayEquals(enemyWave.moveEnemiesForward().toArray(), removedEnemies2);
 
         assertEquals(enemyWave.getNumCurrEnemies(), 1);
 
@@ -72,7 +72,7 @@ public class EnemyWaveTest {
         //only one enemy left
         Enemy[] removedEnemies3 = new Enemy[]{enemyWave.getEnemies().get(0)};
 
-        assertArrayEquals(enemyWave.moveEnemiesForward(1).toArray(), removedEnemies3);
+        assertArrayEquals(enemyWave.moveEnemiesForward().toArray(), removedEnemies3);
 
         //check that enemy wave is empty after last enemy has moved past the monument line
         assertTrue(enemyWave.isEmpty());

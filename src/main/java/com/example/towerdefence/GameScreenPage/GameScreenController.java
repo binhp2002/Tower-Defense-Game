@@ -104,7 +104,7 @@ public class GameScreenController {
                     drawEnemy(enemy, currScene);
                 }
                 //get the enemies that have reached the end
-                List<Enemy> enemiesReached = enemyWave.moveEnemiesForward(20);
+                List<Enemy> enemiesReached = enemyWave.moveEnemiesForward();
                 for (Enemy enemy: enemiesReached) {
                     //enemies doing damage to monument
                     monument.setHealth(monument.getHealth() - enemy.getDamage());

@@ -3,6 +3,7 @@ package com.example.towerdefence.objects.enemy;
 public abstract class Enemy {
     private int health;
     private int damage;
+    private int speed;
 
     private int[] location;
 
@@ -10,23 +11,24 @@ public abstract class Enemy {
      * initialize enemy with the health and damage provided, sets default location to [0, 0]
      * @param health enemy's health
      * @param damage enemy's damage
+     * @param speed enemy's speed
      */
-    public Enemy(int health, int damage) {
-        this.health = health;
-        this.damage = damage;
-        this.location = new int[]{0, 0};
+    public Enemy(int health, int damage, int speed) {
+        this(health, damage, speed, 0, 0);
     }
 
     /**
      * initialize enemy with the health, damage, and location provided
      * @param health enemy's health
      * @param damage enemy's damage
+     * @param speed enemy's speed
      * @param x enemy x-coordinate
      * @param y enemy y-coordinate
      */
-    public Enemy(int health, int damage, int x, int y) {
+    public Enemy(int health, int damage, int speed, int x, int y) {
         this.health = health;
         this.damage = damage;
+        this.speed = speed;
         this.location = new int[]{x, y};
     }
 
@@ -72,6 +74,28 @@ public abstract class Enemy {
             return -1;
         }
         this.damage = damage;
+        return 0;
+    }
+
+    /**
+     * returns speed of enemy
+     * @return enemy's speed
+     */
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * sets the speed of the enemy, speed must be a positive value
+     * @param speed new speed of enemy
+     * @return returns 0 if speed successfully changed, -1 if speed was non-positive
+     */
+    public int setSpeed(int speed) {
+        if (speed <= 0) {
+            //speed must be positive
+            return -1;
+        }
+        this.speed = speed;
         return 0;
     }
 

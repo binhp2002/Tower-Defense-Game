@@ -67,18 +67,18 @@ public class EnemyWave {
     }
 
     /**
-     * move enemies forward (leftward, negative x direction) and
+     * move enemies forward (leftward, negative x direction) for one round and
      * return number of enemies that reached past the zero line
-     * @param steps number of steps to move the enemies to the left by
      * @return number of enemies that past 0 and are deleted
      */
-    public List<Enemy> moveEnemiesForward(int steps) {
+    public List<Enemy> moveEnemiesForward() {
         List<Enemy> reachedEnemies = new ArrayList<>();
 
         for (int i = 0; i < enemies.size(); i++) {
+            //iterate through all the enemies
             Enemy enemy = enemies.get(i);
 
-            if (enemy.moveHorizontal(steps) == -1) {
+            if (enemy.moveHorizontal(enemy.getSpeed()) == -1) {
                 //delete the enemy since now moved past the end
                 enemies.remove(enemy);
                 reachedEnemies.add(enemy);
