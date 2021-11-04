@@ -145,7 +145,10 @@ public class GameScreenController {
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
 
         for (int i = 0; i < 5; i++) {
-            enemyWave.addEnemy((int) gamePath.getWidth(), i * 20);
+            enemyWave.addEnemy(BasicEnemy.class, (int) gamePath.getWidth(), i * 20);
+        }
+        for (int i = 5; i < 10; i++) {
+            enemyWave.addEnemy(TankEnemy.class, (int) gamePath.getWidth(), i * 20);
         }
         this.currWaveAnimationCode = gameMovementLoop(enemyWave, currScene);
     }
@@ -153,7 +156,7 @@ public class GameScreenController {
     public void drawEnemy(Enemy enemy, Scene scene) {
         //get the stack pane to add the elements to it
         Pane gamePath = (Pane) scene.lookup("#gamePath");
-        ImageView enemyImageView = new ImageView("file:./src/main/resources/images/enemy.png");
+        ImageView enemyImageView = new ImageView(enemy.getImagePath());
         //enemy is a 10x10 image
         enemyImageView.setFitHeight(20);
         enemyImageView.setFitWidth(20);

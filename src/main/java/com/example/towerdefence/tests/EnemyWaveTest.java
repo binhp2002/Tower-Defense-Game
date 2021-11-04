@@ -22,7 +22,7 @@ public class EnemyWaveTest {
 
     @Test
     public void testCreateEnemy() {
-        enemyWave.addEnemy(10, 20);
+        enemyWave.addEnemy(BasicEnemy.class, 10, 20);
         //check that an enemy has been added
         assertEquals(enemyWave.getNumCurrEnemies(), 1);
         List<int[]> enemyLocations = enemyWave.getEnemyLocations();
@@ -37,7 +37,7 @@ public class EnemyWaveTest {
         int[][] enemyLocations = new int[][]{{10, 20}, {5, 6}, {7, 10}};
         for (int[] enemyLocation: enemyLocations) {
             //add the enemies to enemyWave with location as enemyLocation
-            enemyWave.addEnemy(enemyLocation[0], enemyLocation[1]);
+            enemyWave.addEnemy(BasicEnemy.class, enemyLocation[0], enemyLocation[1]);
         }
         //check that 3 enemies are inside
         assertEquals(enemyWave.getNumCurrEnemies(), 3);
@@ -92,7 +92,7 @@ public class EnemyWaveTest {
     @Test
     public void testIsEmptyWhenNotEmpty() {
         assertTrue(enemyWave.isEmpty());
-        enemyWave.addEnemy(5, 5);
+        enemyWave.addEnemy(BasicEnemy.class, 5, 5);
         assertFalse(enemyWave.isEmpty());
     }
 

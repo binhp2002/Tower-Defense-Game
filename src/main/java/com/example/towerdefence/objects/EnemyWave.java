@@ -21,11 +21,24 @@ public class EnemyWave {
     /**
      * create an enemy at the specified (x, y) location
      *
+     * @param enemyClass class of enemy to be added
      * @param x x coordinate of enemy spawn point
      * @param y y coordinate of enemy spawn point
      */
-    public void addEnemy(int x, int y) {
-        Enemy newEnemy = new BasicEnemy(x, y);
+    public void addEnemy(Class enemyClass, int x, int y) {
+        if (enemyClass == null || !Enemy.class.isAssignableFrom(enemyClass)) {
+            //check that enemyClass is a subclass of Enemy
+            throw new RuntimeException("enemyClass argument in addEnemy should be a subclass of "
+                    + "abstract class Enemy");
+        }
+        Enemy newEnemy = null;
+        try {
+            //call the constructor and create instances of the enemy class
+            newEnemy = (Enemy) enemyClass.getConstructor(Integer.TYPE, Integer.TYPE).newInstance(x, y);
+        } catch (Exception e) {
+            System.out.println("Exception in EnemyWave.addEnemy when creating instance of " + enemyClass);
+            System.out.println(e);
+        }
         enemies.add(newEnemy);
     }
 
