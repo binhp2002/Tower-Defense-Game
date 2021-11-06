@@ -30,7 +30,8 @@ public class EnemyWave {
     }
 
     /**
-     * create an enemy at the specified (x, y) location
+     * create an enemy at the specified (x, y) location, which is the
+     * relative location of the enemy with (0, 0) as the top left corner of the game path
      *
      * @param enemyClass class of enemy to be added
      * @param x x coordinate of enemy spawn point
@@ -98,6 +99,16 @@ public class EnemyWave {
      */
     public List<Enemy> getEnemies() {
         return this.enemies;
+    }
+
+    /**
+     * sets originLocation, returns 0 to indicate successful method call
+     * @param originLocation new origin location
+     * @return 0
+     */
+    public int setOriginLocation(int[] originLocation) {
+        this.originLocation = originLocation;
+        return 0;
     }
 
     /**

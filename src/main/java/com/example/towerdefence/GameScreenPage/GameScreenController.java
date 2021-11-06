@@ -166,7 +166,7 @@ public class GameScreenController {
     }
 
     @FXML
-    public void mouseEntered(MouseEvent e) {
+    public void placeTower(MouseEvent e) {
 
         if (this.player.getCurrSelected() != null) {
             //if there is a tower selected by the player
