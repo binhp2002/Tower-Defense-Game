@@ -79,6 +79,25 @@ public class EnemyWaveTest {
     }
 
     /**
+     * check if absolute locations are calculated correctly from relative locations
+     */
+    @Test
+    public void testGetEnemyAbsoluteLocation() {
+        int[][] enemyLocations = new int[][]{{10, 20}, {5, 6}, {7, 10}};
+        for (int[] enemyLocation: enemyLocations) {
+            //add the enemies to enemyWave with location as enemyLocation
+            enemyWave.addEnemy(BasicEnemy.class, enemyLocation[0], enemyLocation[1]);
+        }
+
+        enemyWave.setOriginLocation(new int[]{1, 2});
+        //check if the correct absolute locations are returned after adjusting for
+        //the origin location being at (1, 2)
+        assertArrayEquals(enemyWave.getEnemyAbsoluteLocations().toArray(),
+                new int[][]{{11, 22}, {6, 8}, {8, 12}});
+
+    }
+
+    /**
      * check if isEmpty returns false when enemyWave is first initialized and array is empty
      */
     @Test
