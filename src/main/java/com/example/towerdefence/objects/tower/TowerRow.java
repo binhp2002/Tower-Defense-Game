@@ -39,11 +39,11 @@ public class TowerRow {
      * @param addTower tower to be added
      */
     public void insertTower(int insertRow, int insertColumn, Tower addTower) {
-        if (insertRow > numRows || insertColumn <= 0) {
+        if (insertRow > numRows || insertRow < 0) {
             throw new IllegalArgumentException("Error - row provided out of bounds");
         }
 
-        if (insertColumn > numColumns || insertColumn <= 0) {
+        if (insertColumn > numColumns || insertColumn < 0) {
             throw new IllegalArgumentException("Error - column provided out of bounds");
         }
 
