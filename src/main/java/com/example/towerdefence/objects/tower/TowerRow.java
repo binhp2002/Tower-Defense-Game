@@ -39,15 +39,26 @@ public class TowerRow {
      * @param addTower tower to be added
      */
     public void insertTower(int insertRow, int insertColumn, Tower addTower) {
-        if (insertRow > numRows || insertRow < 0) {
+        //doing 0 indexing, so insertRow should be between 0 and numRows - 1 (inclusive)
+        if (insertRow >= numRows || insertRow < 0) {
             throw new IllegalArgumentException("Error - row provided out of bounds");
         }
 
-        if (insertColumn > numColumns || insertColumn < 0) {
+        if (insertColumn >= numColumns || insertColumn < 0) {
             throw new IllegalArgumentException("Error - column provided out of bounds");
         }
 
         towerRow[insertRow][insertColumn] = addTower;
+    }
+
+    /**
+     * return the tower at specified row and column
+     * @param row row to get tower from
+     * @param column column to get tower from
+     * @return Tower at that location (might be null)
+     */
+    public Tower getTower(int row, int column) {
+        return this.towerRow[row][column];
     }
 
 }
