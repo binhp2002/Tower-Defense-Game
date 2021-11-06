@@ -28,7 +28,7 @@ public class GameScreenController {
 
     private ArrayList<Integer> currWaveAnimationCode;
 
-    private HashMap<GridPane, TowerRow> gameTowerRow;
+    private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<GridPane, TowerRow>();
 
     public Scene getNextScene() {
         return this.nextScene;
@@ -198,6 +198,12 @@ public class GameScreenController {
                 System.out.println(exception);
                 throw new RuntimeException("No image path method found for tower");
             }
+
+            if (!gameTowerRow.containsKey(node)) {
+                //create the towerRow now in gameTowerRow since not inside
+                gameTowerRow.put(node, new TowerRow(node));
+            }
+
             //get the appropriate tower row for the one that was just click
             TowerRow towerRow = gameTowerRow.get(node);
             //insert the tower to that tower row

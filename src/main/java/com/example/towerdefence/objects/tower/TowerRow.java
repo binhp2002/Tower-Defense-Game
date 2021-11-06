@@ -1,5 +1,7 @@
 package com.example.towerdefence.objects.tower;
 
+import javafx.scene.layout.*;
+
 public class TowerRow {
     private Tower[][] towerRow;
     private int numRows;
@@ -14,6 +16,16 @@ public class TowerRow {
         this.towerRow = new Tower[numRows][numColumns];
         this.numRows = numRows;
         this.numColumns = numColumns;
+    }
+
+    /**
+     * Constructor to create towerRow to model a particular GridPane (intended to be the
+     * actual grid pane object)
+     * @param gridPane
+     */
+    public TowerRow(GridPane gridPane) {
+        //get the row and column count based on the grid pane object
+        this(gridPane.getRowCount(), gridPane.getColumnCount());
     }
 
     /**
