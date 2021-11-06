@@ -11,11 +11,22 @@ public class EnemyWave {
 
     private ArrayList<Enemy> enemies;
 
+    private int[] originLocation;
+
     /**
-     * initialize new wave
+     * initialize new wave with origin as 0, 0
      */
     public EnemyWave() {
-        enemies = new ArrayList<>();
+        this(new int[]{0, 0});
+    }
+
+    /**
+     * initialize new wave with originLocation of the game path set as originLocation
+     * @param originLocation origin location of game path
+     */
+    public EnemyWave(int[] originLocation) {
+        this.enemies = new ArrayList<>();
+        this.originLocation = originLocation;
     }
 
     /**
@@ -54,11 +65,29 @@ public class EnemyWave {
      * returns an arraylist with the enemy locations
      * @return List with the enemy locations as int array elements in the List
      */
-    public List<int[]> getEnemyLocations() {
+    public List<int[]> getEnemyRelativeLocations() {
         List<int[]> enemyLocations = new ArrayList<>();
         for (Enemy enemy: enemies) {
             //add the enemy locations to the list
-            enemyLocations.add(enemy.getLocation());
+            enemyLocations.add(enemy.getRelativeLocation());
+        }
+        return enemyLocations;
+    }
+
+    /**
+     * get absolute enemy locations relative to the screen
+     * @return List of absolute enemy locations
+     */
+    public List<int[]> getEnemyAbsoluteLocations() {
+        List<int[]> enemyLocations = new ArrayList<>();
+        for (Enemy enemy: enemies) {
+            int[] currEnemyLocation = enemy.getRelativeLocation();
+            for (int i = 0; i < originLocation.length; i++) {
+                //add the origin location to the relative location to get
+                //the absolute location
+                currEnemyLocation[i] += originLocation[i];
+            }
+            enemyLocations.add(currEnemyLocation);
         }
         return enemyLocations;
     }

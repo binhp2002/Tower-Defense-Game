@@ -23,7 +23,7 @@ public class EnemyTests {
      */
     @Test
     public void testGetLocation() {
-        assertThat(enemy.getLocation(), instanceOf(int[].class));
+        assertThat(enemy.getRelativeLocation(), instanceOf(int[].class));
     }
 
     /**
@@ -31,8 +31,8 @@ public class EnemyTests {
      */
     @Test
     public void testSetLocation() {
-        assertEquals(enemy.setLocation(new int[]{1, 2}), 0);
-        assertArrayEquals(enemy.getLocation(), new int[]{1, 2});
+        assertEquals(enemy.setRelativeLocation(new int[]{1, 2}), 0);
+        assertArrayEquals(enemy.getRelativeLocation(), new int[]{1, 2});
     }
 
     /**
@@ -48,13 +48,13 @@ public class EnemyTests {
      */
     @Test
     public void testMoveHorizontalNormal() {
-        enemy.setLocation(new int[]{5, 5});
-        assertArrayEquals(enemy.getLocation(), new int[]{5, 5});
+        enemy.setRelativeLocation(new int[]{5, 5});
+        assertArrayEquals(enemy.getRelativeLocation(), new int[]{5, 5});
 
         //check that error code is 0
         assertEquals(enemy.moveHorizontal(4), 0);
         //check that the enemy is in the correct new position
-        assertArrayEquals(enemy.getLocation(), new int[]{1, 5});
+        assertArrayEquals(enemy.getRelativeLocation(), new int[]{1, 5});
     }
 
     /**
@@ -63,13 +63,13 @@ public class EnemyTests {
      */
     @Test
     public void testMoveHorizontalNegative() {
-        enemy.setLocation(new int[]{5, 5});
-        assertArrayEquals(enemy.getLocation(), new int[]{5, 5});
+        enemy.setRelativeLocation(new int[]{5, 5});
+        assertArrayEquals(enemy.getRelativeLocation(), new int[]{5, 5});
 
         //check that -1 error code returned
         assertEquals(enemy.moveHorizontal(6), -1);
         //check that enemy did not move
-        assertArrayEquals(enemy.getLocation(), new int[]{5, 5});
+        assertArrayEquals(enemy.getRelativeLocation(), new int[]{5, 5});
     }
 
     /**
@@ -77,12 +77,12 @@ public class EnemyTests {
      */
     @Test
     public void testMoveHorizontalZero() {
-        enemy.setLocation(new int[]{5, 5});
-        assertArrayEquals(enemy.getLocation(), new int[]{5, 5});
+        enemy.setRelativeLocation(new int[]{5, 5});
+        assertArrayEquals(enemy.getRelativeLocation(), new int[]{5, 5});
 
         //check that error code is 0
         assertEquals(enemy.moveHorizontal(5), 0);
         //check that the enemy is in the correct new position
-        assertArrayEquals(enemy.getLocation(), new int[]{0, 5});
+        assertArrayEquals(enemy.getRelativeLocation(), new int[]{0, 5});
     }
 }

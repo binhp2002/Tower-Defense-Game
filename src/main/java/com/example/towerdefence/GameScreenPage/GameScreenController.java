@@ -160,8 +160,8 @@ public class GameScreenController {
         //enemy is a 10x10 image
         enemyImageView.setFitHeight(20);
         enemyImageView.setFitWidth(20);
-        enemyImageView.setX(enemy.getLocation()[0]);
-        enemyImageView.setY(enemy.getLocation()[1]);
+        enemyImageView.setX(enemy.getRelativeLocation()[0]);
+        enemyImageView.setY(enemy.getRelativeLocation()[1]);
         gamePath.getChildren().add(enemyImageView);
     }
 
@@ -199,7 +199,7 @@ public class GameScreenController {
 
     }
 
-    Node getNodeByCoordinate(Integer row, Integer column, GridPane gridPane) {
+    public Node getNodeByCoordinate(Integer row, Integer column, GridPane gridPane) {
         for (Node node : gridPane.getChildren()) {
             if (node != null && GridPane.getRowIndex(node) != null
                     && GridPane.getRowIndex(node).equals(row)
@@ -213,6 +213,5 @@ public class GameScreenController {
     public static void gameOver(StackPane gameOverPane) {
         gameOverPane.setVisible(true);
         gameOverPane.setStyle("-fx-background-color: transparent;");
-
     }
 }
