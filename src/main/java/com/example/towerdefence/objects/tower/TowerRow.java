@@ -34,9 +34,9 @@ public class TowerRow {
 
     /**
      * Method to insert tower into towerRow
-     * @param insertRow
-     * @param insertColumn
-     * @param addTower
+     * @param insertRow row to insert tower to
+     * @param insertColumn column to insert tower to
+     * @param addTower tower to be added
      */
     public void insertTower(int insertRow, int insertColumn, Tower addTower) {
         if (insertRow > numRows || insertColumn <= 0) {
