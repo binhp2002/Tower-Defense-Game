@@ -8,8 +8,8 @@ public class BasicTower extends Tower {
     public static final int BASIC_COST = 100;
     public static final String IMAGE_PATH = "file:./src/main/resources/images/BasicTower.png";
 
-    public BasicTower() {
-        super(100, 1, NormalProjectile.class);
+    public BasicTower(int[] absoluteLocation) {
+        super(100, 1, NormalProjectile.class, absoluteLocation);
     }
 
     public int getBasicCost() {

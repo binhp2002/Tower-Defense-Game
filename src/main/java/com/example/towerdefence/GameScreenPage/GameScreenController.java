@@ -28,6 +28,8 @@ public class GameScreenController {
 
     private ArrayList<Integer> currWaveAnimationCode;
 
+    private HashMap<GridPane, TowerRow> gameTowerRow;
+
     public Scene getNextScene() {
         return this.nextScene;
     }
@@ -182,14 +184,29 @@ public class GameScreenController {
             int colIndex = (int) (clickX / cellWidth);
             int rowIndex = (int) (clickY / cellHeight);
 
-            ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
+            //get the absolute location of the tower by looking at the index and then taking the center
+            //for that index
+            int towerX = (int) (node.getLayoutX() + (colIndex + 0.5) * cellWidth);
+            int towerY = (int) (node.getLayoutY() + (rowIndex + 0.5) * cellHeight);
+
+            Tower tower;
             try {
-                cell.setImage(new Image(((Tower) this.player.getCurrSelected().getConstructor()
-                        .newInstance()).getImagePath()));
+                //(new int[]{}).getClass() used to get class of int[]
+                tower = (Tower) this.player.getCurrSelected().getConstructor((new int[]{}).getClass())
+                        .newInstance(new int[] {towerX, towerY});
             } catch (Exception exception) {
                 System.out.println(exception);
                 throw new RuntimeException("No image path method found for tower");
             }
+            //get the appropriate tower row for the one that was just click
+            TowerRow towerRow = gameTowerRow.get(node);
+            //insert the tower to that tower row
+            towerRow.insertTower(rowIndex, colIndex, tower);
+
+            ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
+
+            cell.setImage(new Image(tower.getImagePath()));
+
             cell.setFitHeight(cellHeight);
             cell.setFitWidth(cellWidth);
             //reset the tower selected

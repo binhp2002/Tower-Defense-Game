@@ -9,13 +9,16 @@ public abstract class Tower {
     private Class projectileType;
     private int rateOfFire;
 
+    private int[] absoluteLocation;
+
     /**
      * most specific constructor, to set everything
      * @param health starting health of the tower
      * @param rateOfFire rate of fire of the tower
      * @param projectileType the class of the projectile that this tower fires
+     * @param absoluteLocation the absolute location of the tower
      */
-    public Tower(int health, int rateOfFire, Class projectileType) {
+    public Tower(int health, int rateOfFire, Class projectileType, int[] absoluteLocation) {
         if (!Projectile.class.isAssignableFrom(projectileType)) {
             //ensure that projectileType implements projectile interface,
             //can assign projectileType to projectile
@@ -24,6 +27,7 @@ public abstract class Tower {
         this.health = health;
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
+        this.absoluteLocation = absoluteLocation;
     }
 
     /**
@@ -58,6 +62,29 @@ public abstract class Tower {
      */
     public int getHealth() {
         return this.health;
+    }
+
+    /**
+     * gets absolute location of tower
+     * @return absolute location of tower
+     */
+    public int[] getAbsoluteLocation() {
+        return this.absoluteLocation;
+    }
+
+    /**
+     * sets absolute location of tower
+     * @param absoluteLocation new absolute location of tower
+     * @return 0 if absolute location of tower set successfully (x and y greater than or equal
+     * to 0)
+     */
+    public int setAbsoluteLocation(int[] absoluteLocation) {
+        if (absoluteLocation == null || absoluteLocation.length != 2 || absoluteLocation[0] < 0
+                || absoluteLocation[1] < 0) {
+            return -1;
+        }
+        this.absoluteLocation = absoluteLocation;
+        return 0;
     }
 
     /**

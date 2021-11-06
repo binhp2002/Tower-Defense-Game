@@ -7,8 +7,8 @@ public class TowerRow {
 
     /**
      * Constructor to create towerRow of specified size
-     * @param numRows
-     * @param numColumns
+     * @param numRows number of rows
+     * @param numColumns number of columns
      */
     public TowerRow(int numRows, int numColumns) {
         this.towerRow = new Tower[numRows][numColumns];
@@ -49,4 +49,5 @@ public class TowerRow {
 
         towerRow[insertRow][insertColumn] = addTower;
     }
+
 }

@@ -180,7 +180,7 @@ public class PlayerTest {
      */
     @Test
     public void testGetPlayerCostEasy() {
-        Tower basicTower = new BasicTower();
+        Tower basicTower = new BasicTower(new int[]{0, 0});
         assertEquals(player.setDifficulty(1), 0);
         assertEquals(player.getDifficulty(), 1);
         //check cost factor correctly applied
@@ -192,7 +192,7 @@ public class PlayerTest {
      */
     @Test
     public void testGetPlayerCostMedium() {
-        Tower basicTower = new BasicTower();
+        Tower basicTower = new BasicTower(new int[]{0, 0});
         assertEquals(player.setDifficulty(2), 0);
         assertEquals(player.getDifficulty(), 2);
         //check cost factor correctly applied
@@ -201,7 +201,7 @@ public class PlayerTest {
 
     @Test
     public void testGetPlayerCostHard() {
-        Tower sniperTower = new SniperTower();
+        Tower sniperTower = new SniperTower(new int[]{0, 0});
         assertEquals(player.setDifficulty(3), 0);
         assertEquals(player.getDifficulty(), 3);
         //check cost factor corretly applied

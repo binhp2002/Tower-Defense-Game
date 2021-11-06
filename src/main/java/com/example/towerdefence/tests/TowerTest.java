@@ -18,9 +18,9 @@ public class TowerTest {
 
     @Before
     public void setUp() {
-        sniperTower = new SniperTower();
-        basicTower = new BasicTower();
-        machineTower = new MachineTower();
+        sniperTower = new SniperTower(new int[]{0, 0});
+        basicTower = new BasicTower(new int[]{0, 0});
+        machineTower = new MachineTower(new int[]{0, 0});
     }
 
     /**
