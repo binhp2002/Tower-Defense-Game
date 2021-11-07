@@ -1,6 +1,7 @@
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.tower.*;
+import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
@@ -16,17 +17,18 @@ public class GameTest extends ApplicationTest {
     private GameApplication main;
     private Player player;
     private Monument monument;
+    private Scene gameScene;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         //start game and navigate to medium difficulty page
-        main = new GameApplication();
+        this.main = new GameApplication();
         this.main.start(primaryStage);
         this.player = main.getPlayer();
         this.monument = main.getMonument();
-        stage = primaryStage;
+        this.stage = primaryStage;
     }
 
     /**
@@ -48,6 +50,8 @@ public class GameTest extends ApplicationTest {
         assertEquals(stage.getTitle(), "Tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
                 && t.getText().contains("Health: 100"));
+        //get the game scene after navigating to that scene
+        this.gameScene = stage.getScene();
     }
 
     /**
@@ -145,7 +149,7 @@ public class GameTest extends ApplicationTest {
     @Test
     public void placeTowerTopRow() {
         clickOn("#BasicTowerPurchaseButton");
-        GridPane topTowerRow = (GridPane) stage.getScene().lookup("#topTowerRow");
+        GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
         clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
                 stage.getY() + topTowerRow.getLayoutY() + 10));
         //player curr selected is null and no longer with the player
@@ -159,7 +163,7 @@ public class GameTest extends ApplicationTest {
     @Test
     public void placeTowerPath() {
         clickOn("#BasicTowerPurchaseButton");
-        Pane path = (Pane) stage.getScene().lookup("#gamePath");
+        Pane path = (Pane) gameScene.lookup("#gamePath");
         clickOn(point(stage.getX() + path.getLayoutX() + 10,
                 stage.getY() + path.getLayoutY() + 10));
         //player curr selected is not null, still with player
@@ -173,7 +177,7 @@ public class GameTest extends ApplicationTest {
     public void placeTowerBottomRow() {
         clickOn("#BasicTowerPurchaseButton");
         //click on the bottom row
-        GridPane bottomTowerRow = (GridPane) stage.getScene().lookup("#bottomTowerRow");
+        GridPane bottomTowerRow = (GridPane) gameScene.lookup("#bottomTowerRow");
         clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
                 stage.getY() + bottomTowerRow.getLayoutY() + 10));
         //player curr selected is null and no longer with the player
@@ -186,7 +190,7 @@ public class GameTest extends ApplicationTest {
     @Test
     public void checkEnemy() {
         clickOn("#startCombatButton");
-        Pane gamePath = (Pane) stage.getScene().lookup("#gamePath");
+        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
         assertNotNull(gamePath.getChildren());
     }
 
