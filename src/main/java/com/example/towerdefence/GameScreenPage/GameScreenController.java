@@ -132,6 +132,14 @@ public class GameScreenController {
                         //game over
                         GameScreenController.gameOver((StackPane) currScene
                                 .lookup("#gameOverPane"));
+
+                        if (animationIP != null && animationIP.size() == 1) {
+                            //might have race condition where another handle call comes in while
+                            //processing previous call
+                            animationIP.remove(0);
+                        }
+
+                        this.stop();
                     }
                 }
 
@@ -152,7 +160,11 @@ public class GameScreenController {
                     //current wave is over when there are no more enemies
                     //clear remaining enemies
                     ((Pane) currScene.lookup("#gamePath")).getChildren().clear();
-                    animationIP.remove(0);
+                    if (animationIP != null && animationIP.size() == 1) {
+                        //might have race condition where another handle call comes in while
+                        //processing previous call
+                        animationIP.remove(0);
+                    }
 
                     this.stop();
                 }
@@ -184,7 +196,7 @@ public class GameScreenController {
         //creates associated enemies
         HashMap<Enemy,ImageView> enemyImageViewHashMap = new HashMap<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             enemyWave.addEnemy(BasicEnemy.class, (int) gamePath.getWidth(), i * 20);
         }
         for (int i = 5; i < 10; i++) {
