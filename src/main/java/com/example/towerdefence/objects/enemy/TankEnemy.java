@@ -2,7 +2,7 @@ package com.example.towerdefence.objects.enemy;
 
 public class TankEnemy extends Enemy{
 
-    public static final String IMAGE_PATH = "file:./src/main/resources/images/enemy.png";
+    public static final String IMAGE_PATH = "file:./src/main/resources/images/tankEnemy.png";
 
     /**
      * create TankEnemy with default [0, 0] location
