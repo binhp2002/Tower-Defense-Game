@@ -86,7 +86,8 @@ public class GameScreenController {
         }
     }
 
-    public ArrayList<Integer> gameMovementLoop(EnemyWave enemyWave, Scene currScene) {
+    public ArrayList<Integer> gameMovementLoop(EnemyWave enemyWave, HashMap<Enemy, ImageView> enemyImageViewHashMap,
+                                               Scene currScene) {
         //store whether the animation is in progress, empty if not, one element if there is
         ArrayList<Integer> animationIP = new ArrayList<>();
 
@@ -97,17 +98,24 @@ public class GameScreenController {
 
             @Override
             public void handle(long now) {
-                if (now - prev < 0.05) {
+                if (now - prev < 1 * Math.pow(10, 7)) {
                     return;
                 }
                 this.prev = now;
-                ((Pane) currScene.lookup("#gamePath")).getChildren().clear();
-                for (Enemy enemy: enemyWave.getEnemies()) {
-                    drawEnemy(enemy, currScene);
-                }
+
                 //get the enemies that have reached the end
                 List<Enemy> enemiesReached = enemyWave.moveEnemiesForward();
+
                 for (Enemy enemy: enemiesReached) {
+                    //store the image view for the enemy then remove it so no longer seen
+                    ImageView enemyImageView = enemyImageViewHashMap.get(enemy);
+
+                    //remove them from being displayed
+                    enemyImageViewHashMap.remove(enemy);
+
+                    Pane gamePath = (Pane) currScene.lookup("#gamePath");
+                    gamePath.getChildren().remove(enemyImageView);
+
                     //enemies doing damage to monument
                     monument.setHealth(monument.getHealth() - enemy.getDamage());
                     if (monument.getHealth() <= 0) {
@@ -115,6 +123,17 @@ public class GameScreenController {
                                 .lookup("#gameOverPane"));
                     }
                 }
+
+                for (Enemy enemy: enemyWave.getEnemies()) {
+                    if (!enemyImageViewHashMap.containsKey(enemy)) {
+                        throw new RuntimeException("enemy not in enemyWave.getEnemies, check if all killed" +
+                                "enemies have been removed from enemyImageViewHashMap");
+                    }
+
+                    //the remaining enemies that have not been removed yet
+                    updateEnemyImage(enemy, enemyImageViewHashMap.get(enemy));
+                }
+
                 //update player parameters
                 ((Text) currScene.lookup("#playerParameters")).setText("Money: "
                         + player.getMoney() + " Health: " + monument.getHealth());
@@ -146,25 +165,47 @@ public class GameScreenController {
 
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
 
+        //creates associated enemies
+        HashMap<Enemy,ImageView> enemyImageViewHashMap = new HashMap<>();
+
         for (int i = 0; i < 5; i++) {
             enemyWave.addEnemy(BasicEnemy.class, (int) gamePath.getWidth(), i * 20);
         }
         for (int i = 5; i < 10; i++) {
             enemyWave.addEnemy(TankEnemy.class, (int) gamePath.getWidth(), i * 20);
         }
-        this.currWaveAnimationCode = gameMovementLoop(enemyWave, currScene);
+
+        for (Enemy enemy: enemyWave.getEnemies()) {
+            //add the enemy to the game path and then associate the ImageView of the enemy with the enemy
+            enemyImageViewHashMap.put(enemy, createEnemyImage(enemy, currScene));
+        }
+
+        this.currWaveAnimationCode = gameMovementLoop(enemyWave, enemyImageViewHashMap, currScene);
     }
 
-    public void drawEnemy(Enemy enemy, Scene scene) {
+    public ImageView createEnemyImage(Enemy enemy, Scene scene) {
         //get the stack pane to add the elements to it
         Pane gamePath = (Pane) scene.lookup("#gamePath");
         ImageView enemyImageView = new ImageView(enemy.getImagePath());
         //enemy is a 10x10 image
         enemyImageView.setFitHeight(20);
         enemyImageView.setFitWidth(20);
-        enemyImageView.setX(enemy.getRelativeLocation()[0]);
-        enemyImageView.setY(enemy.getRelativeLocation()[1]);
+        enemyImageView.setLayoutX(enemy.getRelativeLocation()[0]);
+        enemyImageView.setLayoutY(enemy.getRelativeLocation()[1]);
         gamePath.getChildren().add(enemyImageView);
+        //returns the ImageView associated with this enemy
+        return enemyImageView;
+    }
+
+
+    /**
+     * updates the enemy image view location for the enemy
+     * @param enemy enemy that we are updating the image of
+     * @param enemyImageView the ImageView for that enemy (move this ImageView position)
+     */
+    public void updateEnemyImage(Enemy enemy, ImageView enemyImageView) {
+        enemyImageView.setLayoutX(enemy.getRelativeLocation()[0]);
+        enemyImageView.setLayoutY(enemy.getRelativeLocation()[1]);
     }
 
     @FXML
