@@ -86,6 +86,13 @@ public class GameScreenController {
         }
     }
 
+    /**
+     * logic for the while loop that occurs when an enemy wave is in progress
+     * @param enemyWave EnemyWave object representing the enemies in the current wave
+     * @param enemyImageViewHashMap mapping from enemies to their respective ImageView objects in gamePath
+     * @param currScene current Scene
+     * @return animationIP ArrayList used to track if the wave is in progress
+     */
     public ArrayList<Integer> gameMovementLoop(EnemyWave enemyWave, HashMap<Enemy, ImageView> enemyImageViewHashMap,
                                                Scene currScene) {
         //store whether the animation is in progress, empty if not, one element if there is
@@ -96,9 +103,11 @@ public class GameScreenController {
         AnimationTimer animation = new AnimationTimer() {
             private double prev = 0.0;
 
+            private final double frameTime = Math.pow(10, 7);
+
             @Override
             public void handle(long now) {
-                if (now - prev < 1 * Math.pow(10, 7)) {
+                if (now - prev < frameTime) {
                     return;
                 }
                 this.prev = now;
@@ -110,15 +119,17 @@ public class GameScreenController {
                     //store the image view for the enemy then remove it so no longer seen
                     ImageView enemyImageView = enemyImageViewHashMap.get(enemy);
 
-                    //remove them from being displayed
+                    //remove them from the HashMap so they aren't redrawn
                     enemyImageViewHashMap.remove(enemy);
 
+                    //remove ImageView from gamePath
                     Pane gamePath = (Pane) currScene.lookup("#gamePath");
                     gamePath.getChildren().remove(enemyImageView);
 
                     //enemies doing damage to monument
                     monument.setHealth(monument.getHealth() - enemy.getDamage());
                     if (monument.getHealth() <= 0) {
+                        //game over
                         GameScreenController.gameOver((StackPane) currScene
                                 .lookup("#gameOverPane"));
                     }
@@ -139,6 +150,7 @@ public class GameScreenController {
                         + player.getMoney() + " Health: " + monument.getHealth());
                 if (enemyWave.getEnemies().isEmpty()) {
                     //current wave is over when there are no more enemies
+                    //clear remaining enemies
                     ((Pane) currScene.lookup("#gamePath")).getChildren().clear();
                     animationIP.remove(0);
 
@@ -152,6 +164,10 @@ public class GameScreenController {
         return animationIP;
     }
 
+    /**
+     * controller for start combat button, initializes the enemy wave and then calls game movement loop
+     * @param actionEvent event object for start combat button click
+     */
     @FXML
     public void startCombatButton(ActionEvent actionEvent) {
         if (this.currWaveAnimationCode != null && this.currWaveAnimationCode.size() != 0) {
@@ -168,7 +184,7 @@ public class GameScreenController {
         //creates associated enemies
         HashMap<Enemy,ImageView> enemyImageViewHashMap = new HashMap<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             enemyWave.addEnemy(BasicEnemy.class, (int) gamePath.getWidth(), i * 20);
         }
         for (int i = 5; i < 10; i++) {
@@ -183,6 +199,12 @@ public class GameScreenController {
         this.currWaveAnimationCode = gameMovementLoop(enemyWave, enemyImageViewHashMap, currScene);
     }
 
+    /**
+     * creates the enemy image and inserts it to the scene
+     * @param enemy Enemy object
+     * @param scene current scene
+     * @return ImageView object created for the Enemy object in the scene
+     */
     public ImageView createEnemyImage(Enemy enemy, Scene scene) {
         //get the stack pane to add the elements to it
         Pane gamePath = (Pane) scene.lookup("#gamePath");
