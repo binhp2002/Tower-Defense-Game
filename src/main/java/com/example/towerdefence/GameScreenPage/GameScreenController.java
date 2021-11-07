@@ -196,7 +196,7 @@ public class GameScreenController {
         //creates associated enemies
         HashMap<Enemy,ImageView> enemyImageViewHashMap = new HashMap<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             enemyWave.addEnemy(BasicEnemy.class, (int) gamePath.getWidth(), i * 20);
         }
         for (int i = 5; i < 10; i++) {
