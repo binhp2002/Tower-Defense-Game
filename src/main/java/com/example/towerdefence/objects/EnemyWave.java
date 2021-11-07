@@ -55,6 +55,18 @@ public class EnemyWave {
     }
 
     /**
+     * adds enemy to EnemyWave
+     *
+     * @param enemy enemy to be added
+     */
+    public void addEnemy(Enemy enemy) {
+        if (enemy == null) {
+            throw new RuntimeException("Cannot add empty enemy in addEnemy");
+        }
+        enemies.add(enemy);
+    }
+
+    /**
      * return the number of enemies currently still present in the array
      * @return number of enemies still in enemies ArrayList
      */

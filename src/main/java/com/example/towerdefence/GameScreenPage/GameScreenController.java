@@ -50,6 +50,11 @@ public class GameScreenController {
         return this.player;
     }
 
+    public ArrayList<Integer> getCurrWaveAnimationCode() {
+        //return a copy of the ArrayList
+        return new ArrayList<>(this.currWaveAnimationCode);
+    }
+
 
     //Adding Images to GameScreen
 
@@ -196,19 +201,36 @@ public class GameScreenController {
         //creates associated enemies
         HashMap<Enemy,ImageView> enemyImageViewHashMap = new HashMap<>();
 
+        List<Enemy> enemyList = new ArrayList<>();
+
         for (int i = 0; i < 10; i++) {
-            enemyWave.addEnemy(BasicEnemy.class, (int) gamePath.getWidth(), i * 20);
+            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
         }
         for (int i = 5; i < 10; i++) {
-            enemyWave.addEnemy(TankEnemy.class, (int) gamePath.getWidth(), i * 20);
+            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
         }
 
-        for (Enemy enemy: enemyWave.getEnemies()) {
-            //add the enemy to the game path and then associate the ImageView of the enemy with the enemy
-            enemyImageViewHashMap.put(enemy, createEnemyImage(enemy, currScene));
-        }
+        this.initializeEnemies(enemyList, enemyWave, enemyImageViewHashMap, currScene);
 
         this.currWaveAnimationCode = gameMovementLoop(enemyWave, enemyImageViewHashMap, currScene);
+    }
+
+    /**
+     * initializes enemies in a List of enemies by adding the enemies to an enemyWave and creating ImageView
+     * objects for them in the current scene
+     *
+     * @param enemyList list of enemies to initialize
+     * @param enemyWave enemyWave object to add enemies to
+     * @param enemyImageViewHashMap HashMap mapping enemies to ImageView objects, enemies added to this
+     * @param currScene current scene
+     */
+    public void initializeEnemies(List<Enemy> enemyList, EnemyWave enemyWave,
+                              HashMap<Enemy, ImageView> enemyImageViewHashMap, Scene currScene) {
+        for (Enemy enemy: enemyList) {
+            //add the enemy and add it to the scene as well
+            enemyWave.addEnemy(enemy);
+            enemyImageViewHashMap.put(enemy, createEnemyImage(enemy, currScene));
+        }
     }
 
     /**
