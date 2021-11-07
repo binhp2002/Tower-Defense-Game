@@ -10,6 +10,7 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.*;
 
 public class GameApplication extends Application {
 
@@ -19,11 +20,14 @@ public class GameApplication extends Application {
     private Player player;
     private Monument monument;
 
+    private HashMap<String, Object> controllerMap;
+
     @Override
     public void start(Stage stage) throws IOException {
         this.player = new Player();
         this.monument = new Monument();
         this.window = stage;
+        this.controllerMap = new HashMap<>();
 
         //load scenes
         //start up screen
@@ -49,15 +53,18 @@ public class GameApplication extends Application {
         //get the controller and then set the next page for the controller
         StartUpPageController startUpController = startUpPane.getController();
         startUpController.setNextScene(configScreenScene);
+        this.controllerMap.put("StartUpPageController", startUpController);
 
         ConfigScreenController configScreenController = configScreenPane.getController();
         configScreenController.setNextScene(gameScreenScene);
         configScreenController.setPlayer(player);
         configScreenController.setMonument(monument);
+        this.controllerMap.put("ConfigScreenController", configScreenController);
 
         GameScreenController gameScreenController = gameScreenPane.getController();
         gameScreenController.setPlayer(player);
         gameScreenController.setMonument(monument);
+        this.controllerMap.put("GameScreenController", gameScreenController);
 
         stage.setTitle("Tower Defense Game");
         stage.setScene(startUpScene);
@@ -80,6 +87,10 @@ public class GameApplication extends Application {
      */
     public Monument getMonument() {
         return this.monument;
+    }
+
+    public HashMap<String, Object> getControllerMap() {
+        return this.controllerMap;
     }
 
     /**

@@ -1,4 +1,5 @@
 import com.example.towerdefence.GameApplication;
+import com.example.towerdefence.GameScreenPage.*;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.tower.*;
 import javafx.scene.*;
@@ -18,6 +19,7 @@ public class GameTest extends ApplicationTest {
     private Player player;
     private Monument monument;
     private Scene gameScene;
+    private GameScreenController gameScreenController;
 
 
     @Override
@@ -29,6 +31,7 @@ public class GameTest extends ApplicationTest {
         this.player = main.getPlayer();
         this.monument = main.getMonument();
         this.stage = primaryStage;
+        this.gameScreenController = (GameScreenController) this.main.getControllerMap().get("GameScreenController");
     }
 
     /**
@@ -185,11 +188,12 @@ public class GameTest extends ApplicationTest {
     }
 
     /**
-     * check if there is enemy once click start combat button
+     * check if there is enemy once click start combat button and curr wave animation code changed
      */
     @Test
     public void checkEnemy() {
         clickOn("#startCombatButton");
+        assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(), new Integer[]{1});
         Pane gamePath = (Pane) gameScene.lookup("#gamePath");
         assertNotNull(gamePath.getChildren());
     }
@@ -238,5 +242,16 @@ public class GameTest extends ApplicationTest {
         }
         clickOn("#startCombatButton");
         assertNull(this.player.getCurrSelected());
+    }
+
+    @Test
+    /**
+     * test if animation has stopped by checking if animation code changes back to empty
+     */
+    public void checkGameEndStopAnimation() {
+        while (monument.getHealth() > 0) {
+            clickOn("#startCombatButton");
+        }
+        assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(), new Integer[]{});
     }
 }
