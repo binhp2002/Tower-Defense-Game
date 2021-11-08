@@ -1,4 +1,4 @@
-package com.example.towerdefence.GameScreenPage;
+package com.example.towerdefence.Controllers;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.enemy.*;
 import com.example.towerdefence.objects.tower.*;
@@ -12,11 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.stage.*;
-import javafx.util.*;
 
 import java.util.*;
-import java.util.concurrent.*;
 
 
 public class GameScreenController {

@@ -1,11 +1,9 @@
+import com.example.towerdefence.Controllers.*;
 import com.example.towerdefence.GameApplication;
-import com.example.towerdefence.GameScreenPage.*;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.enemy.*;
 import com.example.towerdefence.objects.tower.*;
-import javafx.application.*;
 import javafx.scene.*;
-import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;

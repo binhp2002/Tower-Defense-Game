@@ -1,10 +1,8 @@
 package com.example.towerdefence;
-import com.example.towerdefence.ConfigScreenPage.ConfigScreenController;
-import com.example.towerdefence.GameScreenPage.*;
+import com.example.towerdefence.Controllers.*;
 import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
-import com.example.towerdefence.StartUpPage.StartUpPageController;
-import com.example.towerdefence.objects.tower.Tower;
+import com.example.towerdefence.Controllers.StartUpPageController;
 import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.*;
