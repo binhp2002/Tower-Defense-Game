@@ -18,7 +18,7 @@ public class TankEnemy extends Enemy{
      * @param y y coordinate of enemy
      */
     public TankEnemy(int x, int y) {
-        super(200, 20, 10, x, y);
+        super(200, 20, 5, x, y);
     }
 
     @Override

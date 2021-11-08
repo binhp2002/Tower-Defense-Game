@@ -26,12 +26,22 @@ public class GameScreenController {
 
     private Scene nextScene;
 
-    private ArrayList<Integer> currWaveAnimationCode;
+    private List<Integer> currWaveAnimationCode;
+
+    private List<Enemy> currWaveEnemyList;
 
     private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<GridPane, TowerRow>();
 
     public Scene getNextScene() {
         return this.nextScene;
+    }
+
+    public List<Enemy> getCurrWaveEnemyList() {
+        return this.currWaveEnemyList;
+    }
+
+    public void setCurrWaveEnemyList(List<Enemy> currWaveEnemyList) {
+        this.currWaveEnemyList = currWaveEnemyList;
     }
 
     public void setNextScene(Scene scene) {
@@ -54,7 +64,6 @@ public class GameScreenController {
         //return a copy of the ArrayList
         return new ArrayList<>(this.currWaveAnimationCode);
     }
-
 
     //Adding Images to GameScreen
 
@@ -89,6 +98,26 @@ public class GameScreenController {
             ((Text) ((Node) e.getSource()).getScene().lookup("#playerParameters"))
                     .setText("Money: " + player.getMoney() + " Health: " + monument.getHealth());
         }
+    }
+
+    /**
+     * method to prepare the list of enemies for the next wave
+     * @param gamePath game path to determine where to place the enemies
+     */
+    public void setNextWave(Pane gamePath) {
+        List<Enemy> nextEnemyList = new ArrayList<>();
+
+        //always generate the same set of enemies for now
+        List<Enemy> enemyList = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+        }
+        for (int i = 5; i < 10; i++) {
+            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
+        }
+
+        this.currWaveEnemyList = enemyList;
     }
 
     /**
@@ -138,7 +167,7 @@ public class GameScreenController {
                         GameScreenController.gameOver((StackPane) currScene
                                 .lookup("#gameOverPane"));
 
-                        if (animationIP != null && animationIP.size() == 1) {
+                        if (animationIP.size() == 1) {
                             //might have race condition where another handle call comes in while
                             //processing previous call
                             animationIP.remove(0);
@@ -165,12 +194,11 @@ public class GameScreenController {
                     //current wave is over when there are no more enemies
                     //clear remaining enemies
                     ((Pane) currScene.lookup("#gamePath")).getChildren().clear();
-                    if (animationIP != null && animationIP.size() == 1) {
+                    if (animationIP.size() == 1) {
                         //might have race condition where another handle call comes in while
                         //processing previous call
                         animationIP.remove(0);
                     }
-
                     this.stop();
                 }
             }
@@ -201,18 +229,18 @@ public class GameScreenController {
         //creates associated enemies
         HashMap<Enemy,ImageView> enemyImageViewHashMap = new HashMap<>();
 
-        List<Enemy> enemyList = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
-        }
-        for (int i = 5; i < 10; i++) {
-            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
+        if (this.currWaveEnemyList == null) {
+            //set next wave of enemies
+            this.setNextWave(gamePath);
         }
 
-        this.initializeEnemies(enemyList, enemyWave, enemyImageViewHashMap, currScene);
+
+        this.initializeEnemies(this.currWaveEnemyList, enemyWave, enemyImageViewHashMap, currScene);
 
         this.currWaveAnimationCode = gameMovementLoop(enemyWave, enemyImageViewHashMap, currScene);
+
+        //sets up the next wave of enemies
+        this.setNextWave(gamePath);
     }
 
     /**

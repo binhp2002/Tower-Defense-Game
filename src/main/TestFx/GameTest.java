@@ -1,13 +1,18 @@
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.GameScreenPage.*;
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.enemy.*;
 import com.example.towerdefence.objects.tower.*;
+import javafx.application.*;
 import javafx.scene.*;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
 import org.testfx.framework.junit.ApplicationTest;
+
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -244,14 +249,76 @@ public class GameTest extends ApplicationTest {
         assertNull(this.player.getCurrSelected());
     }
 
-    @Test
+
     /**
-     * test if animation has stopped by checking if animation code changes back to empty
+     * test if animation has stopped by checking if animation code changes back to empty and
+     * letting game run for one more sec to see if enemy positions have been changed
+     * (difficult to access FXML elements directly cause JavaFX doesn't seem to allow
+     * non-application threads to alter UI elements)
      */
+    @Test
     public void checkGameEndStopAnimation() {
+        //store enemyList to check if enemies still moving
+        Pane gamePath = (Pane) this.gameScene.lookup("#gamePath");
+
+        List<Enemy> enemyList = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+        }
+        for (int i = 5; i < 10; i++) {
+            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
+        }
+
+        this.gameScreenController.setCurrWaveEnemyList(enemyList);
+
         while (monument.getHealth() > 0) {
+
             clickOn("#startCombatButton");
         }
+
+        List<int[]> prevEnemyLocations = new ArrayList<>();
+
+        for (Enemy enemy: this.gameScreenController.getCurrWaveEnemyList()) {
+            prevEnemyLocations.add(enemy.getRelativeLocation());
+        }
+
+        //get relative locations of the enemies
+
+        try {
+            //give some time delay
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        List<int[]> afterEnemyLocations = new ArrayList<>();
+
+        for (Enemy enemy: this.gameScreenController.getCurrWaveEnemyList()) {
+            afterEnemyLocations.add(enemy.getRelativeLocation());
+        }
+
         assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(), new Integer[]{});
+        //check if anything moved in that time break
+        assertArrayEquals(prevEnemyLocations.toArray(), afterEnemyLocations.toArray());
+
     }
+
+    /**
+     * check if tower can be placed on top row by checking if PLayer currSelected is set to null
+     */
+    @Test
+    public void placeTowerTopRowDuringWave() {
+        //start a wave
+        clickOn("#startCombatButton");
+        //buy and place tower
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+                stage.getY() + topTowerRow.getLayoutY() + 10));
+        //player curr selected is null and no longer with the player
+        assertNull(this.player.getCurrSelected());
+    }
+
+
 }
