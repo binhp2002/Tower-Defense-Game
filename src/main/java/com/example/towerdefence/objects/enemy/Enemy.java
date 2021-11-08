@@ -1,5 +1,7 @@
 package com.example.towerdefence.objects.enemy;
 
+import java.util.*;
+
 public abstract class Enemy {
     private int health;
     private int damage;
@@ -104,7 +106,7 @@ public abstract class Enemy {
      * @return location of the enemy
      */
     public int[] getRelativeLocation() {
-        return this.relativeLocation;
+        return Arrays.copyOf(this.relativeLocation, this.relativeLocation.length);
     }
 
     /**
