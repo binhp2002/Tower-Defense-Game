@@ -120,12 +120,13 @@ public class GameScreenController {
     /**
      * logic for the while loop that occurs when an enemy wave is in progress
      * @param enemyWave EnemyWave object representing the enemies in the current wave
-     * @param enemyImageViewHashMap mapping from enemies to their respective ImageView objects in gamePath
+     * @param enemyImageViewHashMap mapping from enemies to their respective
+     *                              ImageView objects in gamePath
      * @param currScene current Scene
      * @return animationIP ArrayList used to track if the wave is in progress
      */
-    public ArrayList<Integer> gameMovementLoop(EnemyWave enemyWave, HashMap<Enemy, ImageView> enemyImageViewHashMap,
-                                               Scene currScene) {
+    public ArrayList<Integer> gameMovementLoop(EnemyWave enemyWave, HashMap<Enemy,
+            ImageView> enemyImageViewHashMap, Scene currScene) {
         //store whether the animation is in progress, empty if not, one element if there is
         ArrayList<Integer> animationIP = new ArrayList<>();
 
@@ -176,8 +177,9 @@ public class GameScreenController {
 
                 for (Enemy enemy: enemyWave.getEnemies()) {
                     if (!enemyImageViewHashMap.containsKey(enemy)) {
-                        throw new RuntimeException("enemy not in enemyWave.getEnemies, check if all killed" +
-                                "enemies have been removed from enemyImageViewHashMap");
+                        throw new RuntimeException("enemy not in enemyWave.getEnemies, "
+                                + "check if all killed enemies have been removed from "
+                                + "enemyImageViewHashMap");
                     }
 
                     //the remaining enemies that have not been removed yet
@@ -207,7 +209,8 @@ public class GameScreenController {
     }
 
     /**
-     * controller for start combat button, initializes the enemy wave and then calls game movement loop
+     * controller for start combat button, initializes the enemy wave
+     * and then calls game movement loop
      * @param actionEvent event object for start combat button click
      */
     @FXML
@@ -224,7 +227,7 @@ public class GameScreenController {
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
 
         //creates associated enemies
-        HashMap<Enemy,ImageView> enemyImageViewHashMap = new HashMap<>();
+        HashMap<Enemy, ImageView> enemyImageViewHashMap = new HashMap<>();
 
         if (this.currWaveEnemyList == null) {
             //set next wave of enemies
@@ -241,12 +244,14 @@ public class GameScreenController {
     }
 
     /**
-     * initializes enemies in a List of enemies by adding the enemies to an enemyWave and creating ImageView
+     * initializes enemies in a List of enemies by adding
+     * the enemies to an enemyWave and creating ImageView
      * objects for them in the current scene
      *
      * @param enemyList list of enemies to initialize
      * @param enemyWave enemyWave object to add enemies to
-     * @param enemyImageViewHashMap HashMap mapping enemies to ImageView objects, enemies added to this
+     * @param enemyImageViewHashMap HashMap mapping enemies to
+     *                              ImageView objects, enemies added to this
      * @param currScene current scene
      */
     public void initializeEnemies(List<Enemy> enemyList, EnemyWave enemyWave,
@@ -306,15 +311,16 @@ public class GameScreenController {
             int colIndex = (int) (clickX / cellWidth);
             int rowIndex = (int) (clickY / cellHeight);
 
-            //get the absolute location of the tower by looking at the index and then taking the center
-            //for that index
+            //get the absolute location of the tower by looking at the index
+            // and then taking the center for that index
             int towerX = (int) (node.getLayoutX() + (colIndex + 0.5) * cellWidth);
             int towerY = (int) (node.getLayoutY() + (rowIndex + 0.5) * cellHeight);
 
             Tower tower;
             try {
                 //(new int[]{}).getClass() used to get class of int[]
-                tower = (Tower) this.player.getCurrSelected().getConstructor((new int[]{}).getClass())
+                tower = (Tower) this.player.getCurrSelected()
+                        .getConstructor((new int[]{}).getClass())
                         .newInstance(new int[] {towerX, towerY});
             } catch (Exception exception) {
                 System.out.println(exception);

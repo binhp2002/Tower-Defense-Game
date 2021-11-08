@@ -46,9 +46,11 @@ public class EnemyWave {
         Enemy newEnemy = null;
         try {
             //call the constructor and create instances of the enemy class
-            newEnemy = (Enemy) enemyClass.getConstructor(Integer.TYPE, Integer.TYPE).newInstance(x, y);
+            newEnemy = (Enemy) enemyClass.getConstructor(Integer.TYPE, Integer.TYPE)
+                    .newInstance(x, y);
         } catch (Exception e) {
-            System.out.println("Exception in EnemyWave.addEnemy when creating instance of " + enemyClass);
+            System.out.println("Exception in EnemyWave.addEnemy when creating instance of "
+                    + enemyClass);
             System.out.println(e);
         }
         enemies.add(newEnemy);
@@ -159,6 +161,7 @@ public class EnemyWave {
     /**
      * move enemies forward (leftward, negative x direction) by a set number of steps (pixels)
      * and return enemies that reached past the zero line
+     * @param steps number of steps (pixels) to move enemies by
      * @return List of enemies that crossed zero line and were deleted
      */
     public List<Enemy> moveEnemiesForward(int steps) {

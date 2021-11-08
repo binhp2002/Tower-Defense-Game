@@ -34,7 +34,8 @@ public class GameTest extends ApplicationTest {
         this.player = main.getPlayer();
         this.monument = main.getMonument();
         this.stage = primaryStage;
-        this.gameScreenController = (GameScreenController) this.main.getControllerMap().get("GameScreenController");
+        this.gameScreenController =
+                (GameScreenController) this.main.getControllerMap().get("GameScreenController");
     }
 
     /**
@@ -196,7 +197,8 @@ public class GameTest extends ApplicationTest {
     @Test
     public void checkEnemy() {
         clickOn("#startCombatButton");
-        assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(), new Integer[]{1});
+        assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(),
+                new Integer[]{1});
         Pane gamePath = (Pane) gameScene.lookup("#gamePath");
         assertNotNull(gamePath.getChildren());
     }
@@ -296,7 +298,8 @@ public class GameTest extends ApplicationTest {
             afterEnemyLocations.add(enemy.getRelativeLocation());
         }
 
-        assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(), new Integer[]{});
+        assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(),
+                new Integer[]{});
         //check if anything moved in that time break
         assertArrayEquals(prevEnemyLocations.toArray(), afterEnemyLocations.toArray());
 

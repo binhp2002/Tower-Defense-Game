@@ -10,6 +10,7 @@ public class MachineTower extends Tower {
 
     /**
      * machine tower fires SmallProjectiles more rapidly than basic tower
+     * @param absoluteLocation absolute location of the MachineTower in the Scene
      */
     public MachineTower(int[] absoluteLocation) {
 

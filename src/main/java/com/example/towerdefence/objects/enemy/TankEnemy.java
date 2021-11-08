@@ -1,6 +1,6 @@
 package com.example.towerdefence.objects.enemy;
 
-public class TankEnemy extends Enemy{
+public class TankEnemy extends Enemy {
 
     public static final String IMAGE_PATH = "file:./src/main/resources/images/tankEnemy.png";
 

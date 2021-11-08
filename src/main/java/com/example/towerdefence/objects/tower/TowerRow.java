@@ -21,7 +21,7 @@ public class TowerRow {
     /**
      * Constructor to create towerRow to model a particular GridPane (intended to be the
      * actual grid pane object)
-     * @param gridPane
+     * @param gridPane GridPane that TowerRow is storing towers for
      */
     public TowerRow(GridPane gridPane) {
         //get the row and column count based on the grid pane object

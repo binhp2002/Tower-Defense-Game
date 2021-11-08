@@ -57,7 +57,8 @@ public class EnemyWaveTest {
 
         //System.out.println(Arrays.deepToString(enemyWave.getEnemyLocations().toArray()));
 
-        assertArrayEquals(enemyWave.getEnemyRelativeLocations().toArray(), new int[][]{{4, 20}, {1, 10}});
+        assertArrayEquals(enemyWave.getEnemyRelativeLocations().toArray(),
+                new int[][]{{4, 20}, {1, 10}});
 
         //Enemy that is going to be removed is originally {7, 10}, which is now at index 1
         Enemy[] removedEnemies2 = new Enemy[]{enemyWave.getEnemies().get(1)};
