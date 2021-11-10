@@ -59,6 +59,19 @@ public class GameTest extends ApplicationTest {
                 && t.getText().contains("Health: 100"));
         //get the game scene after navigating to that scene
         this.gameScene = stage.getScene();
+
+        Pane gamePath = (Pane) this.gameScene.lookup("#gamePath");
+        //set up the first wave of enemies
+        List<Enemy> enemyList = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+        }
+        for (int i = 5; i < 10; i++) {
+            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
+        }
+
+        this.gameScreenController.setCurrWaveEnemyList(enemyList);
     }
 
     /**
@@ -259,21 +272,7 @@ public class GameTest extends ApplicationTest {
     @Test
     public void checkGameEndStopAnimation() {
         //store enemyList to check if enemies still moving
-        Pane gamePath = (Pane) this.gameScene.lookup("#gamePath");
-
-        List<Enemy> enemyList = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
-        }
-        for (int i = 5; i < 10; i++) {
-            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
-        }
-
-        this.gameScreenController.setCurrWaveEnemyList(enemyList);
-
         while (monument.getHealth() > 0) {
-
             clickOn("#startCombatButton");
         }
 
@@ -320,6 +319,4 @@ public class GameTest extends ApplicationTest {
         //player curr selected is null and no longer with the player
         assertNull(this.player.getCurrSelected());
     }
-
-
 }
