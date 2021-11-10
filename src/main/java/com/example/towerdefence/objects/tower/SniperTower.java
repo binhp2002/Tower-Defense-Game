@@ -13,18 +13,22 @@ public class SniperTower extends Tower {
         super(100, 2, SniperProjectile.class, absoluteLocation);
     }
 
+    @Override
     public int getBasicCost() {
         return SniperTower.BASIC_COST;
     }
 
+    @Override
     public String getName() {
         return SniperTower.NAME;
     }
 
+    @Override
     public String getDescription() {
         return SniperTower.DESCRIPTION;
     }
 
+    @Override
     public String getImagePath() {
         return SniperTower.IMAGE_PATH;
     }

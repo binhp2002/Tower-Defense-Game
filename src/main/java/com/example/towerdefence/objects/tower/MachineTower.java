@@ -16,19 +16,22 @@ public class MachineTower extends Tower {
 
         super(100, 5, SmallProjectile.class, absoluteLocation);
     }
-
+    @Override
     public int getBasicCost() {
         return MachineTower.BASIC_COST;
     }
 
+    @Override
     public String getName() {
         return MachineTower.NAME;
     }
 
+    @Override
     public String getDescription() {
         return MachineTower.DESCRIPTION;
     }
 
+    @Override
     public String getImagePath() {
         return MachineTower.IMAGE_PATH;
     }
