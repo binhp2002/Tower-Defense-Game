@@ -316,16 +316,7 @@ public class GameScreenController {
             int towerX = (int) (node.getLayoutX() + (colIndex + 0.5) * cellWidth);
             int towerY = (int) (node.getLayoutY() + (rowIndex + 0.5) * cellHeight);
 
-            Tower tower;
-            try {
-                //(new int[]{}).getClass() used to get class of int[]
-                tower = (Tower) this.player.getCurrSelected()
-                        .getConstructor((new int[]{}).getClass())
-                        .newInstance(new int[] {towerX, towerY});
-            } catch (Exception exception) {
-                System.out.println(exception);
-                throw new RuntimeException("No image path method found for tower");
-            }
+            Tower tower = Tower.createTower(this.player.getCurrSelected(), towerX, towerY);
 
             if (!gameTowerRow.containsKey(node)) {
                 //create the towerRow now in gameTowerRow since not inside

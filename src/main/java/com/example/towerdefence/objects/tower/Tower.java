@@ -31,6 +31,25 @@ public abstract class Tower {
     }
 
     /**
+     * factory method to create Tower from the tower class
+     * @param towerClass class of tower to be instantiated
+     * @return newly created Tower of towerClass
+     */
+    public static Tower createTower(Class towerClass, int x, int y) {
+        if (!Tower.class.isAssignableFrom(towerClass)) {
+            throw new IllegalArgumentException("towerClass is not a subclass of abstract"
+                    + "class Tower");
+        }
+        try {
+            return (Tower) towerClass.getConstructor((new int[]{}).getClass())
+                    .newInstance(new int[]{x, y});
+        } catch (Exception e) {
+            throw new RuntimeException("Subclass of Tower does not have a constructor"
+             + "that takes in int[] as argument (int[] represents location of tower in GridPane");
+        }
+    }
+
+    /**
      * returns the basic cost of the tower, which should be implemented as a
      * static final variable in the subclasses of tower
      * @return returns basic cost of the tower

@@ -135,8 +135,7 @@ public class Player {
             //need to create instance to use the instance method, cannot get the static attribute
             //directly from Class, get the class of int[] by instantiating one and .getClass()
             return (int) (this.getCostFactor() * (int) towerClass.getMethod("getBasicCost")
-                    .invoke(towerClass.getDeclaredConstructor((new int[]{}).getClass())
-                            .newInstance(new int[]{0, 0})));
+                    .invoke(Tower.createTower(towerClass, 0, 0)));
         } catch (Exception e) {
             throw new RuntimeException("getPlayerCost cannot getBasicCost method from tower class");
         }
