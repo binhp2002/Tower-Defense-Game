@@ -24,6 +24,27 @@ public class TowerTest {
     }
 
     /**
+     * check that create tower works as expected to create a BasicTower at (1, 2)
+     */
+    @Test
+    public void testCreateTowerNormal() {
+        Tower tower = Tower.createTower(BasicTower.class, 1, 2);
+        //check that tower is an instance of BasicTower
+        assertTrue(tower instanceof BasicTower);
+        //check that the tower has correct absolute location
+        assertArrayEquals(tower.getAbsoluteLocation(), new int[]{1, 2});
+    }
+
+    /**
+     * check that an IllegalArgumentException is thrown when a non-subclass of Tower
+     * is passed into createTower
+     */
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateTowerNotTowerSubclass() {
+        Tower.createTower(Object.class, 1, 2);
+    }
+
+    /**
      * checks that SniperTower shoot method returns a SniperProjectile object
      */
     @Test
