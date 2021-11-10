@@ -20,6 +20,10 @@ public class EnemyWaveTest {
         assertEquals(enemyWave.getNumCurrEnemies(), 0);
     }
 
+    /**
+     * creates enemy by passing a subclass of enemy and the location to create an enemy
+     * in enemy wave
+     */
     @Test
     public void testCreateEnemy() {
         enemyWave.addEnemy(BasicEnemy.class, 10, 20);
@@ -31,6 +35,19 @@ public class EnemyWaveTest {
         //check that the location is the same (x, y)
         assertArrayEquals(enemyLocations.get(0), new int[]{10, 20});
     }
+
+    @Test
+    public void testAddEnemy() {
+        Enemy enemy = new BasicEnemy();
+        enemyWave.addEnemy(enemy);
+
+        //check that enemyWave is not empty after adding enemy
+        assertFalse(enemyWave.isEmpty());
+        //check that enemy has been added correctly
+        assertEquals(enemyWave.getEnemy(0), enemy);
+
+    }
+
 
     @Test
     public void testMoveEnemiesForwardSteps() {
