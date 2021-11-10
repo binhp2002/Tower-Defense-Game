@@ -189,7 +189,7 @@ public class EnemyWave {
      * @return Enemy object at that index
      */
     public Enemy getEnemy(int index) {
-        if (index != 0 && index < this.enemies.size()) {
+        if (index != 0 || index >= this.enemies.size()) {
             throw new IllegalArgumentException("Index passed into getEnemy out of range");
         }
         return this.enemies.get(index);
