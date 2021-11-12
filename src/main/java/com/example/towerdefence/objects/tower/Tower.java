@@ -10,6 +10,7 @@ public abstract class Tower {
     private int health;
     private Class projectileType;
     private int rateOfFire;
+    private int range;
 
     private int[] absoluteLocation;
 
@@ -19,8 +20,9 @@ public abstract class Tower {
      * @param rateOfFire rate of fire of the tower
      * @param projectileType the class of the projectile that this tower fires
      * @param absoluteLocation the absolute location of the tower
+     * @param range range of tower
      */
-    public Tower(int health, int rateOfFire, Class projectileType, int[] absoluteLocation) {
+    public Tower(int health, int rateOfFire, Class projectileType, int[] absoluteLocation, int range) {
         if (!Projectile.class.isAssignableFrom(projectileType)) {
             //ensure that projectileType implements projectile interface,
             //can assign projectileType to projectile
@@ -30,6 +32,7 @@ public abstract class Tower {
         this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
         this.absoluteLocation = absoluteLocation;
+        this.range = range;
     }
 
     /**
@@ -156,11 +159,14 @@ public abstract class Tower {
                 towerLocation[1]-enemyLocation[1]);
 
         //placeholder value 100 for range
-        if (distance < 100) {
+        if (distance < this.getRange()) {
             return true;
         } else {
             return false;
         }
+    }
 
+    public int getRange() {
+        return this.range;
     }
 }

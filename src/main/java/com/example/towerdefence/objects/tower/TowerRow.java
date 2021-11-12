@@ -84,7 +84,7 @@ public class TowerRow {
                     if currentTower.inRange(enemyLocation) {
                         currentEnemy = enemyWave.getEnemies().get(k);
 
-                        if currentEnemy.doDamage(k, currentTower.getDamage()) == 1 {
+                        if enemyWave.doDamage(k, currentTower.getDamage()) == 1 {
                             numEnemiesKilled +=1;
                         }
                     }
