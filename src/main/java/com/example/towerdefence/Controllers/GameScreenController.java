@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.util.*;
@@ -120,13 +122,13 @@ public class GameScreenController {
     /**
      * logic for the while loop that occurs when an enemy wave is in progress
      * @param enemyWave EnemyWave object representing the enemies in the current wave
-     * @param enemyImageViewHashMap mapping from enemies to their respective
+     * @param enemyVBoxHashMap mapping from enemies to their respective
      *                              ImageView objects in gamePath
      * @param currScene current Scene
      * @return animationIP ArrayList used to track if the wave is in progress
      */
     public ArrayList<Integer> gameMovementLoop(EnemyWave enemyWave, HashMap<Enemy,
-            ImageView> enemyImageViewHashMap, Scene currScene) {
+            VBox> enemyVBoxHashMap, Scene currScene) {
         //store whether the animation is in progress, empty if not, one element if there is
         ArrayList<Integer> animationIP = new ArrayList<>();
 
@@ -142,6 +144,7 @@ public class GameScreenController {
                 if (now - prev < frameTime) {
                     return;
                 }
+                player.setMoney(player.getMoney() + 1);
                 this.prev = now;
 
                 //get the enemies that have reached the end
@@ -149,14 +152,15 @@ public class GameScreenController {
 
                 for (Enemy enemy: enemiesReached) {
                     //store the image view for the enemy then remove it so no longer seen
-                    ImageView enemyImageView = enemyImageViewHashMap.get(enemy);
+                    VBox enemyBox = enemyVBoxHashMap.get(enemy);
+
 
                     //remove them from the HashMap so they aren't redrawn
-                    enemyImageViewHashMap.remove(enemy);
+                    enemyVBoxHashMap.remove(enemy);
 
                     //remove ImageView from gamePath
                     Pane gamePath = (Pane) currScene.lookup("#gamePath");
-                    gamePath.getChildren().remove(enemyImageView);
+                    gamePath.getChildren().remove(enemyBox);
 
                     //enemies doing damage to monument
                     monument.setHealth(monument.getHealth() - enemy.getDamage());
@@ -176,14 +180,14 @@ public class GameScreenController {
                 }
 
                 for (Enemy enemy: enemyWave.getEnemies()) {
-                    if (!enemyImageViewHashMap.containsKey(enemy)) {
+                    if (!enemyVBoxHashMap.containsKey(enemy)) {
                         throw new RuntimeException("enemy not in enemyWave.getEnemies, "
                                 + "check if all killed enemies have been removed from "
                                 + "enemyImageViewHashMap");
                     }
 
                     //the remaining enemies that have not been removed yet
-                    updateEnemyImage(enemy, enemyImageViewHashMap.get(enemy));
+                    updateEnemyBox(enemy, enemyVBoxHashMap.get(enemy));
                 }
 
                 //update player parameters
@@ -227,7 +231,7 @@ public class GameScreenController {
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
 
         //creates associated enemies
-        HashMap<Enemy, ImageView> enemyImageViewHashMap = new HashMap<>();
+        HashMap<Enemy, VBox> enemyVBoxHashMap = new HashMap<>();
 
         if (this.currWaveEnemyList == null) {
             //set next wave of enemies
@@ -235,9 +239,9 @@ public class GameScreenController {
         }
 
 
-        this.initializeEnemies(this.currWaveEnemyList, enemyWave, enemyImageViewHashMap, currScene);
+        this.initializeEnemies(this.currWaveEnemyList, enemyWave, enemyVBoxHashMap, currScene);
 
-        this.currWaveAnimationCode = gameMovementLoop(enemyWave, enemyImageViewHashMap, currScene);
+        this.currWaveAnimationCode = gameMovementLoop(enemyWave, enemyVBoxHashMap, currScene);
 
         //sets up the next wave of enemies
         this.setNextWave(gamePath);
@@ -246,20 +250,21 @@ public class GameScreenController {
     /**
      * initializes enemies in a List of enemies by adding
      * the enemies to an enemyWave and creating ImageView
-     * objects for them in the current scene
+     * objects and rectangle object to represent health
+     * for them in the current scene
      *
      * @param enemyList list of enemies to initialize
      * @param enemyWave enemyWave object to add enemies to
-     * @param enemyImageViewHashMap HashMap mapping enemies to
+     * @param enemyVBoxHashMap HashMap mapping enemies to
      *                              ImageView objects, enemies added to this
      * @param currScene current scene
      */
     public void initializeEnemies(List<Enemy> enemyList, EnemyWave enemyWave,
-                              HashMap<Enemy, ImageView> enemyImageViewHashMap, Scene currScene) {
+                                  HashMap<Enemy, VBox> enemyVBoxHashMap,Scene currScene) {
         for (Enemy enemy: enemyList) {
             //add the enemy and add it to the scene as well
             enemyWave.addEnemy(enemy);
-            enemyImageViewHashMap.put(enemy, createEnemyImage(enemy, currScene));
+            enemyVBoxHashMap.put(enemy, createEnemyImage(enemy, currScene));
         }
     }
 
@@ -267,31 +272,98 @@ public class GameScreenController {
      * creates the enemy image and inserts it to the scene
      * @param enemy Enemy object
      * @param scene current scene
-     * @return ImageView object created for the Enemy object in the scene
+     * @return HBox object created for the Enemy object in the scene
      */
-    public ImageView createEnemyImage(Enemy enemy, Scene scene) {
+    public VBox createEnemyImage(Enemy enemy, Scene scene) {
         //get the stack pane to add the elements to it
         Pane gamePath = (Pane) scene.lookup("#gamePath");
+        VBox enemyBox = new VBox();
         ImageView enemyImageView = new ImageView(enemy.getImagePath());
         //enemy is a 10x10 image
         enemyImageView.setFitHeight(20);
         enemyImageView.setFitWidth(20);
-        enemyImageView.setLayoutX(enemy.getRelativeLocation()[0]);
-        enemyImageView.setLayoutY(enemy.getRelativeLocation()[1]);
-        gamePath.getChildren().add(enemyImageView);
+
+        Rectangle enemyHealthBar =  createEnemyHBar(enemy);
+
+        //add enemyHealthBar to the enemyBox
+        enemyBox.getChildren().add(enemyHealthBar);
+
+        //add enemyImageView to the enemyBox
+        enemyBox.getChildren().add(enemyImageView);
+
+        //set position of the enemyBox within the gamePath
+        enemyBox.setLayoutX(enemy.getRelativeLocation()[0]);
+        enemyBox.setLayoutY(enemy.getRelativeLocation()[1]);
+        gamePath.getChildren().add(enemyBox);
+
         //returns the ImageView associated with this enemy
-        return enemyImageView;
+        return enemyBox;
     }
 
 
     /**
      * updates the enemy image view location for the enemy
      * @param enemy enemy that we are updating the image of
-     * @param enemyImageView the ImageView for that enemy (move this ImageView position)
+     * @param enemyBox enemy Box object that contains enemy ImageView and enemy health bar
      */
-    public void updateEnemyImage(Enemy enemy, ImageView enemyImageView) {
-        enemyImageView.setLayoutX(enemy.getRelativeLocation()[0]);
-        enemyImageView.setLayoutY(enemy.getRelativeLocation()[1]);
+    public void updateEnemyBox(Enemy enemy, VBox enemyBox) {
+        //update enemyBox position
+        enemyBox.setLayoutX(enemy.getRelativeLocation()[0]);
+        enemyBox.setLayoutY(enemy.getRelativeLocation()[1]);
+
+        //update enemyBox health bar
+        if (!(enemyBox.getChildren().get(0) instanceof Rectangle)) {
+            //the first element should be the health bar
+            //runtime exception
+            throw new RuntimeException("Health bar is not first element in enemyBox children");
+        }
+
+        Rectangle healthBar = (Rectangle) enemyBox.getChildren().get(0);
+
+        // Update the health bar size
+        updateEnemyHBar(enemy, healthBar);
+
+    }
+
+    /**
+     * creates a enemy health bar above enemy
+     * Use this method when creating enemies
+     * The method uses the enemy and scene to appropriate the location and health
+     * @param enemy enemy object
+     */
+    public Rectangle createEnemyHBar(Enemy enemy) {
+        // get the full health of enemy based off enemy type
+        int fullHealth = enemy.getFullHealth();
+
+        //Make new health bar
+        Rectangle rec = new Rectangle();
+        ///Set health bar width 20 pixels at full health
+        rec.setWidth(20.0);
+
+        rec.setHeight(5);
+        rec.setFill(Color.RED);
+
+        ///return the made rectangle
+        return rec;
+    }
+
+    /**
+     * updates the size of enemy health bar above enemy
+     * Use this method when health of enemy changes such as taking damage
+     * Or when enemy changes location
+     * The method uses the enemy and the original
+     * rectangle to appropriate size and location
+     * @param enemy enemy object
+     * @param rec enemy health bar that needs to be updated
+     */
+    public void updateEnemyHBar(Enemy enemy, Rectangle rec) {
+        // get the full health of enemy based off enemy type
+        int fullHeatlh = enemy.getFullHealth();
+
+        /// Update the health bar size
+        /// health is the percentage of enemy health from full health * 20
+        rec.setWidth(((double) (enemy.getHealth()) / fullHeatlh) * 20);
+
     }
 
     @FXML

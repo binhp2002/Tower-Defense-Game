@@ -148,4 +148,10 @@ public abstract class Enemy {
      */
     public abstract String getImagePath();
 
+    /**
+     * returns the enemy's max health based off type
+     * @return int of a enemy's full health based off type
+     */
+    public abstract int getFullHealth();
+
 }

@@ -3,14 +3,20 @@ import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.enemy.*;
 import com.example.towerdefence.objects.tower.*;
+import javafx.application.Platform;
 import javafx.scene.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
 import org.testfx.framework.junit.ApplicationTest;
+import org.w3c.dom.css.Rect;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -217,6 +223,98 @@ public class GameTest extends ApplicationTest {
     }
 
     /**
+     * check if each enemy has an image and a corresponding health bar
+     */
+    @Test
+    public void checkEnemyHealthBarPresent() {
+        clickOn("#startCombatButton");
+        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
+        assertNotNull(gamePath.getChildren());
+        for (Node enemyBox: gamePath.getChildren()) {
+            //check if children in GamePath are enemyBox
+            assertTrue(enemyBox instanceof VBox);
+            //check if the first element in each enemyBox is a health bar
+            assertTrue(((VBox) enemyBox).getChildren().get(0) instanceof Rectangle);
+            //check if the second element in each enemyBox is an enemy image
+            assertTrue(((VBox) enemyBox).getChildren().get(1) instanceof ImageView);
+
+        }
+    }
+
+    /**
+     * check if enemy healthbar size decreases the correct amount as enemy takes damage
+     */
+    @Test
+    public void checkEnemyHealthBarDecrease() {
+        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
+        Enemy enemy = new BasicEnemy((int) gamePath.getWidth(), 20);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                gameScreenController.createEnemyImage(enemy, gameScene);
+                Rectangle rec = gameScreenController.createEnemyHBar(enemy);
+
+                double origLength = rec.getWidth();
+
+                // Enemy take damage
+                enemy.setHealth(enemy.getHealth() / 2);
+
+                gameScreenController.updateEnemyHBar(enemy, rec);
+
+                //Check after enemy takes damage
+                assertEquals(rec.getWidth(),origLength / 2,0.5);
+            }
+        });
+    }
+
+//    /**
+//     * check if health bar follows enemy as enemy location changes
+//     */
+//    @Test
+//    public void checkEnemyHealthBarLocation() {
+//        // find gamepath
+//        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
+//
+//        //Create enemy wave, enemylist, and an enemy to test
+//        EnemyWave enemyWave = new EnemyWave();
+//        List<Enemy> enemyList = new ArrayList<>();
+//        Enemy enemy = new BasicEnemy((int) gamePath.getWidth(), 20);
+//
+//        enemyList.add(enemy);
+//
+//        HashMap<Enemy, ImageView> enemyImageViewHashMap = new HashMap<>();
+//        HashMap<Enemy, Rectangle> enemyHBHashmap = new HashMap<>();
+//
+//        /// Correct values
+//        double ylocation = 20.0 - 2.0;
+//        double changedX = gamePath.getWidth() - 3;
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                //initialize
+//                gameScreenController.initializeEnemies(enemyList,enemyWave,enemyImageViewHashMap,gameScene);
+//
+//                //check location before move
+//                assertEquals(enemyHBHashmap.get(enemy).getX(),gamePath.getWidth(),1.0);
+//                assertEquals(enemyHBHashmap.get(enemy).getY(),ylocation,0.0);
+//
+//                //move
+//                enemyWave.moveEnemiesForward(3);
+//                gameScreenController.updateEnemyHBar(enemy,enemyHBHashmap.get(enemy));
+//
+//                //check location after move
+//                assertEquals(enemyHBHashmap.get(enemy).getX(),changedX,1.0);
+//                assertEquals(enemyHBHashmap.get(enemy).getY(),ylocation,0.0);
+//
+//            }
+//        });
+//    }
+
+
+
+
+    /**
      * check if the basic tower purchase button can be click after heath = 0
      */
     @Test
@@ -318,5 +416,22 @@ public class GameTest extends ApplicationTest {
                 stage.getY() + topTowerRow.getLayoutY() + 10));
         //player curr selected is null and no longer with the player
         assertNull(this.player.getCurrSelected());
+    }
+
+    @Test
+    public void playerMoneyIncrease() {
+        clickOn("#startCombatButton");
+        int playerInitialMoney = this.player.getMoney();
+
+        try {
+            //give some time delay
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        //check that player money has increased overtime
+        assertTrue(this.player.getMoney() > playerInitialMoney);
+
     }
 }
