@@ -7,6 +7,7 @@ public class MachineTower extends Tower {
     public static final String NAME = "Machine tower";
     public static final int BASIC_COST = 300;
     public static final String IMAGE_PATH = "file:./src/main/resources/images/MachineTower.png";
+    public static final int damage = 5;
 
     /**
      * machine tower fires SmallProjectiles more rapidly than basic tower
@@ -34,5 +35,10 @@ public class MachineTower extends Tower {
     @Override
     public String getImagePath() {
         return MachineTower.IMAGE_PATH;
+    }
+
+    @Override
+    public int getDamage() {
+        return MachineTower.damage;
     }
 }

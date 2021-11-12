@@ -72,7 +72,7 @@ public class TowerRow {
      */
 
     public int damageEnemies(EnemyWave enemyWave) {
-        int numEnemiesKilled;
+        int numEnemiesKilled = 0;
         Tower currentTower;
         Enemy currentEnemy;
 
@@ -81,11 +81,11 @@ public class TowerRow {
                 currentTower = towerRow[i][j];
                 for (int k = 0; k < enemyWave.getNumCurrEnemies(); k++) {
                     int [] enemyLocation = enemyWave.getEnemyAbsoluteLocations().get(k);
-                    if currentTower.inRange(enemyLocation) {
+                    if (currentTower.inRange(enemyLocation)) {
                         currentEnemy = enemyWave.getEnemies().get(k);
 
-                        if enemyWave.doDamage(k, currentTower.getDamage()) == 1 {
-                            numEnemiesKilled +=1;
+                        if (enemyWave.doDamage(k, currentTower.getDamage()) == 1) {
+                            numEnemiesKilled += 1;
                         }
                     }
                 }

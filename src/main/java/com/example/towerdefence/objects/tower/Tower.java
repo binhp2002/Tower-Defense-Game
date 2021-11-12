@@ -169,4 +169,6 @@ public abstract class Tower {
     public int getRange() {
         return this.range;
     }
+    
+    public abstract int getDamage();
 }
