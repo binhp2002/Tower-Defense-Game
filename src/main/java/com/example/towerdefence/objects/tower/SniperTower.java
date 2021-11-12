@@ -10,7 +10,7 @@ public class SniperTower extends Tower {
     public static final String IMAGE_PATH = "file:./src/main/resources/images/SniperTower.png";
 
     public SniperTower(int[] absoluteLocation) {
-        super(100, 2, SniperProjectile.class, absoluteLocation);
+        super(100, 2, SniperProjectile.class, absoluteLocation,300);
     }
 
     @Override

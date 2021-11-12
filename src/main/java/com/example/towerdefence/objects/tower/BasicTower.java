@@ -9,7 +9,7 @@ public class BasicTower extends Tower {
     public static final String IMAGE_PATH = "file:./src/main/resources/images/BasicTower.png";
 
     public BasicTower(int[] absoluteLocation) {
-        super(100, 1, NormalProjectile.class, absoluteLocation);
+        super(100, 1, NormalProjectile.class, absoluteLocation, 100);
     }
 
     @Override
