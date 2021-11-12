@@ -11,9 +11,9 @@ public class MachineTower extends Tower {
     /**
      * machine tower fires SmallProjectiles more rapidly than basic tower
      */
-    public MachineTower() {
+    public MachineTower(int[] absoluteLocation) {
 
-        super(100, 5, SmallProjectile.class);
+        super(100, 5, SmallProjectile.class, absoluteLocation);
     }
 
     public int getBasicCost() {

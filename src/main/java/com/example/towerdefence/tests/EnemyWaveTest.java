@@ -22,22 +22,22 @@ public class EnemyWaveTest {
 
     @Test
     public void testCreateEnemy() {
-        enemyWave.addEnemy(10, 20);
+        enemyWave.addEnemy(BasicEnemy.class, 10, 20);
         //check that an enemy has been added
         assertEquals(enemyWave.getNumCurrEnemies(), 1);
-        List<int[]> enemyLocations = enemyWave.getEnemyLocations();
+        List<int[]> enemyLocations = enemyWave.getEnemyRelativeLocations();
         //make sure there's only one location
-        assertEquals(enemyWave.getEnemyLocations().size(), 1);
+        assertEquals(enemyWave.getEnemyRelativeLocations().size(), 1);
         //check that the location is the same (x, y)
         assertArrayEquals(enemyLocations.get(0), new int[]{10, 20});
     }
 
     @Test
-    public void testMoveEnemiesForward() {
+    public void testMoveEnemiesForwardSteps() {
         int[][] enemyLocations = new int[][]{{10, 20}, {5, 6}, {7, 10}};
         for (int[] enemyLocation: enemyLocations) {
             //add the enemies to enemyWave with location as enemyLocation
-            enemyWave.addEnemy(enemyLocation[0], enemyLocation[1]);
+            enemyWave.addEnemy(BasicEnemy.class, enemyLocation[0], enemyLocation[1]);
         }
         //check that 3 enemies are inside
         assertEquals(enemyWave.getNumCurrEnemies(), 3);
@@ -57,7 +57,7 @@ public class EnemyWaveTest {
 
         //System.out.println(Arrays.deepToString(enemyWave.getEnemyLocations().toArray()));
 
-        assertArrayEquals(enemyWave.getEnemyLocations().toArray(), new int[][]{{4, 20}, {1, 10}});
+        assertArrayEquals(enemyWave.getEnemyRelativeLocations().toArray(), new int[][]{{4, 20}, {1, 10}});
 
         //Enemy that is going to be removed is originally {7, 10}, which is now at index 1
         Enemy[] removedEnemies2 = new Enemy[]{enemyWave.getEnemies().get(1)};
@@ -67,7 +67,7 @@ public class EnemyWaveTest {
 
         assertEquals(enemyWave.getNumCurrEnemies(), 1);
 
-        assertArrayEquals(enemyWave.getEnemyLocations().toArray(), new int[][]{{0, 20}});
+        assertArrayEquals(enemyWave.getEnemyRelativeLocations().toArray(), new int[][]{{0, 20}});
 
         //only one enemy left
         Enemy[] removedEnemies3 = new Enemy[]{enemyWave.getEnemies().get(0)};
@@ -76,6 +76,25 @@ public class EnemyWaveTest {
 
         //check that enemy wave is empty after last enemy has moved past the monument line
         assertTrue(enemyWave.isEmpty());
+    }
+
+    /**
+     * check if absolute locations are calculated correctly from relative locations
+     */
+    @Test
+    public void testGetEnemyAbsoluteLocation() {
+        int[][] enemyLocations = new int[][]{{10, 20}, {5, 6}, {7, 10}};
+        for (int[] enemyLocation: enemyLocations) {
+            //add the enemies to enemyWave with location as enemyLocation
+            enemyWave.addEnemy(BasicEnemy.class, enemyLocation[0], enemyLocation[1]);
+        }
+
+        enemyWave.setOriginLocation(new int[]{1, 2});
+        //check if the correct absolute locations are returned after adjusting for
+        //the origin location being at (1, 2)
+        assertArrayEquals(enemyWave.getEnemyAbsoluteLocations().toArray(),
+                new int[][]{{11, 22}, {6, 8}, {8, 12}});
+
     }
 
     /**
@@ -92,7 +111,7 @@ public class EnemyWaveTest {
     @Test
     public void testIsEmptyWhenNotEmpty() {
         assertTrue(enemyWave.isEmpty());
-        enemyWave.addEnemy(5, 5);
+        enemyWave.addEnemy(BasicEnemy.class, 5, 5);
         assertFalse(enemyWave.isEmpty());
     }
 

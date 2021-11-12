@@ -4,6 +4,7 @@ import com.example.towerdefence.GameScreenPage.*;
 import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import com.example.towerdefence.StartUpPage.StartUpPageController;
+import com.example.towerdefence.objects.tower.Tower;
 import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.*;

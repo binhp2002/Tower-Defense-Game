@@ -3,31 +3,33 @@ package com.example.towerdefence.objects.enemy;
 public abstract class Enemy {
     private int health;
     private int damage;
-
-    private int[] location;
+    private int speed;
+    //location of the enemy relative to the game path
+    private int[] relativeLocation;
 
     /**
      * initialize enemy with the health and damage provided, sets default location to [0, 0]
      * @param health enemy's health
      * @param damage enemy's damage
+     * @param speed enemy's speed
      */
-    public Enemy(int health, int damage) {
-        this.health = health;
-        this.damage = damage;
-        this.location = new int[]{0, 0};
+    public Enemy(int health, int damage, int speed) {
+        this(health, damage, speed, 0, 0);
     }
 
     /**
      * initialize enemy with the health, damage, and location provided
      * @param health enemy's health
      * @param damage enemy's damage
-     * @param x enemy x-coordinate
-     * @param y enemy y-coordinate
+     * @param speed enemy's speed
+     * @param x enemy x-coordinate relative to the game path
+     * @param y enemy y-coordinate relative to the game path
      */
-    public Enemy(int health, int damage, int x, int y) {
+    public Enemy(int health, int damage, int speed, int x, int y) {
         this.health = health;
         this.damage = damage;
-        this.location = new int[]{x, y};
+        this.speed = speed;
+        this.relativeLocation = new int[]{x, y};
     }
 
 
@@ -76,24 +78,46 @@ public abstract class Enemy {
     }
 
     /**
+     * returns speed of enemy
+     * @return enemy's speed
+     */
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * sets the speed of the enemy, speed must be a positive value
+     * @param speed new speed of enemy
+     * @return returns 0 if speed successfully changed, -1 if speed was non-positive
+     */
+    public int setSpeed(int speed) {
+        if (speed <= 0) {
+            //speed must be positive
+            return -1;
+        }
+        this.speed = speed;
+        return 0;
+    }
+
+    /**
      * returns the location of the enemy
      * @return location of the enemy
      */
-    public int[] getLocation() {
-        return this.location;
+    public int[] getRelativeLocation() {
+        return this.relativeLocation;
     }
 
     /**
      * sets the location of the enemy
-     * @param location location of enemy
+     * @param relativeLocation location of enemy
      * @return 0 if location of enemy successfully changed, -1 otherwise
      */
-    public int setLocation(int[] location) {
-        if (location.length != 2) {
+    public int setRelativeLocation(int[] relativeLocation) {
+        if (relativeLocation.length != 2) {
             //check tha the length of the location array is 2
             return -1;
         }
-        this.location = location;
+        this.relativeLocation = relativeLocation;
         return 0;
     }
 
@@ -105,13 +129,13 @@ public abstract class Enemy {
      * due to location being less than 0
      */
     public int moveHorizontal(int steps) {
-        if (this.location[0] < steps) {
+        if (this.relativeLocation[0] < steps) {
             //only want to return if this.location[0] - steps < 0, so enemy can still
             //be at 0
             return -1;
         }
         //subtract that number of steps from the x-coordinate and move there
-        this.location[0] -= steps;
+        this.relativeLocation[0] -= steps;
         return 0;
     }
 

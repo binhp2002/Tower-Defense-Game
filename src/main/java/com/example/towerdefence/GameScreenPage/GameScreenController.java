@@ -28,6 +28,8 @@ public class GameScreenController {
 
     private ArrayList<Integer> currWaveAnimationCode;
 
+    private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<GridPane, TowerRow>();
+
     public Scene getNextScene() {
         return this.nextScene;
     }
@@ -104,7 +106,7 @@ public class GameScreenController {
                     drawEnemy(enemy, currScene);
                 }
                 //get the enemies that have reached the end
-                List<Enemy> enemiesReached = enemyWave.moveEnemiesForward(20);
+                List<Enemy> enemiesReached = enemyWave.moveEnemiesForward();
                 for (Enemy enemy: enemiesReached) {
                     //enemies doing damage to monument
                     monument.setHealth(monument.getHealth() - enemy.getDamage());
@@ -145,7 +147,10 @@ public class GameScreenController {
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
 
         for (int i = 0; i < 5; i++) {
-            enemyWave.addEnemy((int) gamePath.getWidth(), i * 20);
+            enemyWave.addEnemy(BasicEnemy.class, (int) gamePath.getWidth(), i * 20);
+        }
+        for (int i = 5; i < 10; i++) {
+            enemyWave.addEnemy(TankEnemy.class, (int) gamePath.getWidth(), i * 20);
         }
         this.currWaveAnimationCode = gameMovementLoop(enemyWave, currScene);
     }
@@ -153,17 +158,17 @@ public class GameScreenController {
     public void drawEnemy(Enemy enemy, Scene scene) {
         //get the stack pane to add the elements to it
         Pane gamePath = (Pane) scene.lookup("#gamePath");
-        ImageView enemyImageView = new ImageView("file:./src/main/resources/images/enemy.png");
+        ImageView enemyImageView = new ImageView(enemy.getImagePath());
         //enemy is a 10x10 image
         enemyImageView.setFitHeight(20);
         enemyImageView.setFitWidth(20);
-        enemyImageView.setX(enemy.getLocation()[0]);
-        enemyImageView.setY(enemy.getLocation()[1]);
+        enemyImageView.setX(enemy.getRelativeLocation()[0]);
+        enemyImageView.setY(enemy.getRelativeLocation()[1]);
         gamePath.getChildren().add(enemyImageView);
     }
 
     @FXML
-    public void mouseEntered(MouseEvent e) {
+    public void placeTower(MouseEvent e) {
 
         if (this.player.getCurrSelected() != null) {
             //if there is a tower selected by the player
@@ -179,14 +184,35 @@ public class GameScreenController {
             int colIndex = (int) (clickX / cellWidth);
             int rowIndex = (int) (clickY / cellHeight);
 
-            ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
+            //get the absolute location of the tower by looking at the index and then taking the center
+            //for that index
+            int towerX = (int) (node.getLayoutX() + (colIndex + 0.5) * cellWidth);
+            int towerY = (int) (node.getLayoutY() + (rowIndex + 0.5) * cellHeight);
+
+            Tower tower;
             try {
-                cell.setImage(new Image(((Tower) this.player.getCurrSelected().getConstructor()
-                        .newInstance()).getImagePath()));
+                //(new int[]{}).getClass() used to get class of int[]
+                tower = (Tower) this.player.getCurrSelected().getConstructor((new int[]{}).getClass())
+                        .newInstance(new int[] {towerX, towerY});
             } catch (Exception exception) {
                 System.out.println(exception);
                 throw new RuntimeException("No image path method found for tower");
             }
+
+            if (!gameTowerRow.containsKey(node)) {
+                //create the towerRow now in gameTowerRow since not inside
+                gameTowerRow.put(node, new TowerRow(node));
+            }
+
+            //get the appropriate tower row for the one that was just click
+            TowerRow towerRow = gameTowerRow.get(node);
+            //insert the tower to that tower row
+            towerRow.insertTower(rowIndex, colIndex, tower);
+
+            ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
+
+            cell.setImage(new Image(tower.getImagePath()));
+
             cell.setFitHeight(cellHeight);
             cell.setFitWidth(cellWidth);
             //reset the tower selected
@@ -196,7 +222,7 @@ public class GameScreenController {
 
     }
 
-    Node getNodeByCoordinate(Integer row, Integer column, GridPane gridPane) {
+    public Node getNodeByCoordinate(Integer row, Integer column, GridPane gridPane) {
         for (Node node : gridPane.getChildren()) {
             if (node != null && GridPane.getRowIndex(node) != null
                     && GridPane.getRowIndex(node).equals(row)
@@ -210,6 +236,5 @@ public class GameScreenController {
     public static void gameOver(StackPane gameOverPane) {
         gameOverPane.setVisible(true);
         gameOverPane.setStyle("-fx-background-color: transparent;");
-
     }
 }

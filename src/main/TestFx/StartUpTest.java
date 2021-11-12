@@ -133,10 +133,10 @@ public class StartUpTest extends ApplicationTest {
     @Test
     public void testImagesLoading() {
         //testing basic tower image path
-        assertThat(new Image((new BasicTower()).getImagePath()), instanceOf(Image.class));
+        assertThat(new Image((new BasicTower(new int[]{0, 0})).getImagePath()), instanceOf(Image.class));
         //testing sniper tower image path
-        assertThat(new Image((new SniperTower()).getImagePath()), instanceOf(Image.class));
+        assertThat(new Image((new SniperTower(new int[]{0, 0})).getImagePath()), instanceOf(Image.class));
         //testing machine tower image path
-        assertThat(new Image((new MachineTower()).getImagePath()), instanceOf(Image.class));
+        assertThat(new Image((new MachineTower(new int[]{0, 0})).getImagePath()), instanceOf(Image.class));
     }
 }
