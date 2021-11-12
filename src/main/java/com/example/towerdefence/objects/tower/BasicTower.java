@@ -7,6 +7,7 @@ public class BasicTower extends Tower {
     public static final String NAME = "Basic tower";
     public static final int BASIC_COST = 100;
     public static final String IMAGE_PATH = "file:./src/main/resources/images/BasicTower.png";
+    public static final int damage = 10;
 
     public BasicTower(int[] absoluteLocation) {
         super(100, 1, NormalProjectile.class, absoluteLocation, 100);
@@ -30,5 +31,10 @@ public class BasicTower extends Tower {
     @Override
     public String getImagePath() {
         return BasicTower.IMAGE_PATH;
+    }
+
+    @Override
+    public int getDamage() {
+        return BasicTower.damage;
     }
 }
