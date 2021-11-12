@@ -115,6 +115,9 @@ public class GameScreenController {
         for (int i = 5; i < 10; i++) {
             enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
         }
+        for (int i = 3; i < 7; i++) {
+            enemyList.add(new FastEnemy((int) gamePath.getWidth(), i * 20));
+        }
 
         this.currWaveEnemyList = enemyList;
     }
