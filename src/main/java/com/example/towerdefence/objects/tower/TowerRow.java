@@ -1,5 +1,7 @@
 package com.example.towerdefence.objects.tower;
 
+import com.example.towerdefence.objects.EnemyWave;
+import com.example.towerdefence.objects.enemy.Enemy;
 import javafx.scene.layout.*;
 
 public class TowerRow {
@@ -62,6 +64,36 @@ public class TowerRow {
 
         towerRow[insertRow][insertColumn] = addTower;
     }
+
+    /**
+     * Iterates through towers, and then through enemies, until an enemy within range is encountered
+     * @param enemyWave is the array of enemies that is on game screen
+     * @return int to denote if enemy has been killed
+     */
+
+    public int damageEnemies(EnemyWave enemyWave) {
+        int numEnemiesKilled;
+        Tower currentTower;
+        Enemy currentEnemy;
+
+        for (int i = 0; i < towerRow.length; i++) {
+            for (int j = 0; j < towerRow[i].length; j++) {
+                currentTower = towerRow[i][j];
+                for (int k = 0; k < enemyWave.getNumCurrEnemies(); k++) {
+                    int [] enemyLocation = enemyWave.getEnemyAbsoluteLocations().get(k);
+                    if currentTower.inRange(enemyLocation) {
+                        currentEnemy = enemyWave.getEnemies().get(k);
+
+                        if currentEnemy.doDamage(k, currentTower.getDamage()) == 1 {
+                            numEnemiesKilled +=1;
+                        }
+                    }
+                }
+            }
+        }
+        return numEnemiesKilled;
+    }
+
 
     /**
      * return the tower at specified row and column

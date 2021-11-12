@@ -114,7 +114,7 @@ public abstract class Enemy {
      */
     public int setRelativeLocation(int[] relativeLocation) {
         if (relativeLocation.length != 2) {
-            //check tha the length of the location array is 2
+            //check that the length of the location array is 2
             return -1;
         }
         this.relativeLocation = relativeLocation;

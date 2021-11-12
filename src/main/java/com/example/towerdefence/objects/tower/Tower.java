@@ -1,5 +1,7 @@
 package com.example.towerdefence.objects.tower;
 
+import com.example.towerdefence.objects.EnemyWave;
+import com.example.towerdefence.objects.enemy.Enemy;
 import com.example.towerdefence.objects.projectile.*;
 
 import java.lang.reflect.Constructor;
@@ -115,5 +117,31 @@ public abstract class Tower {
             //don't do anything, just continue the game
             return null;
         }
+    }
+
+    public double euclideanDistance(int[] towerLocation, int[] enemyLocation) {
+        double distance = Math.hypot(towerLocation[0]-enemyLocation[0],
+                towerLocation[1]-enemyLocation[1]);
+        return distance;
+    }
+
+
+    /**
+     * calculates if enemyWave x-coordinate is within range of tower
+     * @param enemyLocation is location of enemy
+     * @return boolean if enemy is within range of tower
+     */
+    public boolean inRange(int[] enemyLocation) {
+        int[] towerLocation = this.absoluteLocation;
+        double distance = Math.hypot(towerLocation[0]-enemyLocation[0],
+                towerLocation[1]-enemyLocation[1]);
+
+        //placeholder value 100 for range
+        if (distance < 100) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
