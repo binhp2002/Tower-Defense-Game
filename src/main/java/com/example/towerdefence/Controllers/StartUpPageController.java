@@ -1,4 +1,4 @@
-package com.example.towerdefence.StartUpPage;
+package com.example.towerdefence.Controllers;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;

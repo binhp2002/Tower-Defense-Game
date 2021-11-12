@@ -10,24 +10,28 @@ public class MachineTower extends Tower {
 
     /**
      * machine tower fires SmallProjectiles more rapidly than basic tower
+     * @param absoluteLocation absolute location of the MachineTower in the Scene
      */
     public MachineTower(int[] absoluteLocation) {
 
         super(100, 5, SmallProjectile.class, absoluteLocation);
     }
-
+    @Override
     public int getBasicCost() {
         return MachineTower.BASIC_COST;
     }
 
+    @Override
     public String getName() {
         return MachineTower.NAME;
     }
 
+    @Override
     public String getDescription() {
         return MachineTower.DESCRIPTION;
     }
 
+    @Override
     public String getImagePath() {
         return MachineTower.IMAGE_PATH;
     }

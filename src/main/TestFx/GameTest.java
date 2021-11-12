@@ -1,11 +1,22 @@
+import com.example.towerdefence.Controllers.*;
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
+import com.example.towerdefence.objects.enemy.*;
 import com.example.towerdefence.objects.tower.*;
+import javafx.application.Platform;
+import javafx.scene.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
 import org.testfx.framework.junit.ApplicationTest;
+import org.w3c.dom.css.Rect;
+
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -16,17 +27,21 @@ public class GameTest extends ApplicationTest {
     private GameApplication main;
     private Player player;
     private Monument monument;
+    private Scene gameScene;
+    private GameScreenController gameScreenController;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         //start game and navigate to medium difficulty page
-        main = new GameApplication();
+        this.main = new GameApplication();
         this.main.start(primaryStage);
         this.player = main.getPlayer();
         this.monument = main.getMonument();
-        stage = primaryStage;
+        this.stage = primaryStage;
+        this.gameScreenController =
+                (GameScreenController) this.main.getControllerMap().get("GameScreenController");
     }
 
     /**
@@ -48,6 +63,21 @@ public class GameTest extends ApplicationTest {
         assertEquals(stage.getTitle(), "Tower Defense Game");
         verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
                 && t.getText().contains("Health: 100"));
+        //get the game scene after navigating to that scene
+        this.gameScene = stage.getScene();
+
+        Pane gamePath = (Pane) this.gameScene.lookup("#gamePath");
+        //set up the first wave of enemies
+        List<Enemy> enemyList = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+        }
+        for (int i = 5; i < 10; i++) {
+            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
+        }
+
+        this.gameScreenController.setCurrWaveEnemyList(enemyList);
     }
 
     /**
@@ -145,7 +175,7 @@ public class GameTest extends ApplicationTest {
     @Test
     public void placeTowerTopRow() {
         clickOn("#BasicTowerPurchaseButton");
-        GridPane topTowerRow = (GridPane) stage.getScene().lookup("#topTowerRow");
+        GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
         clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
                 stage.getY() + topTowerRow.getLayoutY() + 10));
         //player curr selected is null and no longer with the player
@@ -159,7 +189,7 @@ public class GameTest extends ApplicationTest {
     @Test
     public void placeTowerPath() {
         clickOn("#BasicTowerPurchaseButton");
-        Pane path = (Pane) stage.getScene().lookup("#gamePath");
+        Pane path = (Pane) gameScene.lookup("#gamePath");
         clickOn(point(stage.getX() + path.getLayoutX() + 10,
                 stage.getY() + path.getLayoutY() + 10));
         //player curr selected is not null, still with player
@@ -173,7 +203,7 @@ public class GameTest extends ApplicationTest {
     public void placeTowerBottomRow() {
         clickOn("#BasicTowerPurchaseButton");
         //click on the bottom row
-        GridPane bottomTowerRow = (GridPane) stage.getScene().lookup("#bottomTowerRow");
+        GridPane bottomTowerRow = (GridPane) gameScene.lookup("#bottomTowerRow");
         clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
                 stage.getY() + bottomTowerRow.getLayoutY() + 10));
         //player curr selected is null and no longer with the player
@@ -181,14 +211,108 @@ public class GameTest extends ApplicationTest {
     }
 
     /**
-     * check if there is enemy once click start combat button
+     * check if there is enemy once click start combat button and curr wave animation code changed
      */
     @Test
     public void checkEnemy() {
         clickOn("#startCombatButton");
-        Pane gamePath = (Pane) stage.getScene().lookup("#gamePath");
+        assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(),
+                new Integer[]{1});
+        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
         assertNotNull(gamePath.getChildren());
     }
+
+    /**
+     * check if each enemy has an image and a corresponding health bar
+     */
+    @Test
+    public void checkEnemyHealthBarPresent() {
+        clickOn("#startCombatButton");
+        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
+        assertNotNull(gamePath.getChildren());
+        for (Node enemyBox: gamePath.getChildren()) {
+            //check if children in GamePath are enemyBox
+            assertTrue(enemyBox instanceof VBox);
+            //check if the first element in each enemyBox is a health bar
+            assertTrue(((VBox) enemyBox).getChildren().get(0) instanceof Rectangle);
+            //check if the second element in each enemyBox is an enemy image
+            assertTrue(((VBox) enemyBox).getChildren().get(1) instanceof ImageView);
+
+        }
+    }
+
+    /**
+     * check if enemy healthbar size decreases the correct amount as enemy takes damage
+     */
+    @Test
+    public void checkEnemyHealthBarDecrease() {
+        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
+        Enemy enemy = new BasicEnemy((int) gamePath.getWidth(), 20);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                gameScreenController.createEnemyImage(enemy, gameScene);
+                Rectangle rec = gameScreenController.createEnemyHBar(enemy);
+
+                double origLength = rec.getWidth();
+
+                // Enemy take damage
+                enemy.setHealth(enemy.getHealth() / 2);
+
+                gameScreenController.updateEnemyHBar(enemy, rec);
+
+                //Check after enemy takes damage
+                assertEquals(rec.getWidth(),origLength / 2,0.5);
+            }
+        });
+    }
+
+//    /**
+//     * check if health bar follows enemy as enemy location changes
+//     */
+//    @Test
+//    public void checkEnemyHealthBarLocation() {
+//        // find gamepath
+//        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
+//
+//        //Create enemy wave, enemylist, and an enemy to test
+//        EnemyWave enemyWave = new EnemyWave();
+//        List<Enemy> enemyList = new ArrayList<>();
+//        Enemy enemy = new BasicEnemy((int) gamePath.getWidth(), 20);
+//
+//        enemyList.add(enemy);
+//
+//        HashMap<Enemy, ImageView> enemyImageViewHashMap = new HashMap<>();
+//        HashMap<Enemy, Rectangle> enemyHBHashmap = new HashMap<>();
+//
+//        /// Correct values
+//        double ylocation = 20.0 - 2.0;
+//        double changedX = gamePath.getWidth() - 3;
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                //initialize
+//                gameScreenController.initializeEnemies(enemyList,enemyWave,enemyImageViewHashMap,gameScene);
+//
+//                //check location before move
+//                assertEquals(enemyHBHashmap.get(enemy).getX(),gamePath.getWidth(),1.0);
+//                assertEquals(enemyHBHashmap.get(enemy).getY(),ylocation,0.0);
+//
+//                //move
+//                enemyWave.moveEnemiesForward(3);
+//                gameScreenController.updateEnemyHBar(enemy,enemyHBHashmap.get(enemy));
+//
+//                //check location after move
+//                assertEquals(enemyHBHashmap.get(enemy).getX(),changedX,1.0);
+//                assertEquals(enemyHBHashmap.get(enemy).getY(),ylocation,0.0);
+//
+//            }
+//        });
+//    }
+
+
+
 
     /**
      * check if the basic tower purchase button can be click after heath = 0
@@ -234,5 +358,80 @@ public class GameTest extends ApplicationTest {
         }
         clickOn("#startCombatButton");
         assertNull(this.player.getCurrSelected());
+    }
+
+
+    /**
+     * test if animation has stopped by checking if animation code changes back to empty and
+     * letting game run for one more sec to see if enemy positions have been changed
+     * (difficult to access FXML elements directly cause JavaFX doesn't seem to allow
+     * non-application threads to alter UI elements)
+     */
+    @Test
+    public void checkGameEndStopAnimation() {
+        //store enemyList to check if enemies still moving
+        while (monument.getHealth() > 0) {
+            clickOn("#startCombatButton");
+        }
+
+        List<int[]> prevEnemyLocations = new ArrayList<>();
+
+        for (Enemy enemy: this.gameScreenController.getCurrWaveEnemyList()) {
+            prevEnemyLocations.add(enemy.getRelativeLocation());
+        }
+
+        //get relative locations of the enemies
+
+        try {
+            //give some time delay
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        List<int[]> afterEnemyLocations = new ArrayList<>();
+
+        for (Enemy enemy: this.gameScreenController.getCurrWaveEnemyList()) {
+            afterEnemyLocations.add(enemy.getRelativeLocation());
+        }
+
+        assertArrayEquals(this.gameScreenController.getCurrWaveAnimationCode().toArray(),
+                new Integer[]{});
+        //check if anything moved in that time break
+        assertArrayEquals(prevEnemyLocations.toArray(), afterEnemyLocations.toArray());
+
+    }
+
+    /**
+     * check if tower can be placed on top row by checking if PLayer currSelected is set to null
+     */
+    @Test
+    public void placeTowerTopRowDuringWave() {
+        //start a wave
+        clickOn("#startCombatButton");
+        //buy and place tower
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+                stage.getY() + topTowerRow.getLayoutY() + 10));
+        //player curr selected is null and no longer with the player
+        assertNull(this.player.getCurrSelected());
+    }
+
+    @Test
+    public void playerMoneyIncrease() {
+        clickOn("#startCombatButton");
+        int playerInitialMoney = this.player.getMoney();
+
+        try {
+            //give some time delay
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        //check that player money has increased overtime
+        assertTrue(this.player.getMoney() > playerInitialMoney);
+
     }
 }

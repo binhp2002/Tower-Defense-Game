@@ -12,18 +12,22 @@ public class BasicTower extends Tower {
         super(100, 1, NormalProjectile.class, absoluteLocation);
     }
 
+    @Override
     public int getBasicCost() {
         return BasicTower.BASIC_COST;
     }
 
+    @Override
     public String getName() {
         return BasicTower.NAME;
     }
 
+    @Override
     public String getDescription() {
         return BasicTower.DESCRIPTION;
     }
 
+    @Override
     public String getImagePath() {
         return BasicTower.IMAGE_PATH;
     }

@@ -1,14 +1,13 @@
 package com.example.towerdefence.objects.enemy;
 
-public class BasicEnemy extends Enemy {
-
+public class FastEnemy extends Enemy {
     public static final String IMAGE_PATH = "file:./src/main/resources/images/enemy.png";
-    private static final int FULL_HEALTH = 100;
+    private static final int FULL_HEALTH = 50;
 
     /**
-     * create BasicEnemy with default [0, 0] location
+     * create FastEnemy with default [0, 0] location
      */
-    public BasicEnemy() {
+    public FastEnemy() {
         this(0, 0);
     }
 
@@ -17,8 +16,8 @@ public class BasicEnemy extends Enemy {
      * @param x x coordinate of enemy
      * @param y y coordinate of enemy
      */
-    public BasicEnemy(int x, int y) {
-        super(FULL_HEALTH, 10, 10, x, y);
+    public FastEnemy(int x, int y) {
+        super(FULL_HEALTH, 5, 20, x, y);
     }
 
     @Override

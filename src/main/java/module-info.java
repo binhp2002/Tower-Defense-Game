@@ -15,7 +15,5 @@ module com.example.towerdefence {
     exports com.example.towerdefence.objects.tower;
     exports com.example.towerdefence.objects.enemy;
     exports com.example.towerdefence.tests;
-    exports com.example.towerdefence.StartUpPage;
-    exports com.example.towerdefence.ConfigScreenPage;
-    exports com.example.towerdefence.GameScreenPage;
+    exports com.example.towerdefence.Controllers;
 }

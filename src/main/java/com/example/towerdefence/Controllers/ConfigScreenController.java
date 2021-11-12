@@ -1,4 +1,4 @@
-package com.example.towerdefence.ConfigScreenPage;
+package com.example.towerdefence.Controllers;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.tower.*;
 import javafx.event.*;

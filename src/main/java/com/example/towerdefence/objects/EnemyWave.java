@@ -46,12 +46,26 @@ public class EnemyWave {
         Enemy newEnemy = null;
         try {
             //call the constructor and create instances of the enemy class
-            newEnemy = (Enemy) enemyClass.getConstructor(Integer.TYPE, Integer.TYPE).newInstance(x, y);
+            newEnemy = (Enemy) enemyClass.getConstructor(Integer.TYPE, Integer.TYPE)
+                    .newInstance(x, y);
         } catch (Exception e) {
-            System.out.println("Exception in EnemyWave.addEnemy when creating instance of " + enemyClass);
+            System.out.println("Exception in EnemyWave.addEnemy when creating instance of "
+                    + enemyClass);
             System.out.println(e);
         }
         enemies.add(newEnemy);
+    }
+
+    /**
+     * adds enemy to EnemyWave
+     *
+     * @param enemy enemy to be added
+     */
+    public void addEnemy(Enemy enemy) {
+        if (enemy == null) {
+            throw new RuntimeException("Cannot add empty enemy in addEnemy");
+        }
+        enemies.add(enemy);
     }
 
     /**
@@ -147,6 +161,7 @@ public class EnemyWave {
     /**
      * move enemies forward (leftward, negative x direction) by a set number of steps (pixels)
      * and return enemies that reached past the zero line
+     * @param steps number of steps (pixels) to move enemies by
      * @return List of enemies that crossed zero line and were deleted
      */
     public List<Enemy> moveEnemiesForward(int steps) {
@@ -166,6 +181,35 @@ public class EnemyWave {
         }
 
         return reachedEnemies;
+    }
+
+    /**
+     * gets the enemy at the specified index
+     * @param index index to get enemy from
+     * @return Enemy object at that index
+     */
+    public Enemy getEnemy(int index) {
+        if (index != 0 || index >= this.enemies.size()) {
+            throw new IllegalArgumentException("Index passed into getEnemy out of range");
+        }
+        return this.enemies.get(index);
+    }
+
+    /**
+     * does damage to specified enemy and removes from this.enemies list if enemy is killed
+     * @param index index of enemy to do damage to
+     * @param damage damage to be inflicted on enemy
+     * @return 1 if enemy was killed, 0 if enemy not killed
+     */
+    public int doDamage(int index, int damage) {
+        //get the enemy
+        Enemy currEnemy = this.getEnemy(index);
+        if (currEnemy.setHealth(currEnemy.getHealth() - damage) == -1) {
+            //remove the current enemy from this.enemies
+            this.enemies.remove(index);
+            return 1;
+        }
+        return 0;
     }
 
 }
