@@ -14,13 +14,6 @@ public class EnemyWave {
     private int[] originLocation;
 
     /**
-     * initialize new wave with origin as 0, 0
-     */
-    public EnemyWave() {
-        this(new int[]{0, 0});
-    }
-
-    /**
      * initialize new wave with originLocation of the game path set as originLocation
      * @param originLocation origin location of game path
      */
@@ -101,8 +94,10 @@ public class EnemyWave {
                 //add the origin location to the relative location to get
                 //the absolute location
                 currEnemyLocation[i] += originLocation[i];
+                System.out.println(currEnemyLocation[i]);
             }
             enemyLocations.add(currEnemyLocation);
+            System.out.println(Arrays.toString(currEnemyLocation));
         }
         return enemyLocations;
     }

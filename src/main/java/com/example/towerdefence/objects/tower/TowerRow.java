@@ -92,7 +92,7 @@ public class TowerRow {
 
                 for (int k = 0; k < enemyWave.getNumCurrEnemies(); k++) {
                     int[] enemyLocation = enemyWave.getEnemyAbsoluteLocations().get(k);
-                    System.out.println(now);
+
                     if (currentTower.inRange(enemyLocation)) {
                         Enemy deadEnemy = enemyWave.doDamage(k, currentTower.getDamage());
                         if (deadEnemy != null) {

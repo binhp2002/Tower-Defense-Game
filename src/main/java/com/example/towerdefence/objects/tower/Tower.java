@@ -5,6 +5,7 @@ import com.example.towerdefence.objects.enemy.Enemy;
 import com.example.towerdefence.objects.projectile.*;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 
 public abstract class Tower {
     private int health;
@@ -156,9 +157,11 @@ public abstract class Tower {
      */
     public boolean inRange(int[] enemyLocation) {
         int[] towerLocation = this.absoluteLocation;
+
         double distance = Math.hypot(towerLocation[0]-enemyLocation[0],
                 towerLocation[1]-enemyLocation[1]);
 
+        System.out.println("distance:"+ distance);
         //placeholder value 100 for range
         if (distance < this.getRange()) {
             return true;

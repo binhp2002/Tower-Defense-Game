@@ -243,11 +243,11 @@ public class GameScreenController {
             return;
         }
 
-        EnemyWave enemyWave = new EnemyWave();
-
         Scene currScene = ((Node) actionEvent.getSource()).getScene();
 
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
+
+        EnemyWave enemyWave = new EnemyWave(new int[]{(int) gamePath.getLayoutX(), (int) gamePath.getLayoutY()});
 
         //creates associated enemies
         HashMap<Enemy, VBox> enemyVBoxHashMap = new HashMap<>();

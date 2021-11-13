@@ -10,7 +10,7 @@ public class BasicTower extends Tower {
     public static final int damage = 100;
 
     public BasicTower(int[] absoluteLocation) {
-        super(100, 5, NormalProjectile.class, absoluteLocation, 100);
+        super(100, 5, NormalProjectile.class, absoluteLocation, 200);
     }
 
     @Override
