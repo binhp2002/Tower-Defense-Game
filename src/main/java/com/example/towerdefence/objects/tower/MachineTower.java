@@ -13,7 +13,7 @@ public class MachineTower extends Tower {
      */
     public MachineTower(int[] absoluteLocation) {
 
-        super(100, 5, absoluteLocation, 200);
+        super(100, 20, absoluteLocation, 250);
     }
     @Override
     public int getBasicCost() {

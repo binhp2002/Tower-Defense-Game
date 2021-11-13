@@ -164,6 +164,11 @@ public class GameScreenController {
 
                 }
 
+                for (Enemy deadEnemy: deadEnemies) {
+                    //add money based on enemies killed
+                    player.setMoney(player.getMoney() + deadEnemy.getReward());
+                }
+
                 for (Enemy enemy: enemiesReached) {
                     //store the image view for the enemy then remove it so no longer seen
                     removeFromGamePath(enemy, enemyVBoxHashMap, currScene);

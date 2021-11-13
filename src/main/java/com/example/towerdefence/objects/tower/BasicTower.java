@@ -9,7 +9,7 @@ public class BasicTower extends Tower {
     public static final int damage = 100;
 
     public BasicTower(int[] absoluteLocation) {
-        super(100, 5, absoluteLocation, 200);
+        super(100, 5, absoluteLocation, 250);
     }
 
     @Override

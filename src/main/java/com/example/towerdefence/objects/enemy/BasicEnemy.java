@@ -4,6 +4,7 @@ public class BasicEnemy extends Enemy {
 
     public static final String IMAGE_PATH = "file:./src/main/resources/images/enemy.png";
     private static final int FULL_HEALTH = 100;
+    private static final int REWARD = 10;
 
     /**
      * create BasicEnemy with default [0, 0] location
@@ -29,5 +30,10 @@ public class BasicEnemy extends Enemy {
     @Override
     public int getFullHealth() {
         return FULL_HEALTH;
+    }
+
+    @Override
+    public int getReward() {
+        return REWARD;
     }
 }

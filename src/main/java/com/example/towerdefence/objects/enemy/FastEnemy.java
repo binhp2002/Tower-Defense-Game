@@ -3,6 +3,7 @@ package com.example.towerdefence.objects.enemy;
 public class FastEnemy extends Enemy {
     public static final String IMAGE_PATH = "file:./src/main/resources/images/enemy.png";
     private static final int FULL_HEALTH = 50;
+    private static final int REWARD = 5;
 
     /**
      * create FastEnemy with default [0, 0] location
@@ -28,5 +29,10 @@ public class FastEnemy extends Enemy {
     @Override
     public int getFullHealth() {
         return FULL_HEALTH;
+    }
+
+    @Override
+    public int getReward() {
+        return REWARD;
     }
 }

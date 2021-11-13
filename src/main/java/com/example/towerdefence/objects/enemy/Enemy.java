@@ -154,4 +154,10 @@ public abstract class Enemy {
      */
     public abstract int getFullHealth();
 
+    /**
+     * returns the amount of reward earned by killing the enemy
+     * @return money earned
+     */
+    public abstract int getReward();
+
 }
