@@ -15,7 +15,7 @@ public class EnemyWaveTest {
 
     @Before
     public void setUp() {
-        enemyWave = new EnemyWave();
+        enemyWave = new EnemyWave(new int[]{0, 0});
         //verify that there are no enemies at the start
         assertEquals(enemyWave.getNumCurrEnemies(), 0);
     }
