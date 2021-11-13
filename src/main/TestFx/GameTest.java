@@ -434,4 +434,40 @@ public class GameTest extends ApplicationTest {
         assertTrue(this.player.getMoney() > playerInitialMoney);
 
     }
+
+    @Test
+    public void enemyHealthDecrease() {
+        List<Enemy> enemyList = this.gameScreenController.getCurrWaveEnemyList();
+
+        List<Integer> enemyInitialHealth = new ArrayList<>();
+        List<Integer> enemyFinalHealth = new ArrayList<>();
+
+        //buy and place a basic tower
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+                stage.getY() + topTowerRow.getLayoutY() + 10));
+
+        //get initial health of enemy
+        for (Enemy enemy : enemyList) {
+            enemyInitialHealth.add(enemy.getHealth());
+        }
+
+        //start the wave
+        clickOn("#startCombatButton");
+
+        try {
+            //give some time delay
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        //get final health of enemy
+        for (Enemy enemy : enemyList) {
+            enemyFinalHealth.add(enemy.getHealth());
+        }
+
+        assertNotEquals(enemyInitialHealth, enemyFinalHealth);
+    }
 }
