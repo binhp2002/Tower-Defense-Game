@@ -98,8 +98,9 @@ public class TowerRow {
                         if (deadEnemy != null) {
                             //the enemy was killed
                             deadEnemies.add(deadEnemy);
-                            break;
                         }
+                        //stop looking for enemies to damage because we have damaged this one
+                        break;
                     }
                 }
             }

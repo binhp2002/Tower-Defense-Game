@@ -128,8 +128,7 @@ public abstract class Tower {
         double distance = Math.hypot(towerLocation[0]-enemyLocation[0],
                 towerLocation[1]-enemyLocation[1]);
 
-        //placeholder value 100 for range
-        if (distance < this.getRange()) {
+        if (distance <= this.getRange()) {
             return true;
         } else {
             return false;

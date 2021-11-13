@@ -45,12 +45,14 @@ public abstract class Enemy {
 
     /**
      * set the health of the enemy, return 0 if successfully changed and -1 if new health
-     * is <= 0, which is invalid
+     * is <= 0, health set to 0
      * @param health new health of enemey
      * @return 0 if health is successfully changed and -1 if not
      */
     public int setHealth(int health) {
         if (health <= 0) {
+            //decrease health to 0
+            this.health = 0;
             return -1;
         }
         this.health = health;
