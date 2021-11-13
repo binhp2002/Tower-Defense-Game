@@ -3,6 +3,7 @@ package com.example.towerdefence.tests;
 import com.example.towerdefence.objects.tower.*;
 import javafx.scene.image.*;
 import org.junit.*;
+import java.lang.Math;
 
 import java.io.*;
 
@@ -135,4 +136,102 @@ public class TowerTest {
         assertEquals(defaultHealth, basicTower.getHealth());
     }
 
+    /**
+     * check that BasicTower get range runs successfully
+     */
+    @Test
+    public void testBasicTowerGetRange() {
+        //ensure that no error when getting range of basicTower
+        assertThat(basicTower.getBasicCost(), instanceOf(Integer.class));
+    }
+
+    /**
+     * check that MachineTower get range runs successfully
+     */
+    @Test
+    public void testMachineTowerGetRange() {
+        //ensure that no error when getting range of basicTower
+        assertThat(machineTower.getBasicCost(), instanceOf(Integer.class));
+    }
+
+    /**
+     * check that BasicTower get range runs successfully
+     */
+    @Test
+    public void testSniperTowerGetRange() {
+        //ensure that no error when getting range of basicTower
+        assertThat(sniperTower.getBasicCost(), instanceOf(Integer.class));
+    }
+
+    /**
+     * check that BasicTower recognizes that enemy is in range
+     */
+    @Test
+    public void testBasicTowerEnemyInRange() {
+        assertEquals(basicTower.inRange(new int[]{1, 1}), true);
+    }
+
+    /**
+     * check that BasicTower detects that enemy is not in range
+     */
+    @Test
+    public void testBasicTowerEnemyNotInRange() {
+        assertEquals(basicTower.inRange(new int[]{250, 250}), false);
+    }
+
+    /**
+     * check that BasicTower detects that enemy, even at boundary of range
+     */
+    @Test
+    public void testBasicTowerEnemyJustInRange() {
+        assertEquals(basicTower.inRange(new int[]{250, 0}), true);
+    }
+
+    /**
+     * check that SniperTower recognizes that enemy is in range
+     */
+    @Test
+    public void testSniperTowerEnemyInRange() {
+        assertEquals(sniperTower.inRange(new int[]{1, 1}), true);
+    }
+
+    /**
+     * check that SniperTower detects that enemy is not in range
+     */
+    @Test
+    public void testSniperTowerEnemyNotInRange() {
+        assertEquals(sniperTower.inRange(new int[]{500, 500}), false);
+    }
+
+    /**
+     * check that SniperTower detects that enemy, even at boundary of range
+     */
+    @Test
+    public void testSniperTowerEnemyJustInRange() {
+        assertEquals(sniperTower.inRange(new int[]{500, 0}), true);
+    }
+
+    /**
+     * check that MachineTower recognizes that enemy is in range
+     */
+    @Test
+    public void testMachineTowerEnemyInRange() {
+        assertEquals(machineTower.inRange(new int[]{1, 1}), true);
+    }
+
+    /**
+     * check that MachineTower detects that enemy is not in range
+     */
+    @Test
+    public void testMachineTowerEnemyNotInRange() {
+        assertEquals(machineTower.inRange(new int[]{250, 250}), false);
+    }
+
+    /**
+     * check that MachineTower detects that enemy, even at boundary of range
+     */
+    @Test
+    public void testMachineTowerEnemyJustInRange() {
+        assertEquals(machineTower.inRange(new int[]{250, 0}), true);
+    }
 }

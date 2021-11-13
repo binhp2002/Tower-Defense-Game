@@ -118,7 +118,7 @@ public abstract class Tower {
     }
 
     /**
-     * calculates if enemyWave x-coordinate is within range of tower
+     * calculates if enemyWave is within range of tower
      * @param enemyLocation is location of enemy
      * @return boolean if enemy is within range of tower
      */
