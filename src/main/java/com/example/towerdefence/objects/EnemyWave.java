@@ -94,10 +94,8 @@ public class EnemyWave {
                 //add the origin location to the relative location to get
                 //the absolute location
                 currEnemyLocation[i] += originLocation[i];
-                System.out.println(currEnemyLocation[i]);
             }
             enemyLocations.add(currEnemyLocation);
-            System.out.println(Arrays.toString(currEnemyLocation));
         }
         return enemyLocations;
     }
