@@ -11,7 +11,6 @@ module com.example.towerdefence {
 
     exports com.example.towerdefence;
     exports com.example.towerdefence.objects;
-    exports com.example.towerdefence.objects.projectile;
     exports com.example.towerdefence.objects.tower;
     exports com.example.towerdefence.objects.enemy;
     exports com.example.towerdefence.tests;

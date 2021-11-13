@@ -1,6 +1,5 @@
 package com.example.towerdefence.tests;
 
-import com.example.towerdefence.objects.projectile.*;
 import com.example.towerdefence.objects.tower.*;
 import javafx.scene.image.*;
 import org.junit.*;
@@ -45,15 +44,6 @@ public class TowerTest {
     }
 
     /**
-     * checks that SniperTower shoot method returns a SniperProjectile object
-     */
-    @Test
-    public void testSniperTowerShoot() {
-        //check that the correct projetile was fired
-        assertTrue(sniperTower.shoot() instanceof SniperProjectile);
-    }
-
-    /**
      * checks that sniper tower get name method implemented correctly
      */
     @Test
@@ -72,14 +62,6 @@ public class TowerTest {
     }
 
     /**
-     * checks that BasicTower shoots a NormalProjectile
-     */
-    @Test
-    public void testBasicTowerShoot() {
-        assertTrue(basicTower.shoot() instanceof NormalProjectile);
-    }
-
-    /**
      * checks that BasicTower get name implemented correctly
      */
     @Test
@@ -95,14 +77,6 @@ public class TowerTest {
     public void testBasicGetBasicCost() {
         //ensure that no error when getting basic cost
         assertThat(basicTower.getBasicCost(), instanceOf(Integer.class));
-    }
-
-    /**
-     * checks MachineTower shoots a SmallProjectile
-     */
-    @Test
-    public void testMachineTowerShoot() {
-        assertTrue(machineTower.shoot() instanceof SmallProjectile);
     }
 
     /**

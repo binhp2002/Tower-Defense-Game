@@ -1,7 +1,5 @@
 package com.example.towerdefence.objects.tower;
 
-import com.example.towerdefence.objects.projectile.*;
-
 public class MachineTower extends Tower {
     public static final String DESCRIPTION = "Attacks enemies with rapid fire machine gun";
     public static final String NAME = "Machine tower";
@@ -15,7 +13,7 @@ public class MachineTower extends Tower {
      */
     public MachineTower(int[] absoluteLocation) {
 
-        super(100, 5, SmallProjectile.class, absoluteLocation, 200);
+        super(100, 5, absoluteLocation, 200);
     }
     @Override
     public int getBasicCost() {

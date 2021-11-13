@@ -1,6 +1,5 @@
 package com.example.towerdefence.objects.tower;
 
-import com.example.towerdefence.objects.projectile.*;
 
 public class SniperTower extends Tower {
     public static final String DESCRIPTION =
@@ -11,7 +10,7 @@ public class SniperTower extends Tower {
     public static final int damage = 20;
 
     public SniperTower(int[] absoluteLocation) {
-        super(100, 2, SniperProjectile.class, absoluteLocation,300);
+        super(100, 2, absoluteLocation,300);
     }
 
     @Override

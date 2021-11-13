@@ -2,14 +2,12 @@ package com.example.towerdefence.objects.tower;
 
 import com.example.towerdefence.objects.EnemyWave;
 import com.example.towerdefence.objects.enemy.Enemy;
-import com.example.towerdefence.objects.projectile.*;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
 public abstract class Tower {
     private int health;
-    private Class projectileType;
     private int rateOfFire;
     private int range;
     private long lastFired;
@@ -20,18 +18,11 @@ public abstract class Tower {
      * most specific constructor, to set everything
      * @param health starting health of the tower
      * @param rateOfFire rate of fire of the tower
-     * @param projectileType the class of the projectile that this tower fires
      * @param absoluteLocation the absolute location of the tower
      * @param range range of tower
      */
-    public Tower(int health, int rateOfFire, Class projectileType, int[] absoluteLocation, int range) {
-        if (!Projectile.class.isAssignableFrom(projectileType)) {
-            //ensure that projectileType implements projectile interface,
-            //can assign projectileType to projectile
-            throw new RuntimeException("projectileType argument must implement projectile");
-        }
+    public Tower(int health, int rateOfFire, int[] absoluteLocation, int range) {
         this.health = health;
-        this.projectileType = projectileType;
         this.rateOfFire = rateOfFire;
         this.absoluteLocation = absoluteLocation;
         this.range = range;
@@ -125,30 +116,6 @@ public abstract class Tower {
         this.health = health;
         return 0;
     }
-
-    /**
-     * shoot projectile
-     * @return projectile fired, null if nothing fired
-     */
-    public Projectile shoot() {
-        //get constructure for projectile type
-        Constructor<Projectile> projectileConstructor;
-        try {
-            projectileConstructor = projectileType.getConstructor();
-            Projectile projectile = projectileConstructor.newInstance();
-            return projectile;
-        } catch (Exception e) {
-            //don't do anything, just continue the game
-            return null;
-        }
-    }
-
-    public double euclideanDistance(int[] towerLocation, int[] enemyLocation) {
-        double distance = Math.hypot(towerLocation[0]-enemyLocation[0],
-                towerLocation[1]-enemyLocation[1]);
-        return distance;
-    }
-
 
     /**
      * calculates if enemyWave x-coordinate is within range of tower
