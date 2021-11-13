@@ -174,7 +174,7 @@ public class EnemyWaveTest {
     /**
      * attempt to get enemy from a negative index
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetEnemyNegativeIndex() {
         enemyWave.getEnemy(-1);
     }
@@ -182,7 +182,7 @@ public class EnemyWaveTest {
     /**
      * attempt to get enemy from index that is too large (no enemy there)
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetEnemyTooLargeIndex() {
         enemyWave.getEnemy(0);
     }

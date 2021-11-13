@@ -4,10 +4,7 @@ import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.enemy.*;
 import com.example.towerdefence.objects.tower.*;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.scene.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
@@ -15,7 +12,6 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import org.junit.*;
 import org.testfx.framework.junit.ApplicationTest;
-import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 import java.util.*;
@@ -266,54 +262,10 @@ public class GameTest extends ApplicationTest {
                 gameScreenController.updateEnemyHBar(enemy, rec);
 
                 //Check after enemy takes damage
-                assertEquals(rec.getWidth(),origLength / 2,0.5);
+                assertEquals(rec.getWidth(), origLength / 2, 0.5);
             }
         });
     }
-
-//    /**
-//     * check if health bar follows enemy as enemy location changes
-//     */
-//    @Test
-//    public void checkEnemyHealthBarLocation() {
-//        // find gamepath
-//        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
-//
-//        //Create enemy wave, enemylist, and an enemy to test
-//        EnemyWave enemyWave = new EnemyWave();
-//        List<Enemy> enemyList = new ArrayList<>();
-//        Enemy enemy = new BasicEnemy((int) gamePath.getWidth(), 20);
-//
-//        enemyList.add(enemy);
-//
-//        HashMap<Enemy, ImageView> enemyImageViewHashMap = new HashMap<>();
-//        HashMap<Enemy, Rectangle> enemyHBHashmap = new HashMap<>();
-//
-//        /// Correct values
-//        double ylocation = 20.0 - 2.0;
-//        double changedX = gamePath.getWidth() - 3;
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                //initialize
-//                gameScreenController.initializeEnemies(enemyList,enemyWave,enemyImageViewHashMap,gameScene);
-//
-//                //check location before move
-//                assertEquals(enemyHBHashmap.get(enemy).getX(),gamePath.getWidth(),1.0);
-//                assertEquals(enemyHBHashmap.get(enemy).getY(),ylocation,0.0);
-//
-//                //move
-//                enemyWave.moveEnemiesForward(3);
-//                gameScreenController.updateEnemyHBar(enemy,enemyHBHashmap.get(enemy));
-//
-//                //check location after move
-//                assertEquals(enemyHBHashmap.get(enemy).getX(),changedX,1.0);
-//                assertEquals(enemyHBHashmap.get(enemy).getY(),ylocation,0.0);
-//
-//            }
-//        });
-//    }
-
 
 
 

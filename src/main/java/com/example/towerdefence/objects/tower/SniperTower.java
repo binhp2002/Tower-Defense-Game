@@ -7,10 +7,10 @@ public class SniperTower extends Tower {
     public static final String NAME = "Sniper tower";
     public static final int BASIC_COST = 200;
     public static final String IMAGE_PATH = "file:./src/main/resources/images/SniperTower.png";
-    public static final int damage = 200;
+    public static final int DAMAGE = 200;
 
     public SniperTower(int[] absoluteLocation) {
-        super(100, 2, absoluteLocation,500);
+        super(100, 2, absoluteLocation, 500);
     }
 
     @Override
@@ -35,6 +35,6 @@ public class SniperTower extends Tower {
 
     @Override
     public int getDamage() {
-        return SniperTower.damage;
+        return SniperTower.DAMAGE;
     }
 }

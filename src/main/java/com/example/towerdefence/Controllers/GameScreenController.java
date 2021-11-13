@@ -223,7 +223,8 @@ public class GameScreenController {
         return animationIP;
     }
 
-    public void removeFromGamePath(Enemy enemy, HashMap<Enemy, VBox> enemyVBoxHashMap, Scene currScene) {
+    public void removeFromGamePath(Enemy enemy, HashMap<Enemy, VBox> enemyVBoxHashMap,
+                                   Scene currScene) {
 
         //remove ImageView from gamePath
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
@@ -252,7 +253,8 @@ public class GameScreenController {
 
         Pane gamePath = (Pane) currScene.lookup("#gamePath");
 
-        EnemyWave enemyWave = new EnemyWave(new int[]{(int) gamePath.getLayoutX(), (int) gamePath.getLayoutY()});
+        EnemyWave enemyWave = new EnemyWave(new int[]{(int) gamePath.getLayoutX(),
+            (int) gamePath.getLayoutY()});
 
         //creates associated enemies
         HashMap<Enemy, VBox> enemyVBoxHashMap = new HashMap<>();
@@ -284,7 +286,7 @@ public class GameScreenController {
      * @param currScene current scene
      */
     public void initializeEnemies(List<Enemy> enemyList, EnemyWave enemyWave,
-                                  HashMap<Enemy, VBox> enemyVBoxHashMap,Scene currScene) {
+                                  HashMap<Enemy, VBox> enemyVBoxHashMap, Scene currScene) {
         for (Enemy enemy: enemyList) {
             //add the enemy and add it to the scene as well
             enemyWave.addEnemy(enemy);
@@ -354,6 +356,7 @@ public class GameScreenController {
      * Use this method when creating enemies
      * The method uses the enemy and scene to appropriate the location and health
      * @param enemy enemy object
+     * @return Recntangle for enemy health bar
      */
     public Rectangle createEnemyHBar(Enemy enemy) {
         // get the full health of enemy based off enemy type

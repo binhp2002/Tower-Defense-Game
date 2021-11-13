@@ -92,7 +92,8 @@ public class TowerRowTest {
     }
 
     /**
-     * check that enemy can get hit by 2 towers and killed (enemy is at the limit of both towers ranges)
+     * check that enemy can get hit by 2 towers and killed
+     * (enemy is at the limit of both towers ranges)
      */
     @Test(timeout = 1000)
     public void testDamageEnemiesKill() {
@@ -116,8 +117,8 @@ public class TowerRowTest {
             //enemy should not be killed so return 0 size list
             int origHealth = tankEnemy.getHealth();
             killedEnemies = towerRow.damageEnemies(enemyWave, System.nanoTime());
-            assertTrue(tankEnemy.getHealth() == 0 || tankEnemy.getHealth() ==
-                    origHealth - tower1.getDamage() * 2);
+            assertTrue(tankEnemy.getHealth() == 0 || tankEnemy.getHealth()
+                    == origHealth - tower1.getDamage() * 2);
         }
         //verify that the enemy that was killed is tankEnemy and it is returned appropriately
         assertEquals(killedEnemies.get(0), tankEnemy);

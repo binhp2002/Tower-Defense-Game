@@ -1,11 +1,5 @@
 package com.example.towerdefence.objects.tower;
 
-import com.example.towerdefence.objects.EnemyWave;
-import com.example.towerdefence.objects.enemy.Enemy;
-
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
-
 public abstract class Tower {
     private int health;
     private int rateOfFire;
@@ -31,6 +25,8 @@ public abstract class Tower {
     /**
      * factory method to create Tower from the tower class
      * @param towerClass class of tower to be instantiated
+     * @param x absolute x location of tower
+     * @param y absolute y location of tower
      * @return newly created Tower of towerClass
      */
     public static Tower createTower(Class towerClass, int x, int y) {
@@ -125,14 +121,10 @@ public abstract class Tower {
     public boolean inRange(int[] enemyLocation) {
         int[] towerLocation = this.absoluteLocation;
 
-        double distance = Math.hypot(towerLocation[0]-enemyLocation[0],
-                towerLocation[1]-enemyLocation[1]);
+        double distance = Math.hypot(towerLocation[0] - enemyLocation[0],
+                towerLocation[1] - enemyLocation[1]);
 
-        if (distance <= this.getRange()) {
-            return true;
-        } else {
-            return false;
-        }
+        return distance <= this.getRange();
     }
 
     public int getRange() {

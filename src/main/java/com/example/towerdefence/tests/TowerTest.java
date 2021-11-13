@@ -1,11 +1,8 @@
 package com.example.towerdefence.tests;
 
 import com.example.towerdefence.objects.tower.*;
-import javafx.scene.image.*;
 import org.junit.*;
-import java.lang.Math;
 
-import java.io.*;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
@@ -39,7 +36,7 @@ public class TowerTest {
      * check that an IllegalArgumentException is thrown when a non-subclass of Tower
      * is passed into createTower
      */
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCreateTowerNotTowerSubclass() {
         Tower.createTower(Object.class, 1, 2);
     }

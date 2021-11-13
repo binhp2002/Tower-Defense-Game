@@ -70,6 +70,7 @@ public class TowerRow {
     /**
      * Iterates through towers, and then through enemies, until an enemy within range is encountered
      * @param enemyWave is the array of enemies that is on game screen
+     * @param now current time in nanoseconds (system time)
      * @return int to denote if enemy has been killed
      */
 
@@ -83,7 +84,8 @@ public class TowerRow {
                 //towerRow[i][j] is null
                 if (currentTower == null) {
                     continue;
-                } else if (now - currentTower.getLastFired() < Math.pow(10, 9) / currentTower.getRateOfFire()) {
+                } else if (now - currentTower.getLastFired() < Math.pow(10, 9)
+                        / currentTower.getRateOfFire()) {
                     continue;
                 }
 
