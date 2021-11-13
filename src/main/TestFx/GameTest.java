@@ -4,7 +4,10 @@ import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.enemy.*;
 import com.example.towerdefence.objects.tower.*;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.scene.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
@@ -432,6 +435,49 @@ public class GameTest extends ApplicationTest {
 
         //check that player money has increased overtime
         assertTrue(this.player.getMoney() > playerInitialMoney);
+
+    }
+
+    /**
+     * Tests that when enemies die, it gets removed off the screen/game path
+     */
+    @Test
+    public void deadEnemyRemoval(){
+        Pane gamePath = (Pane) gameScene.lookup("#gamePath");
+        boolean enemykilled = false;
+
+        //Create Tower place on map
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 500,
+                stage.getY() + topTowerRow.getLayoutY() + 100));
+
+        // Create enemies
+        List<Enemy> enemyList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+        }
+
+
+        // Start game
+        gameScreenController.setCurrWaveEnemyList(enemyList);
+        clickOn("#startCombatButton");
+
+        int oriGameChildren = gamePath.getChildren().size();
+        //Check every 1000 millisecs
+        while (enemyList.get(0).getHealth() > 0) {
+            try {
+                //give some time delay
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            if (gamePath.getChildren().size() < oriGameChildren){
+                enemykilled = true;
+            }
+        }
+        //Check gamepath is empty and the enemies are removed
+        assertTrue(enemykilled);
 
     }
 }
