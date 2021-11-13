@@ -141,7 +141,7 @@ public class EnemyWaveTest {
         enemyWave.addEnemy(BasicEnemy.class, 0, 0);
         Enemy enemy = enemyWave.getEnemy(0);
         //do one damage less than enemy health
-        assertEquals(enemyWave.doDamage(0, enemy.getHealth() - 1), 0);
+        assertNull(enemyWave.doDamage(0, enemy.getHealth() - 1));
         assertEquals(enemy.getHealth(), 1);
     }
 
@@ -153,7 +153,7 @@ public class EnemyWaveTest {
         enemyWave.addEnemy(BasicEnemy.class, 0, 0);
         Enemy enemy = enemyWave.getEnemy(0);
         //do damage equal to enemy's health
-        assertEquals(enemyWave.doDamage(0, enemy.getHealth()), 1);
+        assertEquals(enemyWave.doDamage(0, enemy.getHealth()), enemy);
         //check that enemy is removed from enemyWave
         assertTrue(enemyWave.isEmpty());
     }
@@ -166,7 +166,7 @@ public class EnemyWaveTest {
         enemyWave.addEnemy(BasicEnemy.class, 0, 0);
         Enemy enemy = enemyWave.getEnemy(0);
         //do damage equal to enemy's health + 1 (negative health)
-        assertEquals(enemyWave.doDamage(0, enemy.getHealth() + 1), 1);
+        assertEquals(enemyWave.doDamage(0, enemy.getHealth() + 1), enemy);
         //check that enemy is removed from enemyWave
         assertTrue(enemyWave.isEmpty());
     }
