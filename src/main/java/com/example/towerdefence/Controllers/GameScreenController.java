@@ -29,7 +29,7 @@ public class GameScreenController {
 
     private List<Enemy> currWaveEnemyList;
 
-    private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<GridPane, TowerRow>();
+    private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<>();
 
     public Scene getNextScene() {
         return this.nextScene;
@@ -153,17 +153,20 @@ public class GameScreenController {
                 //get the enemies that have reached the end
                 List<Enemy> enemiesReached = enemyWave.moveEnemiesForward();
 
+                List<Enemy> deadEnemies = new ArrayList<>();
+
+                for (TowerRow towerRow: gameTowerRow.values()) {
+                    for (Enemy deadEnemy: towerRow.damageEnemies(enemyWave, now)) {
+                        deadEnemies.add(deadEnemy);
+
+                        removeFromGamePath(deadEnemy, enemyVBoxHashMap, currScene);
+                    }
+
+                }
+
                 for (Enemy enemy: enemiesReached) {
                     //store the image view for the enemy then remove it so no longer seen
-                    VBox enemyBox = enemyVBoxHashMap.get(enemy);
-
-
-                    //remove them from the HashMap so they aren't redrawn
-                    enemyVBoxHashMap.remove(enemy);
-
-                    //remove ImageView from gamePath
-                    Pane gamePath = (Pane) currScene.lookup("#gamePath");
-                    gamePath.getChildren().remove(enemyBox);
+                    removeFromGamePath(enemy, enemyVBoxHashMap, currScene);
 
                     //enemies doing damage to monument
                     monument.setHealth(monument.getHealth() - enemy.getDamage());
@@ -213,6 +216,19 @@ public class GameScreenController {
         animation.start();
 
         return animationIP;
+    }
+
+    public void removeFromGamePath(Enemy enemy, HashMap<Enemy, VBox> enemyVBoxHashMap, Scene currScene) {
+
+        //remove ImageView from gamePath
+        Pane gamePath = (Pane) currScene.lookup("#gamePath");
+
+        VBox enemyBox = enemyVBoxHashMap.get(enemy);
+
+        //remove them from the HashMap so they aren't redrawn
+        enemyVBoxHashMap.remove(enemy);
+
+        gamePath.getChildren().remove(enemyBox);
     }
 
     /**

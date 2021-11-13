@@ -189,8 +189,9 @@ public class EnemyWave {
      * @return Enemy object at that index
      */
     public Enemy getEnemy(int index) {
-        if (index != 0 || index >= this.enemies.size()) {
-            throw new IllegalArgumentException("Index passed into getEnemy out of range");
+        if (index < 0 || index >= this.enemies.size()) {
+            throw new IllegalArgumentException("Index passed into getEnemy out of range, size "
+                    + this.enemies.size() + " but trying to access index " + index);
         }
         return this.enemies.get(index);
     }
@@ -199,17 +200,18 @@ public class EnemyWave {
      * does damage to specified enemy and removes from this.enemies list if enemy is killed
      * @param index index of enemy to do damage to
      * @param damage damage to be inflicted on enemy
-     * @return 1 if enemy was killed, 0 if enemy not killed
+     * @return Enemy if the enemy was killed, otherwise null
      */
-    public int doDamage(int index, int damage) {
+    public Enemy doDamage(int index, int damage) {
         //get the enemy
         Enemy currEnemy = this.getEnemy(index);
         if (currEnemy.setHealth(currEnemy.getHealth() - damage) == -1) {
             //remove the current enemy from this.enemies
+            Enemy deadEnemy = this.enemies.get(index);
             this.enemies.remove(index);
-            return 1;
+            return deadEnemy;
         }
-        return 0;
+        return null;
     }
 
 }

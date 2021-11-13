@@ -11,6 +11,7 @@ public abstract class Tower {
     private Class projectileType;
     private int rateOfFire;
     private int range;
+    private long lastFired;
 
     private int[] absoluteLocation;
 
@@ -171,4 +172,19 @@ public abstract class Tower {
     }
     
     public abstract int getDamage();
+
+    public int getRateOfFire() {
+        return this.rateOfFire;
+    };
+
+    public long getLastFired() {
+        return this.lastFired;
+    }
+
+    public void setLastFired(long lastFired) {
+        if (lastFired < 0) {
+            throw new IllegalArgumentException("lastFired cannot be negative");
+        }
+        this.lastFired = lastFired;
+    }
 }

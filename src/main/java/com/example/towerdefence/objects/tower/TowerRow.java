@@ -4,6 +4,8 @@ import com.example.towerdefence.objects.EnemyWave;
 import com.example.towerdefence.objects.enemy.Enemy;
 import javafx.scene.layout.*;
 
+import java.util.*;
+
 public class TowerRow {
     private Tower[][] towerRow;
     private int numRows;
@@ -71,27 +73,38 @@ public class TowerRow {
      * @return int to denote if enemy has been killed
      */
 
-    public int damageEnemies(EnemyWave enemyWave) {
-        int numEnemiesKilled = 0;
+    public List<Enemy> damageEnemies(EnemyWave enemyWave, long now) {
+        List<Enemy> deadEnemies = new ArrayList<>();
         Tower currentTower;
-        Enemy currentEnemy;
 
         for (int i = 0; i < towerRow.length; i++) {
             for (int j = 0; j < towerRow[i].length; j++) {
                 currentTower = towerRow[i][j];
-                for (int k = 0; k < enemyWave.getNumCurrEnemies(); k++) {
-                    int [] enemyLocation = enemyWave.getEnemyAbsoluteLocations().get(k);
-                    if (currentTower.inRange(enemyLocation)) {
-                        currentEnemy = enemyWave.getEnemies().get(k);
+                //towerRow[i][j] is null
+                if (currentTower == null) {
+                    continue;
+                } else if (now - currentTower.getLastFired() < Math.pow(10, 9) / currentTower.getRateOfFire()) {
+                    continue;
+                }
 
-                        if (enemyWave.doDamage(k, currentTower.getDamage()) == 1) {
-                            numEnemiesKilled += 1;
+                //update the last fired
+                currentTower.setLastFired(now);
+
+                for (int k = 0; k < enemyWave.getNumCurrEnemies(); k++) {
+                    int[] enemyLocation = enemyWave.getEnemyAbsoluteLocations().get(k);
+                    System.out.println(now);
+                    if (currentTower.inRange(enemyLocation)) {
+                        Enemy deadEnemy = enemyWave.doDamage(k, currentTower.getDamage());
+                        if (deadEnemy != null) {
+                            //the enemy was killed
+                            deadEnemies.add(deadEnemy);
+                            break;
                         }
                     }
                 }
             }
         }
-        return numEnemiesKilled;
+        return deadEnemies;
     }
 
 
