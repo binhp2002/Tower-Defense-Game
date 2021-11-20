@@ -119,6 +119,8 @@ public class GameScreenController {
             enemyList.add(new FastEnemy((int) gamePath.getWidth(), i * 20));
         }
 
+        enemyList.add(new BossEnemy((int) gamePath.getWidth(), 40));
+
         this.currWaveEnemyList = enemyList;
     }
 
@@ -140,7 +142,7 @@ public class GameScreenController {
         AnimationTimer animation = new AnimationTimer() {
             private double prev = 0.0;
 
-            private final double frameTime = Math.pow(10, 7);
+            private final double frameTime = 2 * Math.pow(10, 7);
 
             @Override
             public void handle(long now) {
@@ -305,9 +307,9 @@ public class GameScreenController {
         Pane gamePath = (Pane) scene.lookup("#gamePath");
         VBox enemyBox = new VBox();
         ImageView enemyImageView = new ImageView(enemy.getImagePath());
-        //enemy is a 10x10 image
-        enemyImageView.setFitHeight(20);
-        enemyImageView.setFitWidth(20);
+        //create enemy height and width
+        enemyImageView.setFitHeight(enemy.getHeight());
+        enemyImageView.setFitWidth(enemy.getWidth());
 
         Rectangle enemyHealthBar =  createEnemyHBar(enemy);
 
@@ -364,8 +366,8 @@ public class GameScreenController {
 
         //Make new health bar
         Rectangle rec = new Rectangle();
-        ///Set health bar width 20 pixels at full health
-        rec.setWidth(20.0);
+        ///Set health bar width to enemy width at full health
+        rec.setWidth(enemy.getWidth());
 
         rec.setHeight(5);
         rec.setFill(Color.RED);
@@ -385,11 +387,11 @@ public class GameScreenController {
      */
     public void updateEnemyHBar(Enemy enemy, Rectangle rec) {
         // get the full health of enemy based off enemy type
-        int fullHeatlh = enemy.getFullHealth();
+        int fullHealth = enemy.getFullHealth();
 
         /// Update the health bar size
         /// health is the percentage of enemy health from full health * 20
-        rec.setWidth(((double) (enemy.getHealth()) / fullHeatlh) * 20);
+        rec.setWidth(((double) (enemy.getHealth()) / fullHealth) * enemy.getWidth());
 
     }
 

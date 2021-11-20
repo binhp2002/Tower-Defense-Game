@@ -162,4 +162,16 @@ public abstract class Enemy {
      */
     public abstract int getReward();
 
+    /**
+     * get width of enemy
+     * @return width of the enemy image
+     */
+    public abstract int getWidth();
+
+    /**
+     * get height of enemy
+     * @return height of the enemy image
+     */
+    public abstract int getHeight();
+
 }
