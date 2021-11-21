@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.util.*;
 
@@ -454,5 +455,17 @@ public class GameScreenController {
     public static void gameOver(StackPane gameOverPane) {
         gameOverPane.setVisible(true);
         gameOverPane.setStyle("-fx-background-color: transparent;");
+    }
+
+    public static void gameWin(Stage stage, Monument monument) {
+        //create stage
+
+        stage = (Stage) stage.getScene().getWindow();
+        ((Text) stage.getScene().lookup("#enemiesKilled"))
+                .setText("Enemies Killed: " + );
+        ((Text) stage.getScene().lookup("#timePassed"))
+                .setText("Time passed: " + );
+        ((Text) stage.getScene().lookup("#finalHealth"))
+                .setText("Final Health: " + monument.getHealth());
     }
 }

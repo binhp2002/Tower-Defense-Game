@@ -20,6 +20,8 @@ public class GameApplication extends Application {
 
     private HashMap<String, Object> controllerMap;
 
+    private Stage stage;
+
     @Override
     public void start(Stage stage) throws IOException {
         this.player = new Player();
@@ -46,6 +48,10 @@ public class GameApplication extends Application {
         Parent gameScreenPaneLoader = gameScreenPane.load();
         Scene gameScreenScene = new Scene(gameScreenPaneLoader, 1100, 600);
 
+        //win screen scene
+        FXMLLoader winScreenPane = new FXMLLoader(getClass().getResource("/WinScreenPage.fxml"));
+        Parent winScreenPaneLoader = winScreenPane.load();
+        Scene winScreenScene = new Scene(winScreenPaneLoader, 1100, 600);
 
         //set next scenes for each scene
         //get the controller and then set the next page for the controller
@@ -63,6 +69,10 @@ public class GameApplication extends Application {
         gameScreenController.setPlayer(player);
         gameScreenController.setMonument(monument);
         this.controllerMap.put("GameScreenController", gameScreenController);
+
+        WinScreenController winScreenController = winScreenPane.getController();
+        winScreenController.setNextScene(startUpScene);
+        this.controllerMap.put("WinScreenController", winScreenController);
 
         stage.setTitle("Tower Defense Game");
         stage.setScene(startUpScene);
