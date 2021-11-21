@@ -29,6 +29,8 @@ public class GameScreenController {
 
     private List<Enemy> currWaveEnemyList;
 
+    private int waveCount = 0;
+
     private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<>();
 
     public Scene getNextScene() {
@@ -104,22 +106,25 @@ public class GameScreenController {
      * @param gamePath game path to determine where to place the enemies
      */
     public void setNextWave(Pane gamePath) {
-        List<Enemy> nextEnemyList = new ArrayList<>();
 
         //always generate the same set of enemies for now
         List<Enemy> enemyList = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
-            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+        if (this.waveCount == 5) {
+            enemyList.add(new BossEnemy((int) gamePath.getWidth(), 50));
         }
-        for (int i = 5; i < 10; i++) {
-            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
+        else {
+            for (int i = 0; i < 5; i++) {
+                enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+            }
+            for (int i = 5; i < 10; i++) {
+                enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
+            }
+            for (int i = 3; i < 7; i++) {
+                enemyList.add(new FastEnemy((int) gamePath.getWidth(), i * 20));
+            }
+            this.waveCount += 1;
         }
-        for (int i = 3; i < 7; i++) {
-            enemyList.add(new FastEnemy((int) gamePath.getWidth(), i * 20));
-        }
-
-        enemyList.add(new BossEnemy((int) gamePath.getWidth(), 40));
 
         this.currWaveEnemyList = enemyList;
     }

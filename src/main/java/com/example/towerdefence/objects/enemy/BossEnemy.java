@@ -3,7 +3,7 @@ package com.example.towerdefence.objects.enemy;
 public class BossEnemy extends Enemy{
 
     public static final String IMAGE_PATH = "file:./src/main/resources/images/tankEnemy.png";
-    private static final int FULL_HEALTH = 1000;
+    private static final int FULL_HEALTH = 10000;
     private static final int REWARD = 100;
     private static final int HEIGHT = 100;
     private static final int WIDTH = 100;
