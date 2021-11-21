@@ -8,6 +8,10 @@ public class Player {
     //default initialize with no money
     private int money;
 
+    private int enemiesKilled;
+
+    private int playTime;
+
     private int difficulty;
 
     //returns the class of the currently selected tower
@@ -20,6 +24,8 @@ public class Player {
         this.name = null;
         this.money = 0;
         this.difficulty = 0;
+        this.playTime = 0;
+        this.enemiesKilled = 0;
     }
 
     /**
@@ -139,6 +145,50 @@ public class Player {
         } catch (Exception e) {
             throw new RuntimeException("getPlayerCost cannot getBasicCost method from tower class");
         }
+    }
+
+    public int getPlayTime() {
+        return this.playTime;
+    }
+
+    public int setPlayTime(int time) {
+        if (time < 0) {
+            return -1;
+        }
+        this.playTime = time;
+        return 0;
+    }
+
+    /**
+     * increment play time by amount
+     * @param time amount to increment playtime by
+     * @return 0 if successfully incremented when time >= 0, -1 otherwise
+     */
+    public int incrementPlayTime(int time) {
+        if (time < 0) {
+            return -1;
+        }
+        this.playTime += time;
+        return 0;
+    }
+
+    public int getEnemiesKilled() {
+        return this.enemiesKilled;
+    }
+
+    public int setEnemiesKilled(int enemiesKilled) {
+        if (enemiesKilled < 0) {
+            return -1;
+        }
+        this.enemiesKilled = enemiesKilled;
+        return 0;
+    }
+
+    /**
+     * increment enemiesKilled
+     */
+    public void enemyKilled() {
+        this.enemiesKilled++;
     }
 
 }

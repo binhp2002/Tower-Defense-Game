@@ -144,6 +144,8 @@ public class GameScreenController {
 
         animationIP.add(1);
 
+        long startTime = System.currentTimeMillis();
+
         AnimationTimer animation = new AnimationTimer() {
             private double prev = 0.0;
 
@@ -172,8 +174,9 @@ public class GameScreenController {
                 }
 
                 for (Enemy deadEnemy: deadEnemies) {
-                    //add money based on enemies killed
+                    //add money based on enemies killed and increment enemy killed
                     player.setMoney(player.getMoney() + deadEnemy.getReward());
+                    player.enemyKilled();
                 }
 
                 for (Enemy enemy: enemiesReached) {
@@ -192,7 +195,8 @@ public class GameScreenController {
                             //processing previous call
                             animationIP.remove(0);
                         }
-
+                        //increment playtime
+                        player.incrementPlayTime((int) (System.currentTimeMillis() - startTime));
                         this.stop();
                     }
                 }
@@ -220,6 +224,8 @@ public class GameScreenController {
                         //processing previous call
                         animationIP.remove(0);
                     }
+                    //increment playtime
+                    player.incrementPlayTime((int) (System.currentTimeMillis() - startTime));
                     this.stop();
                 }
             }
