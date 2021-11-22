@@ -68,6 +68,7 @@ public class GameApplication extends Application {
         GameScreenController gameScreenController = gameScreenPane.getController();
         gameScreenController.setPlayer(player);
         gameScreenController.setMonument(monument);
+        gameScreenController.setNextScene(winScreenScene);
         this.controllerMap.put("GameScreenController", gameScreenController);
 
         WinScreenController winScreenController = winScreenPane.getController();

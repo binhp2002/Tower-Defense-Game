@@ -32,6 +32,9 @@ public class GameScreenController {
 
     private int waveCount = 0;
 
+    //number of waves in game
+    private int numWaves = 1;
+
     private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<>();
 
     public Scene getNextScene() {
@@ -124,7 +127,6 @@ public class GameScreenController {
             for (int i = 3; i < 7; i++) {
                 enemyList.add(new FastEnemy((int) gamePath.getWidth(), i * 20));
             }
-            this.waveCount += 1;
         }
 
         this.currWaveEnemyList = enemyList;
@@ -188,8 +190,7 @@ public class GameScreenController {
                     monument.setHealth(monument.getHealth() - enemy.getDamage());
                     if (monument.getHealth() <= 0) {
                         //game over
-                        GameScreenController.gameOver((StackPane) currScene
-                                .lookup("#gameOverPane"));
+                        gameOver((StackPane) currScene.lookup("#gameOverPane"));
 
                         if (animationIP.size() == 1) {
                             //might have race condition where another handle call comes in while
@@ -227,7 +228,15 @@ public class GameScreenController {
                     }
                     //increment playtime
                     player.incrementPlayTime((int) (System.currentTimeMillis() - startTime));
+                    waveCount++;
                     this.stop();
+
+                    System.out.println(waveCount);
+
+                    //if finished final wave
+                    if (waveCount == numWaves) {
+                        gameWin((Stage) currScene.getWindow());
+                    }
                 }
             }
         };
@@ -465,20 +474,23 @@ public class GameScreenController {
         return null;
     }
 
-    public static void gameOver(StackPane gameOverPane) {
+    public void gameOver(StackPane gameOverPane) {
         gameOverPane.setVisible(true);
         gameOverPane.setStyle("-fx-background-color: transparent;");
     }
 
-    public static void gameWin(Stage stage, Monument monument) {
-        //create stage
+    public void gameWin(Stage stage) {
 
-        stage = (Stage) stage.getScene().getWindow();
-        ((Text) stage.getScene().lookup("#enemiesKilled"))
-                .setText("Enemies Killed: " + );
-        ((Text) stage.getScene().lookup("#timePassed"))
-                .setText("Time passed: " + );
-        ((Text) stage.getScene().lookup("#finalHealth"))
+        //set up the statistics
+        ((Text) this.nextScene.lookup("#enemiesKilled"))
+                .setText("Enemies Killed: " + player.getEnemiesKilled());
+        ((Text) this.nextScene.lookup("#timePassed"))
+                .setText("Time passed: " + player.getPlayTime());
+        ((Text) this.nextScene.lookup("#finalHealth"))
                 .setText("Final Health: " + monument.getHealth());
+
+        //set next scene
+        stage.setScene(this.nextScene);
+        stage.setTitle("Win Game Screen");
     }
 }
