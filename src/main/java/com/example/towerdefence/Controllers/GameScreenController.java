@@ -485,7 +485,7 @@ public class GameScreenController {
         ((Text) this.nextScene.lookup("#enemiesKilled"))
                 .setText("Enemies Killed: " + player.getEnemiesKilled());
         ((Text) this.nextScene.lookup("#timePassed"))
-                .setText("Time passed: " + player.getPlayTime());
+                .setText("Total Play Time: " + player.getPlayTime() / 1000 + " sec");
         ((Text) this.nextScene.lookup("#finalHealth"))
                 .setText("Final Health: " + monument.getHealth());
 
