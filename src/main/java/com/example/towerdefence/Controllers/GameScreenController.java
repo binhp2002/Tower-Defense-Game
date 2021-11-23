@@ -30,6 +30,11 @@ public class GameScreenController {
 
     private List<Enemy> currWaveEnemyList;
 
+    private int waveCount = 0;
+
+    //number of waves in game
+    private int numWaves = 1;
+
     private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<>();
 
     public Scene getNextScene() {
@@ -105,19 +110,23 @@ public class GameScreenController {
      * @param gamePath game path to determine where to place the enemies
      */
     public void setNextWave(Pane gamePath) {
-        List<Enemy> nextEnemyList = new ArrayList<>();
 
         //always generate the same set of enemies for now
         List<Enemy> enemyList = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
-            enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+        if (this.waveCount == 5) {
+            enemyList.add(new BossEnemy((int) gamePath.getWidth(), 50));
         }
-        for (int i = 5; i < 10; i++) {
-            enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
-        }
-        for (int i = 3; i < 7; i++) {
-            enemyList.add(new FastEnemy((int) gamePath.getWidth(), i * 20));
+        else {
+            for (int i = 0; i < 5; i++) {
+                enemyList.add(new BasicEnemy((int) gamePath.getWidth(), i * 20));
+            }
+            for (int i = 5; i < 10; i++) {
+                enemyList.add(new TankEnemy((int) gamePath.getWidth(), i * 20));
+            }
+            for (int i = 3; i < 7; i++) {
+                enemyList.add(new FastEnemy((int) gamePath.getWidth(), i * 20));
+            }
         }
 
         this.currWaveEnemyList = enemyList;
@@ -138,10 +147,12 @@ public class GameScreenController {
 
         animationIP.add(1);
 
+        long startTime = System.currentTimeMillis();
+
         AnimationTimer animation = new AnimationTimer() {
             private double prev = 0.0;
 
-            private final double frameTime = Math.pow(10, 7);
+            private final double frameTime = 2 * Math.pow(10, 7);
 
             @Override
             public void handle(long now) {
@@ -166,8 +177,9 @@ public class GameScreenController {
                 }
 
                 for (Enemy deadEnemy: deadEnemies) {
-                    //add money based on enemies killed
+                    //add money based on enemies killed and increment enemy killed
                     player.setMoney(player.getMoney() + deadEnemy.getReward());
+                    player.enemyKilled();
                 }
 
                 for (Enemy enemy: enemiesReached) {
@@ -178,15 +190,15 @@ public class GameScreenController {
                     monument.setHealth(monument.getHealth() - enemy.getDamage());
                     if (monument.getHealth() <= 0) {
                         //game over
-                        GameScreenController.gameOver((StackPane) currScene
-                                .lookup("#gameOverPane"));
+                        gameOver((StackPane) currScene.lookup("#gameOverPane"));
 
                         if (animationIP.size() == 1) {
                             //might have race condition where another handle call comes in while
                             //processing previous call
                             animationIP.remove(0);
                         }
-
+                        //increment playtime
+                        player.incrementPlayTime((int) (System.currentTimeMillis() - startTime));
                         this.stop();
                     }
                 }
@@ -214,7 +226,17 @@ public class GameScreenController {
                         //processing previous call
                         animationIP.remove(0);
                     }
+                    //increment playtime
+                    player.incrementPlayTime((int) (System.currentTimeMillis() - startTime));
+                    waveCount++;
                     this.stop();
+
+                    System.out.println(waveCount);
+
+                    //if finished final wave
+                    if (waveCount == numWaves) {
+                        gameWin((Stage) currScene.getWindow());
+                    }
                 }
             }
         };
@@ -306,9 +328,9 @@ public class GameScreenController {
         Pane gamePath = (Pane) scene.lookup("#gamePath");
         VBox enemyBox = new VBox();
         ImageView enemyImageView = new ImageView(enemy.getImagePath());
-        //enemy is a 10x10 image
-        enemyImageView.setFitHeight(20);
-        enemyImageView.setFitWidth(20);
+        //create enemy height and width
+        enemyImageView.setFitHeight(enemy.getHeight());
+        enemyImageView.setFitWidth(enemy.getWidth());
 
         Rectangle enemyHealthBar =  createEnemyHBar(enemy);
 
@@ -365,8 +387,8 @@ public class GameScreenController {
 
         //Make new health bar
         Rectangle rec = new Rectangle();
-        ///Set health bar width 20 pixels at full health
-        rec.setWidth(20.0);
+        ///Set health bar width to enemy width at full health
+        rec.setWidth(enemy.getWidth());
 
         rec.setHeight(5);
         rec.setFill(Color.RED);
@@ -386,11 +408,11 @@ public class GameScreenController {
      */
     public void updateEnemyHBar(Enemy enemy, Rectangle rec) {
         // get the full health of enemy based off enemy type
-        int fullHeatlh = enemy.getFullHealth();
+        int fullHealth = enemy.getFullHealth();
 
         /// Update the health bar size
         /// health is the percentage of enemy health from full health * 20
-        rec.setWidth(((double) (enemy.getHealth()) / fullHeatlh) * 20);
+        rec.setWidth(((double) (enemy.getHealth()) / fullHealth) * enemy.getWidth());
 
     }
 
@@ -452,20 +474,23 @@ public class GameScreenController {
         return null;
     }
 
-    public static void gameOver(StackPane gameOverPane) {
+    public void gameOver(StackPane gameOverPane) {
         gameOverPane.setVisible(true);
         gameOverPane.setStyle("-fx-background-color: transparent;");
     }
 
-    public static void gameWin(Stage stage, Monument monument) {
-        //create stage
+    public void gameWin(Stage stage) {
 
-        stage = (Stage) stage.getScene().getWindow();
-        ((Text) stage.getScene().lookup("#enemiesKilled"))
-                .setText("Enemies Killed: " + );
-        ((Text) stage.getScene().lookup("#timePassed"))
-                .setText("Time passed: " + );
-        ((Text) stage.getScene().lookup("#finalHealth"))
+        //set up the statistics
+        ((Text) this.nextScene.lookup("#enemiesKilled"))
+                .setText("Enemies Killed: " + player.getEnemiesKilled());
+        ((Text) this.nextScene.lookup("#timePassed"))
+                .setText("Total Play Time: " + player.getPlayTime() / 1000 + " sec");
+        ((Text) this.nextScene.lookup("#finalHealth"))
                 .setText("Final Health: " + monument.getHealth());
+
+        //set next scene
+        stage.setScene(this.nextScene);
+        stage.setTitle("Win Game Screen");
     }
 }
