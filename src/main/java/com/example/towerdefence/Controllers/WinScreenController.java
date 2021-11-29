@@ -1,4 +1,5 @@
 package com.example.towerdefence.Controllers;
+import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.tower.*;
 import javafx.event.*;
@@ -15,6 +16,7 @@ public class WinScreenController {
     private Scene nextScene;
     private Player player;
     private Monument monument;
+    private Stage stage;
 
     public void setNextScene(Scene scene) {this.nextScene = scene;}
 
@@ -26,13 +28,16 @@ public class WinScreenController {
     @FXML
     public void againButton(ActionEvent ae) {
         clear();
-        Stage stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
-        stage.setScene(this.nextScene);
-        stage.setTitle("Start Up");
     }
 
     public void clear() {
-        player.setMoney(0);
-        monument.setHealth(0);
+        GameApplication gameApplication = new GameApplication();
+        try {
+            gameApplication.start(this.stage);
+        } catch (Exception e) {}
+    }
+
+    public void setNewStage(Stage stage) {
+        this.stage = stage;
     }
 }
