@@ -20,6 +20,10 @@ public class WinScreenController {
 
     public void setNextScene(Scene scene) {this.nextScene = scene;}
 
+    public void setNewStage(Stage stage) {
+        this.stage = stage;
+    }
+
     @FXML
     public void quitButton(ActionEvent ae) {
         System.exit(0);
@@ -35,9 +39,5 @@ public class WinScreenController {
         try {
             gameApplication.start(this.stage);
         } catch (Exception e) {}
-    }
-
-    public void setNewStage(Stage stage) {
-        this.stage = stage;
     }
 }

@@ -78,7 +78,6 @@ public class GameApplication extends Application {
         winScreenController.setNextScene(startUpScene);
         //reset stage
         winScreenController.setNewStage(stage);
-        //winScreenController.stage = stage;
         this.controllerMap.put("WinScreenController", winScreenController);
 
         stage.setTitle("Tower Defense Game");
