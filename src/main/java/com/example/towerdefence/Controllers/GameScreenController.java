@@ -33,7 +33,7 @@ public class GameScreenController {
     private int waveCount = 0;
 
     //number of waves in game
-    private int numWaves = 1;
+    private int numWaves = 2;
 
     private HashMap<GridPane, TowerRow> gameTowerRow = new HashMap<>();
 
@@ -114,7 +114,7 @@ public class GameScreenController {
         //always generate the same set of enemies for now
         List<Enemy> enemyList = new ArrayList<>();
 
-        if (this.waveCount == 5) {
+        if (this.waveCount == 2) {
             enemyList.add(new BossEnemy((int) gamePath.getWidth(), 50));
         }
         else {
