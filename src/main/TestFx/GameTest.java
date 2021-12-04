@@ -325,13 +325,17 @@ public class GameTest extends ApplicationTest {
     @Test
     public void checkGameEndStopAnimation() {
         //store enemyList to check if enemies still moving
+
+        //store list of current enemies to ensure to check if enemy positions change later on
+        List<Enemy> enemies = this.gameScreenController.getCurrWaveEnemyList();
+
         while (monument.getHealth() > 0) {
             clickOn("#startCombatButton");
         }
 
         List<int[]> prevEnemyLocations = new ArrayList<>();
 
-        for (Enemy enemy: this.gameScreenController.getCurrWaveEnemyList()) {
+        for (Enemy enemy: enemies) {
             prevEnemyLocations.add(enemy.getRelativeLocation());
         }
 
@@ -346,7 +350,7 @@ public class GameTest extends ApplicationTest {
 
         List<int[]> afterEnemyLocations = new ArrayList<>();
 
-        for (Enemy enemy: this.gameScreenController.getCurrWaveEnemyList()) {
+        for (Enemy enemy: enemies) {
             afterEnemyLocations.add(enemy.getRelativeLocation());
         }
 
