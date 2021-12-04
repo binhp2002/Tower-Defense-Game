@@ -8,7 +8,7 @@ public class SniperTower extends Tower {
     public static final int BASIC_COST = 200;
     public static final String IMAGE_PATH1 = "file:./src/main/resources/images/SniperTower.png";
     public static final String IMAGE_PATH2 = "file:./src/main/resources/images/UpgradedSniperTower.png";
-    public static int damage = 200;
+    public static int damage = 50;
 
     public SniperTower(int[] absoluteLocation) {
         super(100, 2, absoluteLocation, 500, IMAGE_PATH1);
