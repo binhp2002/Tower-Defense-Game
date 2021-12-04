@@ -8,6 +8,7 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.geometry.Bounds;
 import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,7 +31,7 @@ public class GameScreenController {
 
     private List<Enemy> currWaveEnemyList;
 
-    private int waveCount = 0;
+    private int waveCount = 1;
 
     //number of waves in game
     private int numWaves = 2;
@@ -113,8 +114,7 @@ public class GameScreenController {
 
         //always generate the same set of enemies for now
         List<Enemy> enemyList = new ArrayList<>();
-
-        if (this.waveCount == 2) {
+        if (this.waveCount == this.numWaves) {
             enemyList.add(new BossEnemy((int) gamePath.getWidth(), 50));
         }
         else {
@@ -228,15 +228,14 @@ public class GameScreenController {
                     }
                     //increment playtime
                     player.incrementPlayTime((int) (System.currentTimeMillis() - startTime));
-                    waveCount++;
-                    this.stop();
-
-                    System.out.println(waveCount);
 
                     //if finished final wave
                     if (waveCount == numWaves) {
                         gameWin((Stage) currScene.getWindow());
                     }
+
+                    waveCount++;
+                    this.stop();
                 }
             }
         };
@@ -292,8 +291,8 @@ public class GameScreenController {
 
         this.currWaveAnimationCode = gameMovementLoop(enemyWave, enemyVBoxHashMap, currScene);
 
-        //sets up the next wave of enemies
-        this.setNextWave(gamePath);
+        this.currWaveEnemyList = null;
+
     }
 
     /**
@@ -453,9 +452,23 @@ public class GameScreenController {
             if (towerRow.checkTower(rowIndex, colIndex) != null) {
                 if (towerRow.checkTower(rowIndex, colIndex).isAssignableFrom(player.getCurrSelected())) {
                     Tower currentTower = towerRow.getTower(rowIndex, colIndex);
-                    currentTower.upgradeTower();
-                    player.setCurrSelected(null);
+                    if (currentTower.upgradeTower() == -1) {
+                        //tower is already max level, throw alert and don't do anything else
+                        Alert a = new Alert(Alert.AlertType.ERROR);
 
+                        a.setContentText("Tower is already at max level");
+
+                        // show the dialog
+                        a.show();
+                        return;
+
+                    }
+                    ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
+                    cell.setImage(new Image(currentTower.getImagePath()));
+                    cell.setFitHeight(cellHeight);
+                    cell.setFitWidth(cellWidth);
+                    player.setCurrSelected(null);
+                    return;
                 }
 
             } else {
@@ -465,7 +478,6 @@ public class GameScreenController {
 
 
             ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
-
             cell.setImage(new Image(tower.getImagePath()));
 
             cell.setFitHeight(cellHeight);

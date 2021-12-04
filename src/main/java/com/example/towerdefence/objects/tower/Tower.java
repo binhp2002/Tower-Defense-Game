@@ -5,6 +5,7 @@ public abstract class Tower {
     private int rateOfFire;
     private int range;
     private long lastFired;
+    private String imagePath;
 
     private int level = 1;
 
@@ -17,11 +18,12 @@ public abstract class Tower {
      * @param absoluteLocation the absolute location of the tower
      * @param range range of tower
      */
-    public Tower(int health, int rateOfFire, int[] absoluteLocation, int range) {
+    public Tower(int health, int rateOfFire, int[] absoluteLocation, int range, String imagePath) {
         this.health = health;
         this.rateOfFire = rateOfFire;
         this.absoluteLocation = absoluteLocation;
         this.range = range;
+        this.imagePath = imagePath;
     }
 
     /**
@@ -69,7 +71,15 @@ public abstract class Tower {
      * returns the image path of the tower
      * @return returns the tower image path
      */
-    public abstract String getImagePath();
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    /**
+     * returns image path for upgraded tower
+     * @ return returns upgraded tower image path
+     */
+    public abstract String getImagePath2();
 
     /**
      * gets health of tower
@@ -163,6 +173,12 @@ public abstract class Tower {
         }
         //double the damage when upgrading
         this.setDamage(this.getDamage() * 5);
+        this.imagePath = this.getImagePath2();
+        this.level++;
         return 0;
+    }
+
+    public int getLevel() {
+        return this.level;
     }
 }
