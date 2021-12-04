@@ -30,7 +30,7 @@ public class GameScreenController {
 
     private List<Enemy> currWaveEnemyList;
 
-    private int waveCount = 0;
+    private int waveCount = 1;
 
     //number of waves in game
     private int numWaves = 2;
@@ -113,8 +113,7 @@ public class GameScreenController {
 
         //always generate the same set of enemies for now
         List<Enemy> enemyList = new ArrayList<>();
-
-        if (this.waveCount == 2) {
+        if (this.waveCount == this.numWaves) {
             enemyList.add(new BossEnemy((int) gamePath.getWidth(), 50));
         }
         else {
@@ -228,15 +227,14 @@ public class GameScreenController {
                     }
                     //increment playtime
                     player.incrementPlayTime((int) (System.currentTimeMillis() - startTime));
-                    waveCount++;
-                    this.stop();
-
-                    System.out.println(waveCount);
 
                     //if finished final wave
                     if (waveCount == numWaves) {
                         gameWin((Stage) currScene.getWindow());
                     }
+
+                    waveCount++;
+                    this.stop();
                 }
             }
         };
@@ -292,8 +290,8 @@ public class GameScreenController {
 
         this.currWaveAnimationCode = gameMovementLoop(enemyWave, enemyVBoxHashMap, currScene);
 
-        //sets up the next wave of enemies
-        this.setNextWave(gamePath);
+        this.currWaveEnemyList = null;
+
     }
 
     /**
