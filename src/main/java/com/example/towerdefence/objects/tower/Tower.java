@@ -174,6 +174,11 @@ public abstract class Tower {
         //double the damage when upgrading
         this.setDamage(this.getDamage() * 5);
         this.imagePath = this.getImagePath2();
+        this.level++;
         return 0;
+    }
+
+    public int getLevel() {
+        return this.level;
     }
 }

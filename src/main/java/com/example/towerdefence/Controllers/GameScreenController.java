@@ -8,6 +8,7 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.geometry.Bounds;
 import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -451,7 +452,17 @@ public class GameScreenController {
             if (towerRow.checkTower(rowIndex, colIndex) != null) {
                 if (towerRow.checkTower(rowIndex, colIndex).isAssignableFrom(player.getCurrSelected())) {
                     Tower currentTower = towerRow.getTower(rowIndex, colIndex);
-                    currentTower.upgradeTower();
+                    if (currentTower.upgradeTower() == -1) {
+                        //tower is already max level, throw alert and don't do anything else
+                        Alert a = new Alert(Alert.AlertType.ERROR);
+
+                        a.setContentText("Tower is already at max level");
+
+                        // show the dialog
+                        a.show();
+                        return;
+
+                    }
                     ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
                     cell.setImage(new Image(currentTower.getImagePath()));
                     cell.setFitHeight(cellHeight);
