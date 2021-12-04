@@ -2,6 +2,7 @@ package com.example.towerdefence.Controllers;
 import com.example.towerdefence.GameApplication;
 import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.tower.*;
+import javafx.application.Platform;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -26,7 +27,9 @@ public class WinScreenController {
 
     @FXML
     public void quitButton(ActionEvent ae) {
-        System.exit(0);
+        //player.setGameOver(true);
+        //Platform.exit();
+        stage.close();
     }
 
     @FXML

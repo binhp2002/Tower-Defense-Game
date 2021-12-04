@@ -470,4 +470,84 @@ public class GameTest extends ApplicationTest {
 
         assertNotEquals(enemyInitialHealth, enemyFinalHealth);
     }
+
+    /**
+     * check if the play again button lead back to first page
+     */
+    @Test
+    public void playAgain() {
+        //buy and place the first sniper tower
+        clickOn("#SniperTowerPurchaseButton");
+        GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+                stage.getY() + topTowerRow.getLayoutY() + 10));
+
+        //buy and place the second basic tower
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane bottomTowerRow = (GridPane) gameScene.lookup("#bottomTowerRow");
+        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
+                stage.getY() + bottomTowerRow.getLayoutY() + 10));
+
+        //start the first wave
+        clickOn("#startCombatButton");
+
+        try {
+            //give some time delay
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        //start the second wave
+        clickOn("#startCombatButton");
+
+        try {
+            //give some time delay
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        clickOn("#againButton");
+        assertEquals(stage.getTitle(), "Tower Defense Game");
+    }
+
+
+    @Test
+    public void exitButton() {
+        //buy and place the first sniper tower
+        clickOn("#SniperTowerPurchaseButton");
+        GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+                stage.getY() + topTowerRow.getLayoutY() + 10));
+
+        //buy and place the second basic tower
+        clickOn("#BasicTowerPurchaseButton");
+        GridPane bottomTowerRow = (GridPane) gameScene.lookup("#bottomTowerRow");
+        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
+                stage.getY() + bottomTowerRow.getLayoutY() + 10));
+
+        //start the first wave
+        clickOn("#startCombatButton");
+
+        try {
+            //give some time delay
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        //start the second wave
+        clickOn("#startCombatButton");
+
+        try {
+            //give some time delay
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        clickOn("#quitButton");
+        assertFalse(this.stage.isShowing());
+    }
 }

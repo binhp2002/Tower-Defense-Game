@@ -30,6 +30,7 @@ public class Player {
 
     /**
      * returns the name of the player
+     *
      * @return name of player
      */
     public String getName() {
@@ -38,6 +39,7 @@ public class Player {
 
     /**
      * sets the name of the player
+     *
      * @param name new name of the player
      * @return 0 if name successfully changed and -1
      */
@@ -52,6 +54,7 @@ public class Player {
 
     /**
      * return the current amount of money that the player has
+     *
      * @return player's money
      */
     public int getMoney() {
@@ -60,6 +63,7 @@ public class Player {
 
     /**
      * set the amount of money held by the player
+     *
      * @param money new money of money that player has
      * @return 0 if player money changed successfully, -1 if new money is negative
      */
@@ -74,6 +78,7 @@ public class Player {
 
     /**
      * returns the current difficulty setting of the player
+     *
      * @return difficulty setting of player
      */
     public int getDifficulty() {
@@ -83,6 +88,7 @@ public class Player {
 
     /**
      * sets the difficulty setting of the player
+     *
      * @param difficulty new difficulty setting of player
      * @return 0 if difficulty setting changed successfully
      */
@@ -93,6 +99,7 @@ public class Player {
 
     /**
      * returns cost factor of the player that is based on the difficulty of the player
+     *
      * @return cost factor to multiply the base cost of the towers by
      */
     public double getCostFactor() {
@@ -108,6 +115,7 @@ public class Player {
 
     /**
      * return the currently selected and paid for tower that is associated with the player
+     *
      * @return currently selected tower
      */
     public Class getCurrSelected() {
@@ -116,6 +124,7 @@ public class Player {
 
     /**
      * check if towerClass is null or an actual tower, null is to reset the value to nothing
+     *
      * @param towerClass towerClass that is currently selected by player
      * @return 0 if tower class is successfully set, -1 if tower class is not successfully set
      */
@@ -161,6 +170,7 @@ public class Player {
 
     /**
      * increment play time by amount
+     *
      * @param time amount to increment playtime by
      * @return 0 if successfully incremented when time >= 0, -1 otherwise
      */
@@ -190,5 +200,4 @@ public class Player {
     public void enemyKilled() {
         this.enemiesKilled++;
     }
-
 }
