@@ -451,20 +451,11 @@ public class GameScreenController {
             //check if tower exists in towerRow
             //if tower exists, insert upgraded tower
             if (towerRow.checkTower(rowIndex, colIndex) != null) {
-                if (towerRow.checkTower(rowIndex, colIndex) == BasicTower.class) {
-                    Tower currentBasicTower = towerRow.getTower(rowIndex, colIndex);
-                    Tower upgradedBasicTower = BasicTower.upgradeTower(currentBasicTower);
-                    towerRow.insertTower(rowIndex, colIndex, upgradedBasicTower);
+                if (towerRow.checkTower(rowIndex, colIndex).isAssignableFrom(player.getCurrSelected())) {
+                    Tower currentTower = towerRow.getTower(rowIndex, colIndex);
+                    currentTower.upgradeTower();
+                    player.setCurrSelected(null);
 
-                } else if (towerRow.checkTower(rowIndex, colIndex) == SniperTower.class) {
-                    Tower currentSniperTower = towerRow.getTower(rowIndex, colIndex);
-                    Tower upgradedSniperTower = SniperTower.upgradeTower(currentSniperTower);
-                    towerRow.insertTower(rowIndex, colIndex, upgradedSniperTower);
-
-                } else if (towerRow.checkTower(rowIndex, colIndex) == MachineTower.class) {
-                    Tower currentMachineTower = towerRow.getTower(rowIndex, colIndex);
-                    Tower upgradedMachineTower = MachineTower.upgradeTower(currentMachineTower);
-                    towerRow.insertTower(rowIndex, colIndex, upgradedMachineTower);
                 }
 
             } else {

@@ -6,6 +6,8 @@ public abstract class Tower {
     private int range;
     private long lastFired;
 
+    private int level = 1;
+
     private int[] absoluteLocation;
 
     /**
@@ -133,6 +135,8 @@ public abstract class Tower {
     
     public abstract int getDamage();
 
+    public abstract void setDamage(int damage);
+
     public int getRateOfFire() {
         return this.rateOfFire;
     };
@@ -146,5 +150,19 @@ public abstract class Tower {
             throw new IllegalArgumentException("lastFired cannot be negative");
         }
         this.lastFired = lastFired;
+    }
+
+    /**
+     * upgrades the tower if the level is 1, if the tower is 2 then don't upgrade (can only upgrade to level 2)
+     * @return 0 if successfully upgraded, -1 otherwise
+     */
+    public int upgradeTower() {
+        if (level != 1) {
+            //don't upgrade return -1
+            return -1;
+        }
+        //double the damage when upgrading
+        this.setDamage(this.getDamage() * 5);
+        return 0;
     }
 }

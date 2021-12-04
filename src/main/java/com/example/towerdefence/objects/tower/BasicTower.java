@@ -13,12 +13,6 @@ public class BasicTower extends Tower {
 
     }
 
-    public static BasicTower upgradeTower(Tower currentBasicTower) {
-        BasicTower upgradedBasicTower = (BasicTower) currentBasicTower;
-        upgradedBasicTower.setDamage(currentBasicTower.getDamage()*2);
-        return upgradedBasicTower;
-    }
-
     @Override
     public int getBasicCost() {
         return BasicTower.BASIC_COST;

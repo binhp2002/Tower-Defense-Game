@@ -16,12 +16,6 @@ public class MachineTower extends Tower {
         super(100, 20, absoluteLocation, 250);
     }
 
-    public static MachineTower upgradeTower(Tower currentMachineTower) {
-        MachineTower upgradedMachineTower = (MachineTower) currentMachineTower;
-        upgradedMachineTower.setDamage(currentMachineTower.getDamage()*2);
-        return upgradedMachineTower;
-    }
-
     @Override
     public int getBasicCost() {
         return MachineTower.BASIC_COST;

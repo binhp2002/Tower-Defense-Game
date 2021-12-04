@@ -13,12 +13,6 @@ public class SniperTower extends Tower {
         super(100, 2, absoluteLocation, 500);
     }
 
-    public static SniperTower upgradeTower(Tower currentSniperTower) {
-        SniperTower upgradedSniperTower = (SniperTower) currentSniperTower;
-        upgradedSniperTower.setDamage(currentSniperTower.getDamage()*2);
-        return upgradedSniperTower;
-    }
-
     @Override
     public int getBasicCost() {
         return SniperTower.BASIC_COST;
