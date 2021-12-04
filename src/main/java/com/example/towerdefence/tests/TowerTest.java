@@ -231,4 +231,50 @@ public class TowerTest {
     public void testMachineTowerEnemyJustInRange() {
         assertEquals(machineTower.inRange(new int[]{250, 0}), true);
     }
+
+    /**
+     * check that upgrading tower leads to increase in damage
+     */
+    @Test
+    public void testUpgradeTowerDamageIncrease() {
+        int initialDamage = machineTower.getDamage();
+        machineTower.upgradeTower();
+        //damage increased to 5 times initial damage
+        assertEquals(initialDamage * 5, machineTower.getDamage());
+    }
+
+    /**
+     * check if image changed correctly when tower is upgraded
+     */
+    @Test
+    public void testUpgradeTowerImageChange() {
+        //check if initial image path is correct
+        assertEquals(machineTower.getImagePath(), MachineTower.IMAGE_PATH1);
+        machineTower.upgradeTower();
+        //check if image path has been updated to the second level
+        assertEquals(machineTower.getImagePath(), MachineTower.IMAGE_PATH2);
+    }
+
+    @Test
+    public void testUpgradeTwoLevels() {
+        machineTower.upgradeTower();
+        int upgradedDamage = machineTower.getDamage();
+        machineTower.upgradeTower();
+        //check that damage doesn't get increased twice
+        assertEquals(machineTower.getDamage(), upgradedDamage);
+        //check that the image still unchanged at the level 2 image
+        assertEquals(machineTower.getImagePath(), MachineTower.IMAGE_PATH2);
+    }
+
+    @Test
+    public void testLevelsUpdated() {
+        //check that level was initially 1
+        assertEquals(machineTower.getLevel(), 1);
+        machineTower.upgradeTower();
+        //check that level has been incremented
+        assertEquals(machineTower.getLevel(), 2);
+    }
+
+
+
 }
