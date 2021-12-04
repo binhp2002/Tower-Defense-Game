@@ -1,7 +1,7 @@
 package com.example.towerdefence.objects.enemy;
 
 public class FastEnemy extends Enemy {
-    public static final String IMAGE_PATH = "file:./src/main/resources/images/enemy.png";
+    public static final String IMAGE_PATH = "file:./src/main/resources/images/fastEnemy.png";
     private static final int FULL_HEALTH = 50;
     private static final int REWARD = 5;
     private static final int WIDTH = 20;

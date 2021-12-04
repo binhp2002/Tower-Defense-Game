@@ -152,7 +152,7 @@ public class GameScreenController {
         AnimationTimer animation = new AnimationTimer() {
             private double prev = 0.0;
 
-            private final double frameTime = 2 * Math.pow(10, 7);
+            private final double frameTime = 6 * Math.pow(10, 7);
 
             @Override
             public void handle(long now) {
