@@ -479,7 +479,7 @@ public class GameTest extends ApplicationTest {
      * check if the play again button lead back to first page
      */
     @Test
-    public void playAgain() {
+    public void testPlayAgain() {
         //buy and place the first sniper tower
         clickOn("#SniperTowerPurchaseButton");
         GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
@@ -523,7 +523,7 @@ public class GameTest extends ApplicationTest {
 
 
     @Test
-    public void exitButton() {
+    public void testExitButton() {
         //buy and place the first sniper tower
         clickOn("#SniperTowerPurchaseButton");
         GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
