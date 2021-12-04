@@ -259,7 +259,8 @@ public class TowerTest {
     public void testUpgradeTwoLevels() {
         machineTower.upgradeTower();
         int upgradedDamage = machineTower.getDamage();
-        machineTower.upgradeTower();
+        //checks that -1 is returned when trying to upgrade the tower a second time
+        assertEquals(machineTower.upgradeTower(), -1);
         //check that damage doesn't get increased twice
         assertEquals(machineTower.getDamage(), upgradedDamage);
         //check that the image still unchanged at the level 2 image
