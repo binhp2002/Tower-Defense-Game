@@ -502,12 +502,17 @@ public class GameTest extends ApplicationTest {
             System.out.println(e);
         }
 
+        clickOn("#SniperTowerPurchaseButton");
+        topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+                stage.getY() + topTowerRow.getLayoutY() + 10));
+
         //start the second wave
         clickOn("#startCombatButton");
 
         try {
             //give some time delay
-            Thread.sleep(5000);
+            Thread.sleep(21000);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -541,12 +546,17 @@ public class GameTest extends ApplicationTest {
             System.out.println(e);
         }
 
-        //start the second wave
-        clickOn("#startCombatButton");
+       clickOn("#SniperTowerPurchaseButton");
+       topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
+       clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+               stage.getY() + topTowerRow.getLayoutY() + 10));
 
-        try {
+       //start the second wave
+       clickOn("#startCombatButton");
+
+       try {
             //give some time delay
-            Thread.sleep(5000);
+            Thread.sleep(21000);
         } catch (Exception e) {
             System.out.println(e);
         }
