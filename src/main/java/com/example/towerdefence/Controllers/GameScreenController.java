@@ -3,6 +3,7 @@ import com.example.towerdefence.objects.*;
 import com.example.towerdefence.objects.enemy.*;
 import com.example.towerdefence.objects.tower.*;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.geometry.Bounds;
@@ -20,7 +21,6 @@ import java.util.*;
 
 
 public class GameScreenController {
-
     private Player player;
     private Monument monument;
 
@@ -494,7 +494,6 @@ public class GameScreenController {
     }
 
     public void gameWin(Stage stage) {
-
         //set up the statistics
         ((Text) this.nextScene.lookup("#enemiesKilled"))
                 .setText("Enemies Killed: " + player.getEnemiesKilled());

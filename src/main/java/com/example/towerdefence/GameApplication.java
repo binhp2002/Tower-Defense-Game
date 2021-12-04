@@ -4,6 +4,7 @@ import com.example.towerdefence.objects.Monument;
 import com.example.towerdefence.objects.Player;
 import com.example.towerdefence.Controllers.StartUpPageController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.stage.Stage;
@@ -72,7 +73,11 @@ public class GameApplication extends Application {
         this.controllerMap.put("GameScreenController", gameScreenController);
 
         WinScreenController winScreenController = winScreenPane.getController();
+        gameScreenController.setPlayer(player);
+        gameScreenController.setMonument(monument);
         winScreenController.setNextScene(startUpScene);
+        //reset stage
+        winScreenController.setNewStage(stage);
         this.controllerMap.put("WinScreenController", winScreenController);
 
         stage.setTitle("Tower Defense Game");
