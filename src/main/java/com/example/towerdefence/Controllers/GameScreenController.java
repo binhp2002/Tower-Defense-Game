@@ -447,8 +447,31 @@ public class GameScreenController {
 
             //get the appropriate tower row for the one that was just click
             TowerRow towerRow = gameTowerRow.get(node);
-            //insert the tower to that tower row
-            towerRow.insertTower(rowIndex, colIndex, tower);
+
+            //check if tower exists in towerRow
+            //if tower exists, insert upgraded tower
+            if (towerRow.checkTower(rowIndex, colIndex) != null) {
+                if (towerRow.checkTower(rowIndex, colIndex) == BasicTower.class) {
+                    Tower currentBasicTower = towerRow.getTower(rowIndex, colIndex);
+                    Tower upgradedBasicTower = BasicTower.upgradeTower(currentBasicTower);
+                    towerRow.insertTower(rowIndex, colIndex, upgradedBasicTower);
+
+                } else if (towerRow.checkTower(rowIndex, colIndex) == SniperTower.class) {
+                    Tower currentSniperTower = towerRow.getTower(rowIndex, colIndex);
+                    Tower upgradedSniperTower = SniperTower.upgradeTower(currentSniperTower);
+                    towerRow.insertTower(rowIndex, colIndex, upgradedSniperTower);
+
+                } else if (towerRow.checkTower(rowIndex, colIndex) == MachineTower.class) {
+                    Tower currentMachineTower = towerRow.getTower(rowIndex, colIndex);
+                    Tower upgradedMachineTower = MachineTower.upgradeTower(currentMachineTower);
+                    towerRow.insertTower(rowIndex, colIndex, upgradedMachineTower);
+                }
+
+            } else {
+                //insert the tower to that tower row
+                towerRow.insertTower(rowIndex, colIndex, tower);
+            }
+
 
             ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
 

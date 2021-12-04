@@ -68,6 +68,20 @@ public class TowerRow {
     }
 
     /**
+     * Method to check type of tower existing at given index in towerRow
+     * @param rowIndex is index of the row to check
+     * @param colIndex is index of column to check
+     * @return returns class of Tower
+     */
+    public Class checkTower(int rowIndex, int colIndex) {
+        if (towerRow[rowIndex][colIndex] != null) {
+            return towerRow[rowIndex][colIndex].getClass();
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Iterates through towers, and then through enemies, until an enemy within range is encountered
      * @param enemyWave is the array of enemies that is on game screen
      * @param now current time in nanoseconds (system time)

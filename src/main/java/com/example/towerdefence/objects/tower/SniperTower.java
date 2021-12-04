@@ -7,10 +7,16 @@ public class SniperTower extends Tower {
     public static final String NAME = "Sniper tower";
     public static final int BASIC_COST = 200;
     public static final String IMAGE_PATH = "file:./src/main/resources/images/SniperTower.png";
-    public static final int DAMAGE = 200;
+    public static int damage = 200;
 
     public SniperTower(int[] absoluteLocation) {
         super(100, 2, absoluteLocation, 500);
+    }
+
+    public static SniperTower upgradeTower(Tower currentSniperTower) {
+        SniperTower upgradedSniperTower = (SniperTower) currentSniperTower;
+        upgradedSniperTower.setDamage(currentSniperTower.getDamage()*2);
+        return upgradedSniperTower;
     }
 
     @Override
@@ -35,6 +41,10 @@ public class SniperTower extends Tower {
 
     @Override
     public int getDamage() {
-        return SniperTower.DAMAGE;
+        return SniperTower.damage;
+    }
+
+    public void setDamage(int newDamage) {
+        this.damage = newDamage;
     }
 }
