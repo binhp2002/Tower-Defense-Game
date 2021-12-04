@@ -454,8 +454,12 @@ public class GameScreenController {
                 if (towerRow.checkTower(rowIndex, colIndex).isAssignableFrom(player.getCurrSelected())) {
                     Tower currentTower = towerRow.getTower(rowIndex, colIndex);
                     currentTower.upgradeTower();
+                    ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
+                    cell.setImage(new Image(currentTower.getImagePath()));
+                    cell.setFitHeight(cellHeight);
+                    cell.setFitWidth(cellWidth);
                     player.setCurrSelected(null);
-
+                    return;
                 }
 
             } else {
@@ -465,7 +469,6 @@ public class GameScreenController {
 
 
             ImageView cell = (ImageView) getNodeByCoordinate(rowIndex, colIndex, node);
-
             cell.setImage(new Image(tower.getImagePath()));
 
             cell.setFitHeight(cellHeight);

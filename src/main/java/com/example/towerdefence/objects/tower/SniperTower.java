@@ -6,11 +6,12 @@ public class SniperTower extends Tower {
             "Attacks enemies with streams of explosive sniper bullets";
     public static final String NAME = "Sniper tower";
     public static final int BASIC_COST = 200;
-    public static final String IMAGE_PATH = "file:./src/main/resources/images/SniperTower.png";
+    public static final String IMAGE_PATH1 = "file:./src/main/resources/images/SniperTower.png";
+    public static final String IMAGE_PATH2 = "file:./src/main/resources/images/UpgradedSniperTower.png";
     public static int damage = 200;
 
     public SniperTower(int[] absoluteLocation) {
-        super(100, 2, absoluteLocation, 500);
+        super(100, 2, absoluteLocation, 500, IMAGE_PATH1);
     }
 
     @Override
@@ -29,9 +30,7 @@ public class SniperTower extends Tower {
     }
 
     @Override
-    public String getImagePath() {
-        return SniperTower.IMAGE_PATH;
-    }
+    public String getImagePath2() { return SniperTower.IMAGE_PATH2;}
 
     @Override
     public int getDamage() {
