@@ -54,14 +54,12 @@ public class GameTest extends ApplicationTest {
         //check if on Game Configuration Page
         assertEquals(stage.getTitle(), "Game Configuration");
         //select easy difficulty
-        clickOn("#medium");
+        clickOn("#easy");
         //enter name
         clickOn("#entry").write("test");
         clickOn("#enter");
         clickOn("#startGame");
         assertEquals(stage.getTitle(), "Tower Defense Game");
-        verifyThat("#playerParameters", (Text t) -> t.getText().contains("Money: 500")
-                && t.getText().contains("Health: 100"));
         //get the game scene after navigating to that scene
         this.gameScene = stage.getScene();
 
@@ -87,14 +85,14 @@ public class GameTest extends ApplicationTest {
         //attempt to buy sniper tower
         clickOn("#SniperTowerPurchaseButton");
 
-        int correctPlayerMoneyLeft = (int) (500 - 1.5 * SniperTower.BASIC_COST);
+        int correctPlayerMoneyLeft = (int) (1000 - SniperTower.BASIC_COST);
 
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
 
         //check that player parameters were changed appropriately on the screen
         verifyThat("#playerParameters", (Text t) ->
                 t.getText().contains("Money: " + correctPlayerMoneyLeft)
-                && t.getText().contains("Health: 100"));
+                && t.getText().contains("Health: 150"));
     }
 
     /**
@@ -127,7 +125,7 @@ public class GameTest extends ApplicationTest {
         //attempt to buy basic tower
         clickOn("#BasicTowerPurchaseButton");
 
-        int correctPlayerMoneyLeft = (int) (500 - 1.5 * BasicTower.BASIC_COST);
+        int correctPlayerMoneyLeft = (int) (1000 - BasicTower.BASIC_COST);
 
         //verify that the correct leftover money was shown to the user after purchase a basic tower
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
@@ -143,7 +141,7 @@ public class GameTest extends ApplicationTest {
         //attempt to buy sniper tower
         clickOn("#SniperTowerPurchaseButton");
 
-        int correctPlayerMoneyLeft = (int) (500 - 1.5 * SniperTower.BASIC_COST);
+        int correctPlayerMoneyLeft = (int) (1000 - SniperTower.BASIC_COST);
 
         //verify that the correct leftover money was shown to the user after purchase a sniper tower
         assertEquals(this.player.getMoney(), correctPlayerMoneyLeft);
@@ -159,7 +157,7 @@ public class GameTest extends ApplicationTest {
         //attempt to buy machine tower
         clickOn("#MachineTowerPurchaseButton");
 
-        int correctPlayerMoneyLeft = (int) (500 - 1.5 * MachineTower.BASIC_COST);
+        int correctPlayerMoneyLeft = (int) (1000 - MachineTower.BASIC_COST);
 
         //verify that the correct leftover money was shown to the user after
         // purchase a machine tower
@@ -462,7 +460,7 @@ public class GameTest extends ApplicationTest {
 
         try {
             //give some time delay
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -483,13 +481,18 @@ public class GameTest extends ApplicationTest {
         //buy and place the first sniper tower
         clickOn("#SniperTowerPurchaseButton");
         GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
-        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 300,
                 stage.getY() + topTowerRow.getLayoutY() + 10));
 
         //buy and place the second basic tower
         clickOn("#BasicTowerPurchaseButton");
         GridPane bottomTowerRow = (GridPane) gameScene.lookup("#bottomTowerRow");
-        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
+        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 300,
+                stage.getY() + bottomTowerRow.getLayoutY() + 10));
+
+        //buy and place the third basic tower
+        clickOn("#BasicTowerPurchaseButton");
+        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 300,
                 stage.getY() + bottomTowerRow.getLayoutY() + 10));
 
         //start the first wave
@@ -497,14 +500,14 @@ public class GameTest extends ApplicationTest {
 
         try {
             //give some time delay
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         } catch (Exception e) {
             System.out.println(e);
         }
 
         clickOn("#SniperTowerPurchaseButton");
         topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
-        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 300,
                 stage.getY() + topTowerRow.getLayoutY() + 10));
 
         //start the second wave
@@ -512,7 +515,7 @@ public class GameTest extends ApplicationTest {
 
         try {
             //give some time delay
-            Thread.sleep(21000);
+            Thread.sleep(20000);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -527,13 +530,18 @@ public class GameTest extends ApplicationTest {
         //buy and place the first sniper tower
         clickOn("#SniperTowerPurchaseButton");
         GridPane topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
-        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+        clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 300,
                 stage.getY() + topTowerRow.getLayoutY() + 10));
 
         //buy and place the second basic tower
         clickOn("#BasicTowerPurchaseButton");
         GridPane bottomTowerRow = (GridPane) gameScene.lookup("#bottomTowerRow");
-        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 10,
+        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 300,
+                stage.getY() + bottomTowerRow.getLayoutY() + 10));
+
+        //buy and place the third basic tower
+        clickOn("#BasicTowerPurchaseButton");
+        clickOn(point(stage.getX() + bottomTowerRow.getLayoutX() + 300,
                 stage.getY() + bottomTowerRow.getLayoutY() + 10));
 
         //start the first wave
@@ -548,7 +556,7 @@ public class GameTest extends ApplicationTest {
 
        clickOn("#SniperTowerPurchaseButton");
        topTowerRow = (GridPane) gameScene.lookup("#topTowerRow");
-       clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 10,
+       clickOn(point(stage.getX() + topTowerRow.getLayoutX() + 300,
                stage.getY() + topTowerRow.getLayoutY() + 10));
 
        //start the second wave
@@ -556,7 +564,7 @@ public class GameTest extends ApplicationTest {
 
        try {
             //give some time delay
-            Thread.sleep(21000);
+            Thread.sleep(20000);
         } catch (Exception e) {
             System.out.println(e);
         }
