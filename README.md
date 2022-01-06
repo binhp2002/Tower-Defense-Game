@@ -1,3 +1,3 @@
 # Tower-Defense-Game
 
-I contributed to this project on a school account (pduong7) and now I impported this project to my personal account, can email/DM me for proof.
+I worked on this project on a different account (pduong7) and now I imported this project to my personal account. Can email/DM me for proof.
